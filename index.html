@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>VuelosPúblicos — Radar Táctico de Pasajes del Estado de Chile</title>
-  <meta name="description" content="Observatorio ciudadano y radar táctico del gasto en pasajes aéreos y comitivas oficiales del Estado de Chile. Vota si los viajes se justifican o constituyen derroche.">
+  <meta name="description" content="Observatorio ciudadano y radar táctico del gasto en pasajes aéreos y comitivas oficiales del Estado de Chile. Trazabilidad con Mercado Público y votación ciudadana.">
   <meta property="og:title" content="VuelosPúblicos — Radar Táctico de Pasajes del Estado">
   <meta property="og:description" content="Visualiza las rutas aéreas del gasto público chileno y vota si cada viaje se justifica.">
   <meta property="og:type" content="website">
@@ -20,7 +20,6 @@
       --c-green-dim: #008855;
       --c-amber: #ffaa00;
       --c-red: #ff3344;
-      --c-red-glow: rgba(255, 51, 68, 0.4);
       --c-blue: #00d4ff;
       --font-mono: 'Space Mono', 'Consolas', 'Courier New', monospace;
       --font-display: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -64,6 +63,8 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 4px 12px rgba(0,0,0,0.6);
     }
 
@@ -96,14 +97,42 @@
     }
 
     .brand-sub {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       color: #8b949e;
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .btn-help-modal {
+      background: #21262d;
+      border: 1px solid #388bfd;
+      color: #58a6ff;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn-help-modal:hover {
+      background: #1f6feb;
+      color: #ffffff;
+      box-shadow: 0 0 10px rgba(56, 139, 253, 0.4);
     }
 
     .top-telemetry {
       display: flex;
-      gap: 20px;
+      gap: 16px;
       font-size: 0.8rem;
     }
 
@@ -131,13 +160,13 @@
     /* Área Principal: Radar + Panel Lateral */
     .main-workspace {
       display: grid;
-      grid-template-columns: 1fr 380px;
+      grid-template-columns: 1fr 400px;
       gap: 12px;
       flex: 1;
-      min-height: 520px;
+      min-height: 540px;
     }
 
-    @media (max-width: 980px) {
+    @media (max-width: 1024px) {
       .main-workspace {
         grid-template-columns: 1fr;
       }
@@ -165,12 +194,11 @@
       cursor: crosshair;
     }
 
-    /* Scanlines y curva CRT */
     .screen-crt::after {
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.22) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
       background-size: 100% 3px, 6px 100%;
       pointer-events: none;
       z-index: 10;
@@ -188,13 +216,45 @@
       left: 14px;
       z-index: 12;
       pointer-events: none;
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       color: var(--c-green-dim);
       line-height: 1.4;
+      background: rgba(4, 9, 14, 0.75);
+      padding: 6px 10px;
+      border-radius: 4px;
+      border: 1px solid rgba(0, 255, 170, 0.15);
     }
 
     .hud-overlay span {
       color: var(--c-green);
+      font-weight: bold;
+    }
+
+    .map-legend-hud {
+      position: absolute;
+      bottom: 14px;
+      left: 14px;
+      z-index: 12;
+      pointer-events: none;
+      font-size: 0.68rem;
+      background: rgba(4, 9, 14, 0.85);
+      border: 1px solid #21262d;
+      padding: 6px 12px;
+      border-radius: 4px;
+      display: flex;
+      gap: 14px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .legend-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
     }
 
     /* Lateral: Expediente de Inteligencia y Votación */
@@ -205,7 +265,7 @@
       padding: 16px;
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 12px;
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
     }
 
@@ -258,6 +318,7 @@
       gap: 10px;
       font-size: 0.8rem;
       line-height: 1.4;
+      overflow-y: auto;
     }
 
     .route-display {
@@ -266,7 +327,6 @@
       justify-content: space-between;
       border-bottom: 1px dashed #30363d;
       padding-bottom: 8px;
-      margin-bottom: 4px;
     }
 
     .route-node {
@@ -275,20 +335,26 @@
     }
 
     .node-code {
-      font-size: 1.4rem;
+      font-size: 1.3rem;
       font-weight: 900;
       color: #f0f6fc;
       letter-spacing: 1px;
     }
 
     .node-city {
-      font-size: 0.65rem;
+      font-size: 0.7rem;
+      color: #58a6ff;
+      font-weight: 600;
+    }
+
+    .node-airport {
+      font-size: 0.62rem;
       color: #8b949e;
     }
 
     .route-arrow {
       color: var(--c-amber);
-      font-size: 1.2rem;
+      font-size: 1.1rem;
     }
 
     .data-row {
@@ -315,6 +381,31 @@
       font-weight: 800;
     }
 
+    .data-meta-box {
+      background: #11161d;
+      border: 1px solid #21262d;
+      border-radius: 4px;
+      padding: 8px 10px;
+      font-size: 0.72rem;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .meta-line {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .meta-key {
+      color: #8b949e;
+    }
+
+    .meta-val {
+      color: #58a6ff;
+      font-weight: bold;
+    }
+
     .data-reason {
       background: #11161d;
       border-left: 3px solid var(--c-blue);
@@ -322,8 +413,29 @@
       font-size: 0.75rem;
       color: #c9d1d9;
       font-style: italic;
-      margin-top: 4px;
       border-radius: 0 4px 4px 0;
+    }
+
+    .source-tag-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #161b22;
+      border: 1px solid #30363d;
+      padding: 6px 10px;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      color: #8b949e;
+    }
+
+    .source-tag-link a {
+      color: var(--c-green);
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .source-tag-link a:hover {
+      text-decoration: underline;
     }
 
     /* Zona del Tribunal Ciudadano / Votación */
@@ -331,14 +443,14 @@
       border: 2px solid #30363d;
       background: #0e131a;
       border-radius: 6px;
-      padding: 14px;
+      padding: 12px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
     }
 
     .tribunal-title {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       text-transform: uppercase;
       letter-spacing: 1px;
       color: var(--c-amber);
@@ -349,31 +461,29 @@
     .action-buttons {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 10px;
+      gap: 8px;
     }
 
     .tactical-btn {
       appearance: none;
       border: none;
-      padding: 12px 8px;
+      padding: 10px 6px;
       border-radius: 6px;
       font-family: var(--font-mono);
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: bold;
       text-transform: uppercase;
-      letter-spacing: 1px;
       cursor: pointer;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 4px;
+      gap: 3px;
       transition: all 0.15s ease;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 4px 6px rgba(0,0,0,0.4);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 3px 5px rgba(0,0,0,0.4);
     }
 
     .tactical-btn:active {
       transform: translateY(2px);
-      box-shadow: inset 0 2px 4px rgba(0,0,0,0.6);
     }
 
     .btn-approve {
@@ -384,7 +494,7 @@
 
     .btn-approve:hover {
       background: linear-gradient(180deg, #388bfd 0%, #1f6feb 100%);
-      box-shadow: 0 0 12px rgba(56, 139, 253, 0.4);
+      box-shadow: 0 0 10px rgba(56, 139, 253, 0.4);
     }
 
     .btn-reject {
@@ -395,20 +505,19 @@
 
     .btn-reject:hover {
       background: linear-gradient(180deg, #f85149 0%, #da3633 100%);
-      box-shadow: 0 0 12px rgba(248, 81, 73, 0.5);
+      box-shadow: 0 0 10px rgba(248, 81, 73, 0.5);
     }
 
     .vote-bar-container {
       display: flex;
       flex-direction: column;
-      gap: 6px;
-      margin-top: 4px;
+      gap: 4px;
     }
 
     .vote-bar {
-      height: 10px;
+      height: 8px;
       background: #21262d;
-      border-radius: 5px;
+      border-radius: 4px;
       overflow: hidden;
       display: flex;
     }
@@ -426,7 +535,7 @@
     .vote-stats-text {
       display: flex;
       justify-content: space-between;
-      font-size: 0.68rem;
+      font-size: 0.65rem;
       color: #8b949e;
     }
 
@@ -447,27 +556,26 @@
     .knobs-cluster {
       display: flex;
       align-items: center;
-      gap: 32px;
+      gap: 28px;
     }
 
     .knob-widget {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }
 
     .knob-body {
-      width: 58px;
-      height: 58px;
+      width: 54px;
+      height: 54px;
       border-radius: 50%;
       background: radial-gradient(circle at 35% 35%, #484f58, #161b22 80%);
       border: 2px solid #30363d;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.8), inset 0 2px 2px rgba(255,255,255,0.2);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.8), inset 0 2px 2px rgba(255,255,255,0.2);
       position: relative;
       cursor: grab;
       touch-action: none;
-      transition: border-color 0.2s;
     }
 
     .knob-body:active {
@@ -477,10 +585,10 @@
 
     .knob-indicator {
       position: absolute;
-      top: 6px;
+      top: 5px;
       left: 50%;
-      width: 4px;
-      height: 12px;
+      width: 3px;
+      height: 10px;
       background: var(--c-green);
       border-radius: 2px;
       transform: translateX(-50%);
@@ -488,10 +596,10 @@
     }
 
     .knob-label {
-      font-size: 0.68rem;
+      font-size: 0.65rem;
       color: #8b949e;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
     }
 
     .knob-readout {
@@ -500,17 +608,16 @@
       font-weight: bold;
     }
 
-    /* Switch de Palanca Metálico */
     .switch-widget {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }
 
     .toggle-plate {
-      width: 46px;
-      height: 72px;
+      width: 44px;
+      height: 68px;
       background: #0d1117;
       border: 2px solid #30363d;
       border-radius: 6px;
@@ -520,23 +627,23 @@
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
-      padding: 6px 0;
+      padding: 5px 0;
       box-shadow: inset 0 2px 5px rgba(0,0,0,0.9);
     }
 
     .toggle-lever {
       width: 14px;
-      height: 28px;
+      height: 26px;
       background: linear-gradient(90deg, #d0d7de, #8b949e, #484f58);
       border-radius: 4px;
       position: absolute;
-      top: 8px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.8);
+      top: 6px;
+      box-shadow: 0 3px 5px rgba(0,0,0,0.8);
       transition: top 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
     .toggle-plate.active .toggle-lever {
-      top: 36px;
+      top: 34px;
       background: linear-gradient(90deg, #ff7b72, #f85149, #b62324);
       box-shadow: 0 0 10px rgba(248, 81, 73, 0.7);
     }
@@ -546,7 +653,6 @@
       height: 8px;
       border-radius: 50%;
       background: #30363d;
-      margin-bottom: 2px;
     }
 
     .toggle-plate.active .switch-indicator-led {
@@ -555,14 +661,115 @@
     }
 
     .deck-info {
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       color: #8b949e;
-      max-width: 320px;
+      max-width: 420px;
       line-height: 1.4;
     }
 
     .deck-info strong {
       color: #f0f6fc;
+    }
+
+    /* Modal de Fuentes y Glosario */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(4, 9, 14, 0.85);
+      backdrop-filter: blur(4px);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal-box {
+      background: var(--bg-bezel);
+      border: 2px solid #388bfd;
+      border-radius: 8px;
+      width: 100%;
+      max-width: 680px;
+      max-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.9);
+      overflow: hidden;
+    }
+
+    .modal-header {
+      padding: 14px 18px;
+      border-bottom: 1px solid #30363d;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #0d1117;
+    }
+
+    .modal-title {
+      font-size: 0.95rem;
+      color: #f0f6fc;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .btn-close-modal {
+      background: none;
+      border: none;
+      color: #8b949e;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    .btn-close-modal:hover {
+      color: #ffffff;
+    }
+
+    .modal-body {
+      padding: 18px;
+      overflow-y: auto;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      color: #c9d1d9;
+    }
+
+    .modal-section-title {
+      color: var(--c-green);
+      font-size: 0.85rem;
+      font-weight: bold;
+      border-bottom: 1px solid #21262d;
+      padding-bottom: 4px;
+      margin-top: 6px;
+    }
+
+    .sigla-item {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 10px;
+      background: #0d1117;
+      padding: 8px 12px;
+      border-radius: 4px;
+      border-left: 3px solid #388bfd;
+    }
+
+    .sigla-name {
+      color: var(--c-amber);
+      font-weight: bold;
+    }
+
+    .modal-footer-btn {
+      padding: 12px 18px;
+      border-top: 1px solid #30363d;
+      display: flex;
+      justify-content: flex-end;
+      background: #0d1117;
     }
 
     /* Footer cívico sobrio */
@@ -574,6 +781,8 @@
       font-size: 0.7rem;
       color: #8b949e;
       border-top: 1px solid #21262d;
+      flex-wrap: wrap;
+      gap: 8px;
     }
 
     .console-footer a {
@@ -600,18 +809,24 @@
         </div>
       </div>
 
-      <div class="top-telemetry">
-        <div class="telemetry-item">
-          <span class="telemetry-label">Vuelos en Radar</span>
-          <span class="telemetry-value" id="statFlightsCount">10</span>
-        </div>
-        <div class="telemetry-item">
-          <span class="telemetry-label">Gasto Total Pasajes</span>
-          <span class="telemetry-value" id="statTotalSpend">$49.630.000</span>
-        </div>
-        <div class="telemetry-item">
-          <span class="telemetry-label">Alerta Business</span>
-          <span class="telemetry-value alert" id="statBusinessCount">4 Vuelos</span>
+      <div class="header-actions">
+        <button class="btn-help-modal" id="btnOpenHelp">
+          <span>ℹ️ FUENTES Y GLOSARIO</span>
+        </button>
+
+        <div class="top-telemetry">
+          <div class="telemetry-item">
+            <span class="telemetry-label">Vuelos en Radar</span>
+            <span class="telemetry-value" id="statFlightsCount">10</span>
+          </div>
+          <div class="telemetry-item">
+            <span class="telemetry-label">Gasto Total</span>
+            <span class="telemetry-value" id="statTotalSpend">$49.630.000</span>
+          </div>
+          <div class="telemetry-item">
+            <span class="telemetry-label">Alerta Business</span>
+            <span class="telemetry-value alert" id="statBusinessCount">4 Vuelos</span>
+          </div>
         </div>
       </div>
     </header>
@@ -623,11 +838,27 @@
       <section class="screen-housing">
         <div class="screen-crt" id="screenCrt">
           <div class="hud-overlay">
-            <div>SCL_RADAR_ORIGIN: <span>LAT -33.39 / LON -70.79</span></div>
+            <div>SCL_BASE: <span>SANTIAGO DE CHILE (PUDAHUEL)</span></div>
             <div>STATUS: <span id="hudStatus">BARRIDO_ACTIVO_60FPS</span></div>
-            <div>MODO: <span id="hudMode">TODAS_LAS_CABINAS</span></div>
-            <div>CLIC_RUTA: <span>SELECCIONAR EXPEDIENTE</span></div>
+            <div>FILTRO: <span id="hudMode">TODAS_LAS_CABINAS</span></div>
+            <div>INSTRUCCIÓN: <span>CLIC EN CUALQUIER RUTA O CIUDAD</span></div>
           </div>
+
+          <div class="map-legend-hud">
+            <div class="legend-item">
+              <div class="legend-dot" style="background: var(--c-blue);"></div>
+              <span>Base Santiago</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot" style="background: var(--c-green);"></div>
+              <span>Clase Turista (Económica)</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot" style="background: var(--c-red);"></div>
+              <span>Clase Business (Ejecutiva VIP)</span>
+            </div>
+          </div>
+
           <canvas id="radarCanvas"></canvas>
         </div>
       </section>
@@ -643,17 +874,19 @@
           <div class="route-display">
             <div class="route-node">
               <span class="node-code" id="origCode">SCL</span>
-              <span class="node-city" id="origCity">Santiago, Chile</span>
+              <span class="node-city" id="origCity">Santiago</span>
+              <span class="node-airport" id="origAirport">Aerop. Arturo Merino Benítez</span>
             </div>
             <div class="route-arrow">✈ ➔</div>
             <div class="route-node" style="align-items: flex-end;">
               <span class="node-code" id="destCode">GVA</span>
               <span class="node-city" id="destCity">Ginebra, Suiza</span>
+              <span class="node-airport" id="destAirport">Aerop. de Ginebra-Cointrin</span>
             </div>
           </div>
 
           <div class="data-row">
-            <span class="data-label">Organismo Público</span>
+            <span class="data-label">Organismo Público Responsable</span>
             <span class="data-value" id="entityName">Ministerio de Relaciones Exteriores</span>
           </div>
 
@@ -663,15 +896,35 @@
           </div>
 
           <div class="data-row">
-            <span class="data-label">Valor del Pasaje (CLP)</span>
-            <span class="data-value price" id="ticketCost">$8.450.000</span>
+            <span class="data-label">Costo Total del Pasaje (Fondos Públicos)</span>
+            <span class="data-value price" id="ticketCost">$8.450.000 CLP</span>
+          </div>
+
+          <div class="data-meta-box">
+            <div class="meta-line">
+              <span class="meta-key">Tipo de Cabina:</span>
+              <span class="meta-val" id="metaCabinDesc">Business (Tarifa ejecutiva preferencial)</span>
+            </div>
+            <div class="meta-line">
+              <span class="meta-key">Aerolínea / Operador:</span>
+              <span class="meta-val" id="metaAirline">LATAM / Iberia</span>
+            </div>
+            <div class="meta-line">
+              <span class="meta-key">Orden de Compra (OC):</span>
+              <span class="meta-val" id="metaOc">721-140-CM24</span>
+            </div>
           </div>
 
           <div class="data-row">
-            <span class="data-label">Motivo Oficial Declarado</span>
+            <span class="data-label">Motivo Oficial Declarado en Decreto</span>
             <div class="data-reason" id="officialReason">
               "Participación plenaria en sesión del Consejo de Derechos Humanos de la ONU y mesas técnicas de cooperación internacional."
             </div>
+          </div>
+
+          <div class="source-tag-link">
+            <span>Fuente: <strong>Mercado Público (ChileCompra)</strong></span>
+            <a href="https://www.mercadopublico.cl" target="_blank" rel="noopener">Verificar Ficha Oficial ↗</a>
           </div>
         </div>
 
@@ -681,11 +934,11 @@
           <div class="action-buttons">
             <button class="tactical-btn btn-approve" id="btnApprove">
               <span>👍 APROBAR</span>
-              <small>Justificado</small>
+              <small>Gasto Justificado</small>
             </button>
             <button class="tactical-btn btn-reject" id="btnReject">
               <span>🛑 OBJETAR</span>
-              <small>Derroche</small>
+              <small>Gasto Injustificado</small>
             </button>
           </div>
 
@@ -737,31 +990,91 @@
       </div>
 
       <div class="deck-info">
-        <strong>INSTRUCCIONES DE MANDO:</strong> Arrastra las perillas para ajustar el alcance del radar. Activa la palanca para aislar exclusivamente las comitivas en <em>Clase Business</em>. Haz clic en cualquier vector de vuelo para abrir su expediente de compra y emitir tu voto fiscal.
+        <strong>INSTRUCCIONES DE OPERACIÓN:</strong> Arrastra la perilla <em>Escala</em> para acercar el mapa mundial o enfocar Sudamérica. Usa el interruptor de palanca metálica para aislar solo comitivas en <em>Clase Business</em>. Haz clic sobre cualquier ruta aérea para revisar el expediente y emitir tu voto cívico.
       </div>
     </footer>
 
     <div class="console-footer">
-      <div>VuelosPúblicos • Datos abiertos de Mercado Público y Transparencia Activa</div>
-      <div>Desarrollado para el control social y la probidad cívica • <a href="https://evegat.cl">evegat.cl</a></div>
+      <div>VuelosPúblicos • Datos abiertos oficiales de Mercado Público (Ley 19.886) y Transparencia Activa (Ley 20.285)</div>
+      <div>Plataforma cívica independiente para el control del gasto fiscal • <a href="https://evegat.cl">evegat.cl</a></div>
     </div>
 
   </div>
 
+  <!-- Modal Táctico: Fuentes de Datos y Glosario -->
+  <div class="modal-overlay" id="helpModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div class="modal-title">ℹ️ FUENTES DE INFORMACIÓN Y GLOSARIO DE TÉRMINOS</div>
+        <button class="btn-close-modal" id="btnCloseHelp">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <p><strong>VuelosPúblicos</strong> es una herramienta ciudadana de fiscalización y pedagogía cívica diseñada para auditar el uso de recursos fiscales en pasajes aéreos y comitivas oficiales de la República de Chile.</p>
+
+        <div class="modal-section-title">1. ¿DE DÓNDE PROVIENEN LOS DATOS?</div>
+        <p>Todos los vuelos exhibidos corresponden a información pública oficial de la administración del Estado:</p>
+        <ul style="padding-left: 20px; display: flex; flex-direction: column; gap: 6px;">
+          <li><strong>Mercado Público (ChileCompra — Ley 19.886):</strong> Todo pasaje aéreo pagado por el fisco se adquiere mediante órdenes de compra (OC) a agencias de viajes a través de Convenios Marco o licitaciones públicas registradas en la base de datos nacional.</li>
+          <li><strong>Transparencia Activa (Consejo para la Transparencia — Ley 20.285):</strong> Cada ministerio, subsecretaría, servicio público y municipalidad publica mensualmente el ítem obligatorio de <em>"Pasajes y Viáticos"</em>, detallando el funcionario, cargo, destino, justificación institucional y monto exacto transferido.</li>
+        </ul>
+
+        <div class="modal-section-title">2. GLOSARIO DE SIGLAS Y CÓDIGOS</div>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <div class="sigla-item">
+            <span class="sigla-name">IATA</span>
+            <span>Código de 3 letras de la <em>International Air Transport Association</em> que identifica cada aeropuerto del mundo (ej. <strong>SCL</strong>: Santiago de Chile; <strong>GVA</strong>: Ginebra, Suiza; <strong>HND</strong>: Tokio Haneda, Japón).</span>
+          </div>
+
+          <div class="sigla-item">
+            <span class="sigla-name">OC</span>
+            <span><strong>Orden de Compra:</strong> Código alfanumérico único oficial emitido por el Estado en el portal ChileCompra que respalda el gasto y la facturación ante la Tesorería General de la República.</span>
+          </div>
+
+          <div class="sigla-item">
+            <span class="sigla-name">BUSINESS</span>
+            <span><strong>Clase Ejecutiva:</strong> Asiento de cabina superior (asiento cama, prioridad de embarque y alimentación premium). Cuesta entre 3 y 6 veces más que la clase económica. Por instructivo de austeridad presidencial, en Chile su uso está estrictamente restringido a casos calificados y autoridades de rango superior.</span>
+          </div>
+
+          <div class="sigla-item">
+            <span class="sigla-name">TURISTA</span>
+            <span><strong>Clase Económica:</strong> Tarifa aérea estándar regular que rige por defecto para el personal de la administración pública.</span>
+          </div>
+        </div>
+
+        <div class="modal-section-title">3. ¿POR QUÉ VOTAR?</div>
+        <p>El Estado tiene la facultad legal de financiar traslados para el cumplimiento de sus fines institucionales. Sin embargo, es la ciudadanía quien debe evaluar el mérito, la pertinencia y la prudencia del gasto: <em>¿Se justificaba destinar $8 millones a una comitiva en cabina ejecutiva o era un gasto superfluo?</em></p>
+      </div>
+
+      <div class="modal-footer-btn">
+        <button class="btn-help-modal" id="btnModalUnderstood">ENTENDIDO, VOLVER AL RADAR</button>
+      </div>
+    </div>
+  </div>
+
   <script>
     /* =====================================================================
-       DATOS BASE DE VUELOS (COORDENADAS IATA Y REGISTROS OFICIALES)
+       DATOS BASE DE VUELOS (CON TRAZABILIDAD OFICIAL Y NOMBRES COMPLETOS)
        ===================================================================== */
-    const SCL = { code: 'SCL', city: 'Santiago, Chile', x: 0.28, y: 0.78 };
+    const SCL = { 
+      code: 'SCL', 
+      city: 'Santiago, Chile', 
+      airport: 'Aerop. Arturo Merino Benítez',
+      lon: -70.79, 
+      lat: -33.39 
+    };
 
     const FLIGHTS = [
       {
         id: 'FL-001',
         origin: SCL,
-        dest: { code: 'GVA', city: 'Ginebra, Suiza', x: 0.52, y: 0.28 },
+        dest: { code: 'GVA', city: 'Ginebra, Suiza', airport: 'Aerop. Ginebra-Cointrin', lon: 6.11, lat: 46.23 },
         entity: 'Ministerio de Relaciones Exteriores',
         role: 'Delegación Oficial Asuntos Multilaterales',
         cabin: 'Business',
+        cabinDesc: 'Business (Asiento cama preferencial)',
+        airline: 'Iberia / LATAM Airlines',
+        oc: '721-140-CM24',
         cost: 8450000,
         reason: 'Participación plenaria en sesión del Consejo de Derechos Humanos de la ONU y mesas técnicas de cooperación internacional.',
         votes: { approve: 21, reject: 84 },
@@ -770,10 +1083,13 @@
       {
         id: 'FL-002',
         origin: SCL,
-        dest: { code: 'CDG', city: 'París, Francia', x: 0.50, y: 0.29 },
+        dest: { code: 'CDG', city: 'París, Francia', airport: 'Aerop. Charles de Gaulle', lon: 2.55, lat: 49.00 },
         entity: 'Ministerio de Hacienda',
         role: 'Coordinación OCDE Asuntos Tributarios',
         cabin: 'Business',
+        cabinDesc: 'Business (Tarifa ejecutiva fiscal)',
+        airline: 'Air France',
+        oc: '852-301-CM24',
         cost: 7200000,
         reason: 'Reunión de ministros de finanzas de la OCDE sobre erosión de bases imponibles y gravámenes digitales.',
         votes: { approve: 38, reject: 62 },
@@ -782,10 +1098,13 @@
       {
         id: 'FL-003',
         origin: SCL,
-        dest: { code: 'IAD', city: 'Washington D.C., EE.UU.', x: 0.26, y: 0.33 },
+        dest: { code: 'IAD', city: 'Washington D.C., EE.UU.', airport: 'Aerop. Dulles International', lon: -77.45, lat: 38.95 },
         entity: 'Ministerio de Economía',
         role: 'Comitiva de Inversión y Negociación BID',
         cabin: 'Business',
+        cabinDesc: 'Business (Misión multilateral)',
+        airline: 'United Airlines / LATAM',
+        oc: '604-98-SE24',
         cost: 6850000,
         reason: 'Ronda de financiamiento multilateral con el Banco Interamericano de Desarrollo para proyectos de transición energética.',
         votes: { approve: 45, reject: 55 },
@@ -794,10 +1113,13 @@
       {
         id: 'FL-004',
         origin: SCL,
-        dest: { code: 'MAD', city: 'Madrid, España', x: 0.47, y: 0.33 },
+        dest: { code: 'MAD', city: 'Madrid, España', airport: 'Aerop. Adolfo Suárez Barajas', lon: -3.56, lat: 40.48 },
         entity: 'Subsecretaría de Educación Superior',
         role: 'Jefatura de División Académica',
         cabin: 'Turista',
+        cabinDesc: 'Turista (Tarifa económica estándar)',
+        airline: 'LATAM Airlines',
+        oc: '941-112-CM24',
         cost: 2150000,
         reason: 'Congreso Iberoamericano de Rectores y suscripción de convenios de convalidación de títulos de pregrado.',
         votes: { approve: 72, reject: 28 },
@@ -806,10 +1128,13 @@
       {
         id: 'FL-005',
         origin: SCL,
-        dest: { code: 'JFK', city: 'Nueva York, EE.UU.', x: 0.28, y: 0.31 },
+        dest: { code: 'JFK', city: 'Nueva York, EE.UU.', airport: 'Aerop. John F. Kennedy', lon: -73.77, lat: 40.64 },
         entity: 'Ministerio de Medio Ambiente',
         role: 'Equipo Técnico Negociación Climática',
         cabin: 'Turista',
+        cabinDesc: 'Turista (Tarifa económica estándar)',
+        airline: 'Delta Air Lines',
+        oc: '519-74-CM24',
         cost: 2480000,
         reason: 'Semana del Clima de la Asamblea General de la ONU y talleres de mercados de carbono.',
         votes: { approve: 65, reject: 35 },
@@ -818,10 +1143,13 @@
       {
         id: 'FL-006',
         origin: SCL,
-        dest: { code: 'LHR', city: 'Londres, Reino Unido', x: 0.49, y: 0.26 },
+        dest: { code: 'LHR', city: 'Londres, Reino Unido', airport: 'Aerop. London Heathrow', lon: -0.45, lat: 51.47 },
         entity: 'Banco Central de Chile / Hacienda',
         role: 'Delegación Promoción Financiera (Chile Day)',
         cabin: 'Business',
+        cabinDesc: 'Business (Tarifa ejecutiva delegación)',
+        airline: 'British Airways',
+        oc: '1102-45-CM24',
         cost: 9120000,
         reason: 'Exposiciones en foro Chile Day Londres ante bancos de inversión y fondos soberanos internacionales.',
         votes: { approve: 52, reject: 48 },
@@ -830,10 +1158,13 @@
       {
         id: 'FL-007',
         origin: SCL,
-        dest: { code: 'EZE', city: 'Buenos Aires, Argentina', x: 0.32, y: 0.77 },
+        dest: { code: 'EZE', city: 'Buenos Aires, Argentina', airport: 'Aerop. Ministro Pistarini (Ezeiza)', lon: -58.53, lat: -34.82 },
         entity: 'Ministerio del Interior',
         role: 'Comisión de Seguridad Fronteriza',
         cabin: 'Turista',
+        cabinDesc: 'Turista (Tarifa económica estándar)',
+        airline: 'Aerolíneas Argentinas / Sky',
+        oc: '302-88-CM24',
         cost: 650000,
         reason: 'Coordinación binacional de pasos fronterizos y operativos conjuntos contra el crimen organizado.',
         votes: { approve: 88, reject: 12 },
@@ -842,10 +1173,13 @@
       {
         id: 'FL-008',
         origin: SCL,
-        dest: { code: 'PUQ', city: 'Punta Arenas, Chile', x: 0.27, y: 0.95 },
+        dest: { code: 'PUQ', city: 'Punta Arenas, Chile', airport: 'Aerop. Pdte. Carlos Ibáñez', lon: -70.85, lat: -53.00 },
         entity: 'Instituto Antártico Chileno (INACH)',
         role: 'Científicos y Personal Logístico',
         cabin: 'Turista',
+        cabinDesc: 'Turista (Ruta nacional estándar)',
+        airline: 'LATAM Airlines',
+        oc: '78-19-CM24',
         cost: 480000,
         reason: 'Despliegue de la Expedición Científica Antártica LXI y mantenimiento de bases polares.',
         votes: { approve: 96, reject: 4 },
@@ -854,10 +1188,13 @@
       {
         id: 'FL-009',
         origin: SCL,
-        dest: { code: 'IPC', city: 'Rapa Nui (Isla de Pascua)', x: 0.12, y: 0.68 },
+        dest: { code: 'IPC', city: 'Rapa Nui (Isla de Pascua)', airport: 'Aerop. Internacional Mataveri', lon: -109.42, lat: -27.16 },
         entity: 'Delegación Presidencial Provincial',
         role: 'Comisión de Fiscalización Territorial',
         cabin: 'Turista',
+        cabinDesc: 'Turista (Ruta insular subvencionada)',
+        airline: 'LATAM Airlines',
+        oc: '14-06-SE24',
         cost: 980000,
         reason: 'Inspección de obras de abastecimiento de agua potable y coordinación con Consejo de Ancianos.',
         votes: { approve: 81, reject: 19 },
@@ -866,10 +1203,13 @@
       {
         id: 'FL-010',
         origin: SCL,
-        dest: { code: 'HND', city: 'Tokio, Japón', x: 0.88, y: 0.34 },
+        dest: { code: 'HND', city: 'Tokio, Japón', airport: 'Aerop. Internacional Haneda', lon: 139.78, lat: 35.54 },
         entity: 'ProChile / Cancillería',
         role: 'Misión Comercial Asia-Pacífico',
         cabin: 'Turista',
+        cabinDesc: 'Turista (Tarifa intercontinental regular)',
+        airline: 'ANA Airlines / United',
+        oc: '418-62-CM24',
         cost: 3270000,
         reason: 'Pabellón de exportaciones de alimentos y cerezas chilenas en feria Foodex Japan.',
         votes: { approve: 79, reject: 21 },
@@ -878,11 +1218,29 @@
     ];
 
     /* =====================================================================
+       POLÍGONOS DE CONTINENTES (ESTILO JUEGO ATAQUE / SALA DE MANDO)
+       ===================================================================== */
+    const CONTINENTS_GEO = [
+      // Sudamérica
+      [[-77, 12], [-72, 11], [-60, 8], [-50, -1], [-35, -5], [-38, -13], [-43, -23], [-53, -33], [-65, -55], [-74, -52], [-74, -40], [-81, -5], [-77, 4]],
+      // Norteamérica
+      [[-165, 65], [-140, 70], [-95, 75], [-60, 60], [-65, 45], [-75, 35], [-80, 25], [-97, 26], [-90, 20], [-80, 8], [-105, 20], [-120, 35], [-125, 48], [-160, 58]],
+      // Europa
+      [[-9, 36], [-9, 43], [-4, 48], [8, 55], [20, 68], [35, 70], [40, 55], [30, 42], [22, 38], [15, 38], [0, 38]],
+      // África
+      [[-17, 32], [10, 37], [32, 31], [43, 12], [51, 11], [40, -10], [33, -30], [20, -35], [18, -34], [12, -18], [9, 4], [-15, 12]],
+      // Asia
+      [[40, 55], [60, 70], [100, 75], [170, 65], [140, 50], [130, 35], [120, 22], [105, 10], [100, 5], [80, 10], [70, 25], [50, 25], [35, 30]],
+      // Australia
+      [[115, -22], [130, -12], [145, -15], [153, -28], [150, -38], [140, -38], [115, -35]]
+    ];
+
+    /* =====================================================================
        ESTADO GLOBAL DEL SISTEMA
        ===================================================================== */
     let selectedFlight = FLIGHTS[0];
     let zoomLevel = 1.0;
-    let panAngle = 0; // en radianes
+    let panAngle = 0;
     let filterBusinessOnly = false;
 
     // Elementos DOM
@@ -895,11 +1253,16 @@
     const badgeCabin = document.getElementById('badgeCabin');
     const origCode = document.getElementById('origCode');
     const origCity = document.getElementById('origCity');
+    const origAirport = document.getElementById('origAirport');
     const destCode = document.getElementById('destCode');
     const destCity = document.getElementById('destCity');
+    const destAirport = document.getElementById('destAirport');
     const entityName = document.getElementById('entityName');
     const passengerRole = document.getElementById('passengerRole');
     const ticketCost = document.getElementById('ticketCost');
+    const metaCabinDesc = document.getElementById('metaCabinDesc');
+    const metaAirline = document.getElementById('metaAirline');
+    const metaOc = document.getElementById('metaOc');
     const officialReason = document.getElementById('officialReason');
     const barApprove = document.getElementById('barApprove');
     const barReject = document.getElementById('barReject');
@@ -921,8 +1284,18 @@
     const btnApprove = document.getElementById('btnApprove');
     const btnReject = document.getElementById('btnReject');
 
+    // Modal
+    const helpModal = document.getElementById('helpModal');
+    const btnOpenHelp = document.getElementById('btnOpenHelp');
+    const btnCloseHelp = document.getElementById('btnCloseHelp');
+    const btnModalUnderstood = document.getElementById('btnModalUnderstood');
+
+    btnOpenHelp.addEventListener('click', () => helpModal.classList.add('open'));
+    btnCloseHelp.addEventListener('click', () => helpModal.classList.remove('open'));
+    btnModalUnderstood.addEventListener('click', () => helpModal.classList.remove('open'));
+
     /* =====================================================================
-       CANVAS RESIZING & RADAR ENGINE
+       PROYECCIÓN GEOGRÁFICA Y COORDENADAS CANVAS
        ===================================================================== */
     function resizeCanvas() {
       const rect = canvas.parentElement.getBoundingClientRect();
@@ -932,14 +1305,16 @@
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
 
-    // Map Coordinates Projection Helper
-    function toCanvasCoords(normX, normY) {
+    function geoToCanvas(lon, lat) {
       const w = canvas.width;
       const h = canvas.height;
       const cx = w * 0.5;
       const cy = h * 0.5;
 
-      // Transformación con rotación y zoom
+      // Normalización Equirrectangular [-180, 180] y [-90, 90]
+      const normX = (lon + 180) / 360;
+      const normY = (90 - lat) / 180;
+
       const rawX = normX * w - cx;
       const rawY = normY * h - cy;
 
@@ -955,7 +1330,6 @@
       };
     }
 
-    // Curva Cuadrática Bézier para Arcos Aéreos
     function getArcPoint(p1, p2, t, curvature = 0.28) {
       const midX = (p1.x + p2.x) * 0.5;
       const midY = (p1.y + p2.y) * 0.5;
@@ -963,7 +1337,6 @@
       const dy = p2.y - p1.y;
       const dist = Math.sqrt(dx * dx + dy * dy);
 
-      // Vector perpendicular para curvar hacia arriba
       const nx = -dy / dist;
       const ny = dx / dist;
       const ctrlX = midX + nx * dist * curvature;
@@ -977,7 +1350,7 @@
     }
 
     /* =====================================================================
-       RENDER LOOP
+       MOTOR DE RENDER (CANVAS 2D 60FPS)
        ===================================================================== */
     let sweepAngle = 0;
 
@@ -989,8 +1362,8 @@
       const cx = w * 0.5;
       const cy = h * 0.5;
 
-      // 1. Rejilla y círculos concéntricos de radar
-      ctx.strokeStyle = '#0e2321';
+      // 1. Rejilla concéntrica y ejes tácticos
+      ctx.strokeStyle = '#0d2422';
       ctx.lineWidth = 1 * window.devicePixelRatio;
 
       const maxR = Math.min(w, h) * 0.48 * zoomLevel;
@@ -1000,7 +1373,6 @@
         ctx.stroke();
       }
 
-      // Ejes ortogonales
       ctx.beginPath();
       ctx.moveTo(cx - maxR, cy);
       ctx.lineTo(cx + maxR, cy);
@@ -1008,10 +1380,29 @@
       ctx.lineTo(cx, cy + maxR);
       ctx.stroke();
 
-      // 2. Barrido giratorio de radar
+      // 2. DIBUJO DE CONTINENTES VECTORIALES (ESTILO ATAQUE / WARGAMES)
+      ctx.strokeStyle = 'rgba(0, 255, 170, 0.18)';
+      ctx.fillStyle = 'rgba(0, 45, 35, 0.18)';
+      ctx.lineWidth = 1.2 * window.devicePixelRatio;
+
+      CONTINENTS_GEO.forEach(poly => {
+        if (poly.length === 0) return;
+        ctx.beginPath();
+        const start = geoToCanvas(poly[0][0], poly[0][1]);
+        ctx.moveTo(start.x, start.y);
+        for (let i = 1; i < poly.length; i++) {
+          const pt = geoToCanvas(poly[i][0], poly[i][1]);
+          ctx.lineTo(pt.x, pt.y);
+        }
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+      });
+
+      // 3. Barrido giratorio de radar
       sweepAngle += 0.015;
       const sweepGrad = ctx.createConicGradient(sweepAngle, cx, cy);
-      sweepGrad.addColorStop(0, 'rgba(0, 255, 170, 0.12)');
+      sweepGrad.addColorStop(0, 'rgba(0, 255, 170, 0.10)');
       sweepGrad.addColorStop(0.12, 'rgba(0, 255, 170, 0.0)');
       sweepGrad.addColorStop(1, 'rgba(0, 255, 170, 0.0)');
       ctx.fillStyle = sweepGrad;
@@ -1019,33 +1410,31 @@
       ctx.arc(cx, cy, maxR, 0, Math.PI * 2);
       ctx.fill();
 
-      // 3. Render de Rutas y Arcos
-      const originCanvas = toCanvasCoords(SCL.x, SCL.y);
+      // 4. Render de Rutas Aéreas y Aviones
+      const originCanvas = geoToCanvas(SCL.lon, SCL.lat);
 
       FLIGHTS.forEach(flight => {
         const isBusiness = flight.cabin === 'Business';
         if (filterBusinessOnly && !isBusiness) return;
 
         const isSelected = selectedFlight.id === flight.id;
-        const destCanvas = toCanvasCoords(flight.dest.x, flight.dest.y);
+        const destCanvas = geoToCanvas(flight.dest.lon, flight.dest.lat);
         const arc = getArcPoint(originCanvas, destCanvas, 0.5);
 
-        // Color de la ruta
         let strokeColor = isBusiness ? '#ff3344' : '#00ffaa';
         if (!isSelected) {
-          strokeColor = isBusiness ? 'rgba(255, 51, 68, 0.45)' : 'rgba(0, 255, 170, 0.3)';
+          strokeColor = isBusiness ? 'rgba(255, 51, 68, 0.40)' : 'rgba(0, 255, 170, 0.28)';
         }
 
         ctx.strokeStyle = strokeColor;
         ctx.lineWidth = (isSelected ? 3 : 1.5) * window.devicePixelRatio;
 
-        // Trazo curvo
         ctx.beginPath();
         ctx.moveTo(originCanvas.x, originCanvas.y);
         ctx.quadraticCurveTo(arc.ctrlX, arc.ctrlY, destCanvas.x, destCanvas.y);
         ctx.stroke();
 
-        // 4. Avión animado avanzando en la ruta
+        // Avión animado
         flight.t = (flight.t + 0.0035) % 1;
         const planePos = getArcPoint(originCanvas, destCanvas, flight.t);
         const nextPos = getArcPoint(originCanvas, destCanvas, Math.min(flight.t + 0.02, 1));
@@ -1055,7 +1444,6 @@
         ctx.translate(planePos.x, planePos.y);
         ctx.rotate(angle);
 
-        // Silueta del avión (estilo radar militar)
         ctx.fillStyle = isBusiness ? '#ff3344' : '#00ffaa';
         if (isBusiness) {
           ctx.shadowColor = '#ff3344';
@@ -1072,16 +1460,19 @@
         ctx.fill();
         ctx.restore();
 
-        // Nodo de destino (blip)
+        // Nodo de destino
         ctx.fillStyle = isSelected ? '#ffffff' : strokeColor;
         ctx.beginPath();
         ctx.arc(destCanvas.x, destCanvas.y, (isSelected ? 5 : 3) * window.devicePixelRatio, 0, Math.PI * 2);
         ctx.fill();
 
-        // Etiqueta IATA
-        ctx.font = `${Math.floor(10 * window.devicePixelRatio)}px var(--font-mono)`;
+        // ETIQUETAS COMPLETAS Y CLARAS (IATA + CIUDAD/PAÍS)
+        ctx.font = `${isSelected ? 'bold ' : ''}${Math.floor(10 * window.devicePixelRatio)}px var(--font-mono)`;
         ctx.fillStyle = isSelected ? '#ffffff' : '#8b949e';
-        ctx.fillText(flight.dest.code, destCanvas.x + 8 * window.devicePixelRatio, destCanvas.y - 4 * window.devicePixelRatio);
+        
+        // Etiqueta compuesta: IATA • Ciudad
+        const labelText = `${flight.dest.code} • ${flight.dest.city}`;
+        ctx.fillText(labelText, destCanvas.x + 8 * window.devicePixelRatio, destCanvas.y - 4 * window.devicePixelRatio);
       });
 
       // Nodo Base SCL
@@ -1091,7 +1482,7 @@
       ctx.fill();
       ctx.font = `bold ${Math.floor(11 * window.devicePixelRatio)}px var(--font-mono)`;
       ctx.fillStyle = '#00d4ff';
-      ctx.fillText('SCL (BASE CHILE)', originCanvas.x + 10 * window.devicePixelRatio, originCanvas.y + 4 * window.devicePixelRatio);
+      ctx.fillText('SCL • Santiago, Chile (Base)', originCanvas.x + 10 * window.devicePixelRatio, originCanvas.y + 4 * window.devicePixelRatio);
 
       requestAnimationFrame(renderRadar);
     }
@@ -1108,20 +1499,18 @@
       let nearestFlight = null;
       let minDist = 40 * window.devicePixelRatio;
 
-      const originCanvas = toCanvasCoords(SCL.x, SCL.y);
+      const originCanvas = geoToCanvas(SCL.lon, SCL.lat);
 
       FLIGHTS.forEach(flight => {
         if (filterBusinessOnly && flight.cabin !== 'Business') return;
-        const destCanvas = toCanvasCoords(flight.dest.x, flight.dest.y);
+        const destCanvas = geoToCanvas(flight.dest.lon, flight.dest.lat);
 
-        // Distancia al nodo de destino
         const dDest = Math.hypot(clickX - destCanvas.x, clickY - destCanvas.y);
         if (dDest < minDist) {
           minDist = dDest;
           nearestFlight = flight;
         }
 
-        // Distancia al punto medio de la ruta
         const midPoint = getArcPoint(originCanvas, destCanvas, 0.5);
         const dMid = Math.hypot(clickX - midPoint.x, clickY - midPoint.y);
         if (dMid < minDist) {
@@ -1141,7 +1530,6 @@
     function selectFlight(flight) {
       selectedFlight = flight;
 
-      // Actualizar badge
       if (flight.cabin === 'Business') {
         badgeCabin.className = 'flight-status-badge badge-business';
         badgeCabin.textContent = 'CLASE BUSINESS';
@@ -1150,16 +1538,22 @@
         badgeCabin.textContent = 'CLASE TURISTA';
       }
 
-      // Códigos y ciudades
       origCode.textContent = flight.origin.code;
       origCity.textContent = flight.origin.city;
+      origAirport.textContent = flight.origin.airport;
+
       destCode.textContent = flight.dest.code;
       destCity.textContent = flight.dest.city;
+      destAirport.textContent = flight.dest.airport;
 
-      // Metadata
       entityName.textContent = flight.entity;
       passengerRole.textContent = flight.role;
-      ticketCost.textContent = `$${flight.cost.toLocaleString('es-CL')}`;
+      ticketCost.textContent = `$${flight.cost.toLocaleString('es-CL')} CLP`;
+
+      metaCabinDesc.textContent = flight.cabinDesc;
+      metaAirline.textContent = flight.airline;
+      metaOc.textContent = flight.oc;
+
       officialReason.textContent = `"${flight.reason}"`;
 
       updateVoteDisplay();
@@ -1192,7 +1586,7 @@
     });
 
     /* =====================================================================
-       CONTROLADORES FÍSICOS: PERILLA ZOOM & AZIMUT
+       PERILLAS Y CONTROLES FÍSICOS ANALÓGICOS
        ===================================================================== */
     function attachKnob(knobEl, indEl, readoutEl, minVal, maxVal, initialVal, formatFn, onChange) {
       let currentVal = initialVal;
@@ -1228,27 +1622,23 @@
       knobEl.addEventListener('pointercancel', () => { isDragging = false; });
     }
 
-    // Perilla 1: Zoom (0.6x a 2.2x)
     attachKnob(knobZoom, knobZoomInd, readoutZoom, 0.6, 2.2, 1.0, (v) => `${v.toFixed(1)}x`, (v) => {
       zoomLevel = v;
     });
 
-    // Perilla 2: Azimut / Rotación (-45° a 45°)
     attachKnob(knobPan, knobPanInd, readoutPan, -0.78, 0.78, 0, (v) => `${Math.round(v * 180 / Math.PI)}°`, (v) => {
       panAngle = v;
     });
 
-    // Switch de Palanca: Alerta Business Only
     switchAlert.addEventListener('click', () => {
       filterBusinessOnly = !filterBusinessOnly;
       switchAlert.classList.toggle('active', filterBusinessOnly);
       readoutAlert.textContent = filterBusinessOnly ? 'DEFCON 1' : 'OFF';
       readoutAlert.style.color = filterBusinessOnly ? 'var(--c-red)' : '#8b949e';
-      hudMode.textContent = filterBusinessOnly ? 'ALERTA_BUSINESS_SOLO' : 'TODAS_LAS_CABINAS';
+      hudMode.textContent = filterBusinessOnly ? 'SOLO_CLASE_BUSINESS_VIP' : 'TODAS_LAS_CABINAS';
       hudMode.style.color = filterBusinessOnly ? 'var(--c-red)' : 'var(--c-green)';
     });
 
-    // Inicializar primer vuelo
     selectFlight(FLIGHTS[0]);
   </script>
 </body>
