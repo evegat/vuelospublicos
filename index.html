@@ -3,246 +3,478 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VuelosPúblicos — Radar Táctico de Pasajes del Estado de Chile</title>
-  <meta name="description" content="Observatorio ciudadano y radar táctico del gasto en pasajes aéreos y comitivas oficiales del Estado de Chile. Trazabilidad con Mercado Público y votación ciudadana.">
-  <meta property="og:title" content="VuelosPúblicos — Radar Táctico de Pasajes del Estado">
-  <meta property="og:description" content="Visualiza las rutas aéreas del gasto público chileno y vota si cada viaje se justifica.">
+  <title>VuelosPúblicos — Observatorio Cívico del Gasto en Pasajes Aéreos del Estado de Chile</title>
+  <meta name="description" content="Observatorio ciudadano y auditoría del gasto en pasajes aéreos y comitivas oficiales de la administración del Estado de Chile. Trazabilidad oficial con Mercado Público (Ley 19.886) y Transparencia Activa (Ley 20.285).">
+  <meta property="og:title" content="VuelosPúblicos — Observatorio Cívico de Pasajes del Estado">
+  <meta property="og:description" content="Auditoría ciudadana y visualización geoespacial de compras públicas de pasajes aéreos en comitivas oficiales de Chile.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://vuelospublicos.evegat.cl/">
   <style>
     :root {
-      --bg-panel: #0d1117;
-      --bg-bezel: #161b22;
-      --bg-screen: #04090e;
-      --radar-grid: #0d2826;
-      --radar-sweep: rgba(0, 255, 170, 0.15);
-      --c-green: #00ffaa;
-      --c-green-dim: #008855;
-      --c-amber: #ffaa00;
-      --c-red: #ff3344;
-      --c-blue: #00d4ff;
-      --font-mono: 'Space Mono', 'Consolas', 'Courier New', monospace;
-      --font-display: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --bg-base: #081018;
+      --bg-surface: #0e1724;
+      --bg-card: #141f2e;
+      --bg-card-hover: #1a293d;
+      --bg-ocean: #091420;
+      --land-fill: #122133;
+      --land-stroke: #1f3752;
+      --border-subtle: #1e2c3f;
+      --border-focus: #388bfd;
+      --text-primary: #f0f6fc;
+      --text-secondary: #8b9bb0;
+      --text-muted: #5c6c80;
+      --c-turista: #00e5a3;
+      --c-turista-dim: rgba(0, 229, 163, 0.25);
+      --c-business: #ff4d5a;
+      --c-business-dim: rgba(255, 77, 90, 0.25);
+      --c-scl: #00d4ff;
+      --c-accent: #388bfd;
+      --c-gold: #f59e0b;
+      --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      --font-mono: 'Space Mono', 'SF Mono', Consolas, Menlo, monospace;
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      user-select: none;
     }
 
     body {
-      background: #06090e;
-      color: #c9d1d9;
-      font-family: var(--font-mono);
+      background-color: var(--bg-base);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       overflow-x: hidden;
+      line-height: 1.45;
     }
 
-    /* Marco de consola táctica */
-    .console-frame {
+    /* Contenedor Principal */
+    .civic-container {
       display: flex;
       flex-direction: column;
       width: 100%;
-      max-width: 1440px;
+      max-width: 1680px;
       margin: 0 auto;
-      padding: 12px;
-      gap: 12px;
+      padding: 14px 18px;
+      gap: 14px;
       flex: 1;
     }
 
-    /* Cabecera de la Consola */
-    .console-header {
-      background: var(--bg-bezel);
-      border: 2px solid #30363d;
-      border-radius: 8px;
-      padding: 12px 20px;
+    /* Encabezado Cívico */
+    .civic-header {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 14px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 12px;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 4px 12px rgba(0,0,0,0.6);
+      gap: 16px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
     }
 
-    .brand-box {
+    .brand-group {
       display: flex;
       align-items: center;
       gap: 14px;
     }
 
-    .brand-led {
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background: var(--c-green);
-      box-shadow: 0 0 10px var(--c-green);
-      animation: pulse-led 2s infinite ease-in-out;
-    }
-
-    @keyframes pulse-led {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(0.9); }
+    .brand-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, #00d4ff 0%, #0077b6 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      box-shadow: 0 0 14px rgba(0, 212, 255, 0.35);
     }
 
     .brand-title {
-      font-size: 1.25rem;
+      font-size: 1.35rem;
       font-weight: 800;
-      letter-spacing: 2px;
-      color: #f0f6fc;
+      letter-spacing: 0.5px;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-badge {
+      font-size: 0.68rem;
+      font-weight: 600;
       text-transform: uppercase;
+      background: rgba(56, 139, 253, 0.15);
+      color: var(--c-accent);
+      border: 1px solid rgba(56, 139, 253, 0.3);
+      padding: 2px 7px;
+      border-radius: var(--radius-sm);
     }
 
     .brand-sub {
-      font-size: 0.72rem;
-      color: #8b949e;
-      letter-spacing: 0.5px;
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      font-weight: 400;
     }
 
     .header-actions {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 18px;
+      flex-wrap: wrap;
     }
 
-    .btn-help-modal {
-      background: #21262d;
-      border: 1px solid #388bfd;
-      color: #58a6ff;
-      padding: 6px 12px;
-      border-radius: 6px;
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      font-weight: bold;
-      cursor: pointer;
+    .telemetry-strip {
       display: flex;
       align-items: center;
-      gap: 6px;
-      transition: all 0.2s;
-    }
-
-    .btn-help-modal:hover {
-      background: #1f6feb;
-      color: #ffffff;
-      box-shadow: 0 0 10px rgba(56, 139, 253, 0.4);
-    }
-
-    .top-telemetry {
-      display: flex;
       gap: 16px;
-      font-size: 0.8rem;
+      background: rgba(0, 0, 0, 0.25);
+      padding: 6px 14px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
     }
 
     .telemetry-item {
       display: flex;
       flex-direction: column;
-      align-items: flex-end;
     }
 
     .telemetry-label {
-      color: #8b949e;
-      font-size: 0.65rem;
+      font-size: 0.68rem;
       text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      font-weight: 600;
     }
 
     .telemetry-value {
-      color: var(--c-green);
-      font-weight: bold;
+      font-family: var(--font-mono);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-primary);
     }
 
-    .telemetry-value.alert {
-      color: var(--c-red);
+    .telemetry-value.accent-business {
+      color: var(--c-business);
     }
 
-    /* Área Principal: Radar + Panel Lateral */
+    .btn-help-modal {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 8px 14px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-help-modal:hover {
+      background: var(--bg-card-hover);
+      color: #ffffff;
+      border-color: var(--border-focus);
+    }
+
+    /* Layout Principal de 3 Columnas Responsivo */
     .main-workspace {
       display: grid;
-      grid-template-columns: 1fr 400px;
-      gap: 12px;
+      grid-template-columns: 320px 1fr 340px;
+      gap: 14px;
       flex: 1;
-      min-height: 540px;
+      min-height: 0;
     }
 
-    @media (max-width: 1024px) {
-      .main-workspace {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* Pantalla CRT del Radar */
-    .screen-housing {
-      background: var(--bg-bezel);
-      border: 2px solid #30363d;
-      border-radius: 8px;
-      padding: 10px;
-      position: relative;
+    /* Columna 1: Panel Lateral de Viajes */
+    .flight-list-sidebar {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
       display: flex;
       flex-direction: column;
-      box-shadow: inset 0 0 30px rgba(0,0,0,0.9);
-    }
-
-    .screen-crt {
-      position: relative;
-      flex: 1;
-      background: var(--bg-screen);
-      border-radius: 6px;
       overflow: hidden;
-      border: 1px solid #1f3634;
-      cursor: crosshair;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
     }
 
-    .screen-crt::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.22) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
-      background-size: 100% 3px, 6px 100%;
-      pointer-events: none;
-      z-index: 10;
+    .sidebar-header {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border-subtle);
+      background: rgba(0, 0, 0, 0.15);
     }
 
-    canvas#radarCanvas {
+    .sidebar-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .sidebar-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .sidebar-count-badge {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      padding: 2px 8px;
+      border-radius: 12px;
+      color: var(--text-secondary);
+    }
+
+    /* Toolbar de Ordenamiento */
+    .sort-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .sort-label {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-right: 2px;
+    }
+
+    .sort-btn {
+      flex: 1;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 5px 6px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+      text-align: center;
+    }
+
+    .sort-btn:hover {
+      background: var(--bg-card-hover);
+      color: #ffffff;
+      border-color: var(--border-focus);
+    }
+
+    .sort-btn.active {
+      background: rgba(56, 139, 253, 0.2);
+      color: #58a6ff;
+      border-color: #388bfd;
+    }
+
+    /* Lista Scrolleable de Viajes */
+    .flight-scroll-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: calc(100vh - 240px);
+    }
+
+    .flight-scroll-list::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .flight-scroll-list::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .flight-scroll-list::-webkit-scrollbar-thumb {
+      background: var(--border-subtle);
+      border-radius: 3px;
+    }
+
+    .flight-scroll-list::-webkit-scrollbar-thumb:hover {
+      background: var(--text-muted);
+    }
+
+    /* Card de Viaje en la Lista */
+    .flight-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 10px 12px;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      position: relative;
+    }
+
+    .flight-card:hover {
+      background: var(--bg-card-hover);
+      border-color: rgba(56, 139, 253, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .flight-card.active {
+      background: #17263b;
+      border-color: var(--c-accent);
+      box-shadow: 0 0 12px rgba(56, 139, 253, 0.25);
+    }
+
+    .flight-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .flight-card-route {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .flight-card-badge {
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: var(--radius-sm);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .badge-business {
+      background: var(--c-business-dim);
+      color: #ff6b77;
+      border: 1px solid rgba(255, 77, 90, 0.4);
+    }
+
+    .badge-economy {
+      background: var(--c-turista-dim);
+      color: #00ffaa;
+      border: 1px solid rgba(0, 229, 163, 0.4);
+    }
+
+    .flight-card-entity {
+      font-size: 0.76rem;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .flight-card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      border-top: 1px dashed rgba(255, 255, 255, 0.08);
+      padding-top: 5px;
+      margin-top: 2px;
+    }
+
+    .flight-card-cost {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: #f0f6fc;
+    }
+
+    .flight-card.dimmed {
+      opacity: 0.45;
+    }
+
+    /* Columna 2: Área Central de Mapa y Línea de Tiempo */
+    .map-area {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      min-height: 0;
+    }
+
+    /* Contenedor del Mapa */
+    .map-container {
+      background: var(--bg-ocean);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+      min-height: 480px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    #radarCanvas {
       width: 100%;
       height: 100%;
       display: block;
+      cursor: grab;
+      touch-action: none;
     }
 
-    .hud-overlay {
+    #radarCanvas:active {
+      cursor: grabbing;
+    }
+
+    /* HUD de Información sobre el Mapa */
+    .map-hud-top {
       position: absolute;
-      top: 14px;
+      top: 12px;
       left: 14px;
-      z-index: 12;
+      background: rgba(8, 16, 24, 0.82);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 8px 12px;
+      font-size: 0.72rem;
+      color: var(--text-secondary);
       pointer-events: none;
-      font-size: 0.7rem;
-      color: var(--c-green-dim);
-      line-height: 1.4;
-      background: rgba(4, 9, 14, 0.75);
-      padding: 6px 10px;
-      border-radius: 4px;
-      border: 1px solid rgba(0, 255, 170, 0.15);
-    }
-
-    .hud-overlay span {
-      color: var(--c-green);
-      font-weight: bold;
-    }
-
-    .map-legend-hud {
-      position: absolute;
-      bottom: 14px;
-      left: 14px;
-      z-index: 12;
-      pointer-events: none;
-      font-size: 0.68rem;
-      background: rgba(4, 9, 14, 0.85);
-      border: 1px solid #21262d;
-      padding: 6px 12px;
-      border-radius: 4px;
       display: flex;
+      flex-direction: column;
+      gap: 3px;
+      z-index: 10;
+    }
+
+    .map-hud-top strong {
+      color: var(--c-scl);
+    }
+
+    /* Leyenda de Cabina */
+    .map-legend {
+      position: absolute;
+      bottom: 12px;
+      left: 14px;
+      background: rgba(8, 16, 24, 0.82);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 8px 14px;
+      display: flex;
+      align-items: center;
       gap: 14px;
+      font-size: 0.72rem;
+      color: var(--text-secondary);
+      pointer-events: none;
+      z-index: 10;
     }
 
     .legend-item {
@@ -257,76 +489,316 @@
       border-radius: 50%;
     }
 
-    /* Lateral: Expediente de Inteligencia y Votación */
-    .dossier-housing {
-      background: var(--bg-bezel);
-      border: 2px solid #30363d;
-      border-radius: 8px;
-      padding: 16px;
+    /* Controles Flotantes del Mapa */
+    .map-controls {
+      position: absolute;
+      top: 12px;
+      right: 14px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+      gap: 6px;
+      z-index: 10;
+    }
+
+    .map-control-btn {
+      width: 34px;
+      height: 34px;
+      background: rgba(14, 23, 36, 0.9);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
+      font-size: 14px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    }
+
+    .map-control-btn:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--border-focus);
+      color: #58a6ff;
+      transform: scale(1.05);
+    }
+
+    .map-control-btn:active {
+      transform: scale(0.95);
+    }
+
+    /* Tooltip Flotante del Mapa */
+    .map-tooltip {
+      position: absolute;
+      background: rgba(14, 23, 36, 0.96);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border-focus);
+      border-radius: var(--radius-md);
+      padding: 8px 12px;
+      font-size: 0.76rem;
+      color: var(--text-primary);
+      pointer-events: none;
+      z-index: 20;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.6);
+      transform: translate(-50%, -120%);
+      white-space: nowrap;
+    }
+
+    .map-tooltip strong {
+      color: #ffffff;
+      font-size: 0.82rem;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .map-tooltip .tooltip-meta {
+      color: var(--text-secondary);
+      font-size: 0.72rem;
+    }
+
+    /* Contenedor de Línea de Tiempo y Odómetro */
+    .time-scrubber-housing {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 12px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    .scrubber-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .transport-controls {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .transport-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+      font-size: 0.76rem;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .transport-btn:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--border-focus);
+      color: #58a6ff;
+    }
+
+    .transport-btn.btn-play.playing {
+      background: rgba(0, 229, 163, 0.2);
+      border-color: var(--c-turista);
+      color: var(--c-turista);
+    }
+
+    .timeline-date-display {
+      font-family: var(--font-mono);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #ffffff;
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid var(--border-subtle);
+      padding: 4px 14px;
+      border-radius: var(--radius-sm);
+      min-width: 140px;
+      text-align: center;
+    }
+
+    /* Odómetro Fiscal Acumulativo */
+    .odometer-box {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+
+    .odometer-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .odometer-value {
+      font-family: var(--font-mono);
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #00ffaa;
+      letter-spacing: 0.5px;
+    }
+
+    /* Slider de la Línea de Tiempo */
+    .slider-track-container {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .timeline-slider {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 8px;
+      border-radius: 4px;
+      background: #182638;
+      outline: none;
+      cursor: pointer;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .timeline-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #00d4ff;
+      border: 2px solid #ffffff;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(0, 212, 255, 0.6);
+      transition: transform 0.1s;
+    }
+
+    .timeline-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.15);
+    }
+
+    .timeline-slider::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #00d4ff;
+      border: 2px solid #ffffff;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(0, 212, 255, 0.6);
+    }
+
+    .slider-year-markers {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      padding: 0 2px;
+    }
+
+    /* Filtro de Proveedores */
+    .filter-provider-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      border-top: 1px dashed rgba(255, 255, 255, 0.08);
+      padding-top: 8px;
+    }
+
+    .filter-provider-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .filter-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-right: 4px;
+    }
+
+    .provider-chip {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .provider-chip:hover {
+      background: var(--bg-card-hover);
+      color: #ffffff;
+      border-color: var(--border-focus);
+    }
+
+    .provider-chip.active {
+      background: rgba(56, 139, 253, 0.25);
+      border-color: #388bfd;
+      color: #58a6ff;
+    }
+
+    .provider-select-hidden {
+      display: none;
+    }
+
+    /* Columna 3: Expediente Fiscal y Tribunal Ciudadano */
+    .dossier-housing {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
     }
 
     .dossier-header {
-      border-bottom: 2px solid #30363d;
-      padding-bottom: 10px;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border-subtle);
+      background: rgba(0, 0, 0, 0.15);
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
     .dossier-tag {
-      font-size: 0.7rem;
-      letter-spacing: 1.5px;
-      background: #21262d;
-      color: var(--c-amber);
-      padding: 3px 8px;
-      border-radius: 4px;
-      font-weight: bold;
-    }
-
-    .flight-status-badge {
-      font-size: 0.7rem;
-      padding: 3px 8px;
-      border-radius: 4px;
-      font-weight: bold;
+      font-size: 0.85rem;
+      font-weight: 700;
       text-transform: uppercase;
-    }
-
-    .badge-business {
-      background: rgba(255, 51, 68, 0.2);
-      color: var(--c-red);
-      border: 1px solid var(--c-red);
-    }
-
-    .badge-economy {
-      background: rgba(0, 255, 170, 0.15);
-      color: var(--c-green);
-      border: 1px solid var(--c-green-dim);
+      letter-spacing: 0.5px;
+      color: var(--text-primary);
     }
 
     .dossier-content {
-      background: #080c10;
-      border: 1px solid #21262d;
-      border-radius: 6px;
-      padding: 14px;
-      flex: 1;
+      padding: 14px 16px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      font-size: 0.8rem;
-      line-height: 1.4;
+      gap: 12px;
+      flex: 1;
       overflow-y: auto;
     }
 
+    /* Display de Ruta Aérea */
     .route-display {
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 12px;
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      border-bottom: 1px dashed #30363d;
-      padding-bottom: 8px;
+      align-items: center;
     }
 
     .route-node {
@@ -335,127 +807,138 @@
     }
 
     .node-code {
-      font-size: 1.3rem;
-      font-weight: 900;
-      color: #f0f6fc;
-      letter-spacing: 1px;
+      font-family: var(--font-mono);
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.1;
     }
 
     .node-city {
-      font-size: 0.7rem;
-      color: #58a6ff;
+      font-size: 0.76rem;
+      color: var(--text-secondary);
       font-weight: 600;
     }
 
     .node-airport {
-      font-size: 0.62rem;
-      color: #8b949e;
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      max-width: 110px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .route-arrow {
-      color: var(--c-amber);
+      color: var(--c-accent);
       font-size: 1.1rem;
+      font-weight: 700;
     }
 
+    /* Fila de Datos */
     .data-row {
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      gap: 3px;
     }
 
     .data-label {
-      font-size: 0.65rem;
-      color: #8b949e;
+      font-size: 0.7rem;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      font-weight: 600;
+      letter-spacing: 0.4px;
     }
 
     .data-value {
-      color: #f0f6fc;
+      font-size: 0.85rem;
+      color: var(--text-primary);
       font-weight: 600;
     }
 
     .data-value.price {
+      font-family: var(--font-mono);
       font-size: 1.25rem;
-      color: var(--c-amber);
       font-weight: 800;
+      color: #00ffaa;
     }
 
+    /* Caja de Metadatos */
     .data-meta-box {
-      background: #11161d;
-      border: 1px solid #21262d;
-      border-radius: 4px;
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
       padding: 8px 10px;
-      font-size: 0.72rem;
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 5px;
+      font-size: 0.74rem;
     }
 
     .meta-line {
       display: flex;
       justify-content: space-between;
+      align-items: center;
     }
 
     .meta-key {
-      color: #8b949e;
+      color: var(--text-muted);
     }
 
     .meta-val {
-      color: #58a6ff;
-      font-weight: bold;
+      font-family: var(--font-mono);
+      color: var(--text-secondary);
+      font-weight: 600;
     }
 
     .data-reason {
-      background: #11161d;
-      border-left: 3px solid var(--c-blue);
+      background: rgba(0, 0, 0, 0.2);
+      border-left: 3px solid var(--c-accent);
       padding: 8px 10px;
-      font-size: 0.75rem;
-      color: #c9d1d9;
+      font-size: 0.76rem;
+      color: var(--text-secondary);
+      line-height: 1.35;
       font-style: italic;
-      border-radius: 0 4px 4px 0;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
     }
 
     .source-tag-link {
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      background: #161b22;
-      border: 1px solid #30363d;
-      padding: 6px 10px;
-      border-radius: 4px;
+      align-items: center;
       font-size: 0.7rem;
-      color: #8b949e;
+      color: var(--text-muted);
+      border-top: 1px dashed rgba(255, 255, 255, 0.08);
+      padding-top: 8px;
     }
 
     .source-tag-link a {
-      color: var(--c-green);
+      color: #58a6ff;
       text-decoration: none;
-      font-weight: bold;
+      font-weight: 600;
     }
 
     .source-tag-link a:hover {
       text-decoration: underline;
     }
 
-    /* Zona del Tribunal Ciudadano / Votación */
+    /* Módulo Tribunal Ciudadano */
     .tribunal-box {
-      border: 2px solid #30363d;
-      background: #0e131a;
-      border-radius: 6px;
-      padding: 12px;
+      background: rgba(0, 0, 0, 0.25);
+      border-top: 1px solid var(--border-subtle);
+      padding: 14px 16px;
       display: flex;
       flex-direction: column;
       gap: 10px;
     }
 
     .tribunal-title {
-      font-size: 0.72rem;
+      font-size: 0.74rem;
+      font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--c-amber);
+      letter-spacing: 0.6px;
+      color: var(--text-secondary);
       text-align: center;
-      font-weight: bold;
     }
 
     .action-buttons {
@@ -464,48 +947,59 @@
       gap: 8px;
     }
 
-    .tactical-btn {
-      appearance: none;
-      border: none;
-      padding: 10px 6px;
-      border-radius: 6px;
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      font-weight: bold;
-      text-transform: uppercase;
+    .civic-btn {
+      border: 1px solid transparent;
+      border-radius: var(--radius-md);
+      padding: 10px 8px;
       cursor: pointer;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 3px;
+      gap: 2px;
+      font-weight: 700;
+      font-size: 0.8rem;
       transition: all 0.15s ease;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 3px 5px rgba(0,0,0,0.4);
     }
 
-    .tactical-btn:active {
-      transform: translateY(2px);
+    .civic-btn small {
+      font-size: 0.65rem;
+      font-weight: 500;
+      opacity: 0.85;
     }
 
     .btn-approve {
-      background: linear-gradient(180deg, #1f6feb 0%, #1158c7 100%);
-      color: #ffffff;
-      border: 1px solid #388bfd;
+      background: rgba(0, 229, 163, 0.12);
+      border-color: rgba(0, 229, 163, 0.35);
+      color: #00ffaa;
     }
 
-    .btn-approve:hover {
-      background: linear-gradient(180deg, #388bfd 0%, #1f6feb 100%);
-      box-shadow: 0 0 10px rgba(56, 139, 253, 0.4);
+    .btn-approve:hover:not(:disabled) {
+      background: rgba(0, 229, 163, 0.25);
+      border-color: #00ffaa;
+      transform: translateY(-1px);
     }
 
     .btn-reject {
-      background: linear-gradient(180deg, #da3633 0%, #b62324 100%);
-      color: #ffffff;
-      border: 1px solid #f85149;
+      background: rgba(255, 77, 90, 0.12);
+      border-color: rgba(255, 77, 90, 0.35);
+      color: #ff6b77;
     }
 
-    .btn-reject:hover {
-      background: linear-gradient(180deg, #f85149 0%, #da3633 100%);
-      box-shadow: 0 0 10px rgba(248, 81, 73, 0.5);
+    .btn-reject:hover:not(:disabled) {
+      background: rgba(255, 77, 90, 0.25);
+      border-color: #ff4d5a;
+      transform: translateY(-1px);
+    }
+
+    .civic-btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+
+    .civic-btn.active-voted {
+      border-width: 2px;
+      box-shadow: 0 0 10px currentColor;
     }
 
     .vote-bar-container {
@@ -516,172 +1010,85 @@
 
     .vote-bar {
       height: 8px;
-      background: #21262d;
       border-radius: 4px;
-      overflow: hidden;
+      background: #1c2b3d;
       display: flex;
+      overflow: hidden;
     }
 
     .vote-bar-approve {
-      background: var(--c-blue);
-      transition: width 0.4s ease;
+      background: #00e5a3;
+      transition: width 0.3s ease;
     }
 
     .vote-bar-reject {
-      background: var(--c-red);
-      transition: width 0.4s ease;
+      background: #ff4d5a;
+      transition: width 0.3s ease;
     }
 
     .vote-stats-text {
       display: flex;
       justify-content: space-between;
-      font-size: 0.65rem;
-      color: #8b949e;
-    }
-
-    /* Panel de Control Inferior: Perillas y Switches */
-    .control-deck {
-      background: var(--bg-bezel);
-      border: 2px solid #30363d;
-      border-radius: 8px;
-      padding: 14px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 20px;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 4px 10px rgba(0,0,0,0.5);
-    }
-
-    .knobs-cluster {
-      display: flex;
-      align-items: center;
-      gap: 28px;
-    }
-
-    .knob-widget {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .knob-body {
-      width: 54px;
-      height: 54px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 35% 35%, #484f58, #161b22 80%);
-      border: 2px solid #30363d;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.8), inset 0 2px 2px rgba(255,255,255,0.2);
-      position: relative;
-      cursor: grab;
-      touch-action: none;
-    }
-
-    .knob-body:active {
-      cursor: grabbing;
-      border-color: var(--c-green);
-    }
-
-    .knob-indicator {
-      position: absolute;
-      top: 5px;
-      left: 50%;
-      width: 3px;
-      height: 10px;
-      background: var(--c-green);
-      border-radius: 2px;
-      transform: translateX(-50%);
-      box-shadow: 0 0 6px var(--c-green);
-    }
-
-    .knob-label {
-      font-size: 0.65rem;
-      color: #8b949e;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .knob-readout {
-      font-size: 0.65rem;
-      color: var(--c-green);
-      font-weight: bold;
-    }
-
-    .switch-widget {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .toggle-plate {
-      width: 44px;
-      height: 68px;
-      background: #0d1117;
-      border: 2px solid #30363d;
-      border-radius: 6px;
-      position: relative;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-between;
-      padding: 5px 0;
-      box-shadow: inset 0 2px 5px rgba(0,0,0,0.9);
-    }
-
-    .toggle-lever {
-      width: 14px;
-      height: 26px;
-      background: linear-gradient(90deg, #d0d7de, #8b949e, #484f58);
-      border-radius: 4px;
-      position: absolute;
-      top: 6px;
-      box-shadow: 0 3px 5px rgba(0,0,0,0.8);
-      transition: top 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    .toggle-plate.active .toggle-lever {
-      top: 34px;
-      background: linear-gradient(90deg, #ff7b72, #f85149, #b62324);
-      box-shadow: 0 0 10px rgba(248, 81, 73, 0.7);
-    }
-
-    .switch-indicator-led {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #30363d;
-    }
-
-    .toggle-plate.active .switch-indicator-led {
-      background: var(--c-red);
-      box-shadow: 0 0 8px var(--c-red);
-    }
-
-    .deck-info {
+      font-family: var(--font-mono);
       font-size: 0.7rem;
-      color: #8b949e;
-      max-width: 420px;
-      line-height: 1.4;
+      font-weight: 600;
     }
 
-    .deck-info strong {
-      color: #f0f6fc;
+    #txtApprove {
+      color: #00ffaa;
     }
 
-    /* Modal de Fuentes y Glosario */
+    #txtReject {
+      color: #ff6b77;
+    }
+
+    .vote-status-msg {
+      font-size: 0.68rem;
+      text-align: center;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .vote-status-msg.voted {
+      color: #58a6ff;
+    }
+
+    /* Pie de Página */
+    .civic-footer {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 12px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 0.74rem;
+      color: var(--text-muted);
+    }
+
+    .civic-footer a {
+      color: #58a6ff;
+      text-decoration: none;
+    }
+
+    .civic-footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Modal de Glosario y Fuentes */
     .modal-overlay {
       position: fixed;
       inset: 0;
       background: rgba(4, 9, 14, 0.85);
-      backdrop-filter: blur(4px);
-      z-index: 100;
+      backdrop-filter: blur(6px);
       display: none;
       align-items: center;
       justify-content: center;
       padding: 16px;
+      z-index: 1000;
     }
 
     .modal-overlay.open {
@@ -689,40 +1096,41 @@
     }
 
     .modal-box {
-      background: var(--bg-bezel);
-      border: 2px solid #388bfd;
-      border-radius: 8px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-focus);
+      border-radius: var(--radius-lg);
       width: 100%;
-      max-width: 680px;
+      max-width: 640px;
       max-height: 85vh;
       display: flex;
       flex-direction: column;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.9);
-      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7);
     }
 
     .modal-header {
       padding: 14px 18px;
-      border-bottom: 1px solid #30363d;
+      border-bottom: 1px solid var(--border-subtle);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: #0d1117;
     }
 
     .modal-title {
       font-size: 0.95rem;
-      color: #f0f6fc;
-      font-weight: bold;
-      letter-spacing: 1px;
+      font-weight: 800;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .btn-close-modal {
-      background: none;
+      background: transparent;
       border: none;
-      color: #8b949e;
-      font-size: 1.2rem;
+      color: var(--text-secondary);
+      font-size: 1.4rem;
       cursor: pointer;
+      line-height: 1;
     }
 
     .btn-close-modal:hover {
@@ -732,142 +1140,220 @@
     .modal-body {
       padding: 18px;
       overflow-y: auto;
-      font-size: 0.8rem;
+      font-size: 0.82rem;
+      color: var(--text-secondary);
       line-height: 1.5;
       display: flex;
       flex-direction: column;
-      gap: 14px;
-      color: #c9d1d9;
+      gap: 12px;
     }
 
     .modal-section-title {
-      color: var(--c-green);
       font-size: 0.85rem;
-      font-weight: bold;
-      border-bottom: 1px solid #21262d;
-      padding-bottom: 4px;
+      font-weight: 700;
+      color: #ffffff;
       margin-top: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
-    .sigla-item {
-      display: grid;
-      grid-template-columns: 80px 1fr;
-      gap: 10px;
-      background: #0d1117;
-      padding: 8px 12px;
-      border-radius: 4px;
-      border-left: 3px solid #388bfd;
-    }
-
-    .sigla-name {
-      color: var(--c-amber);
-      font-weight: bold;
-    }
-
-    .modal-footer-btn {
+    .modal-footer {
       padding: 12px 18px;
-      border-top: 1px solid #30363d;
+      border-top: 1px solid var(--border-subtle);
       display: flex;
       justify-content: flex-end;
-      background: #0d1117;
     }
 
-    /* Footer cívico sobrio */
-    .console-footer {
-      padding: 10px 0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.7rem;
-      color: #8b949e;
-      border-top: 1px solid #21262d;
-      flex-wrap: wrap;
-      gap: 8px;
+    /* Adaptabilidad Móvil y Tablet */
+    @media (max-width: 1080px) {
+      .main-workspace {
+        grid-template-columns: 280px 1fr;
+      }
+      .dossier-housing {
+        grid-column: span 2;
+      }
     }
 
-    .console-footer a {
-      color: var(--c-green);
-      text-decoration: none;
-    }
-
-    .console-footer a:hover {
-      text-decoration: underline;
+    @media (max-width: 768px) {
+      .civic-container {
+        padding: 8px;
+        gap: 10px;
+      }
+      .main-workspace {
+        display: flex;
+        flex-direction: column;
+      }
+      .map-container {
+        min-height: 380px;
+      }
+      .flight-scroll-list {
+        max-height: 280px;
+      }
+      .telemetry-strip {
+        width: 100%;
+        justify-content: space-between;
+      }
+      .civic-header {
+        padding: 10px 12px;
+      }
     }
   </style>
 </head>
 <body>
 
-  <div class="console-frame">
+  <div class="civic-container">
 
-    <!-- Encabezado Táctico -->
-    <header class="console-header">
-      <div class="brand-box">
-        <div class="brand-led" id="masterLed"></div>
+    <!-- Encabezado Institucional -->
+    <header class="civic-header">
+      <div class="brand-group">
+        <div class="brand-icon">✈️</div>
         <div>
-          <div class="brand-title">VuelosPúblicos</div>
-          <div class="brand-sub">SISTEMA NACIONAL DE RADAR FISCAL • REPÚBLICA DE CHILE</div>
+          <div class="brand-title">
+            VuelosPúblicos
+            <span class="brand-badge">Ley 19.886 & 20.285</span>
+          </div>
+          <div class="brand-sub">OBSERVATORIO CÍVICO DEL GASTO EN PASAJES AÉREOS • REPÚBLICA DE CHILE</div>
         </div>
       </div>
 
       <div class="header-actions">
-        <button class="btn-help-modal" id="btnOpenHelp">
-          <span>ℹ️ FUENTES Y GLOSARIO</span>
-        </button>
-
-        <div class="top-telemetry">
+        <div class="telemetry-strip">
           <div class="telemetry-item">
-            <span class="telemetry-label">Vuelos en Radar</span>
-            <span class="telemetry-value" id="statFlightsCount">10</span>
+            <span class="telemetry-label">Viajes Oficiales</span>
+            <span class="telemetry-value" id="statFlightsCount">12</span>
           </div>
           <div class="telemetry-item">
-            <span class="telemetry-label">Gasto Total</span>
-            <span class="telemetry-value" id="statTotalSpend">$49.630.000</span>
+            <span class="telemetry-label">Gasto Consolidado</span>
+            <span class="telemetry-value" id="statTotalSpend">$44.900.000 CLP</span>
           </div>
           <div class="telemetry-item">
-            <span class="telemetry-label">Alerta Business</span>
-            <span class="telemetry-value alert" id="statBusinessCount">4 Vuelos</span>
+            <span class="telemetry-label">Comitivas Business</span>
+            <span class="telemetry-value accent-business" id="statBusinessCount">4 (33%)</span>
           </div>
         </div>
+
+        <button class="btn-help-modal" id="btnOpenHelp" aria-label="Abrir fuentes y metodología">
+          <span>ℹ️ Metodología y Glosario</span>
+        </button>
       </div>
     </header>
 
-    <!-- Área de Trabajo: Pantalla Radar + Expediente -->
+    <!-- Área de Trabajo Principal (3 Columnas) -->
     <main class="main-workspace">
 
-      <!-- Pantalla CRT Radar -->
-      <section class="screen-housing">
-        <div class="screen-crt" id="screenCrt">
-          <div class="hud-overlay">
-            <div>SCL_BASE: <span>SANTIAGO DE CHILE (PUDAHUEL)</span></div>
-            <div>STATUS: <span id="hudStatus">BARRIDO_ACTIVO_60FPS</span></div>
-            <div>FILTRO: <span id="hudMode">TODAS_LAS_CABINAS</span></div>
-            <div>INSTRUCCIÓN: <span>CLIC EN CUALQUIER RUTA O CIUDAD</span></div>
+      <!-- Columna 1: Panel Lateral de Viajes Oficiales -->
+      <aside class="flight-list-sidebar">
+        <div class="sidebar-header">
+          <div class="sidebar-title-row">
+            <div class="sidebar-title">
+              <span>✈️ Viajes Oficiales</span>
+              <span class="sidebar-count-badge" id="listBadgeCount">12</span>
+            </div>
+          </div>
+          <div class="sort-toolbar">
+            <span class="sort-label">Ordenar:</span>
+            <button class="sort-btn active" id="btnSortCost" data-sort="cost">💰 Monto ↓</button>
+            <button class="sort-btn" id="btnSortDate" data-sort="date">📅 Fecha</button>
+            <button class="sort-btn" id="btnSortEntity" data-sort="entity">🏛️ Organismo</button>
+          </div>
+        </div>
+
+        <!-- Lista scrolleable interactiva -->
+        <div class="flight-scroll-list" id="flightListContainer">
+          <!-- Las tarjetas de viaje se inyectan dinámicamente aquí -->
+        </div>
+      </aside>
+
+      <!-- Columna 2: Mapa Geoespacial y Línea de Tiempo -->
+      <section class="map-area">
+        <!-- Canvas de Cartografía y Rutas 60 FPS -->
+        <div class="map-container" id="mapContainer">
+          <div class="map-hud-top">
+            <div>BASE SANTIAGO: <strong>SCL (Pudahuel, Chile)</strong></div>
+            <div>MOTOR: <span>GEODÉSICAS 2.5D • 60 FPS</span></div>
+            <div>NAVEGACIÓN: <span>ARRASTRE DIRECTO • RUEDA ZOOM</span></div>
           </div>
 
-          <div class="map-legend-hud">
+          <div class="map-legend">
             <div class="legend-item">
-              <div class="legend-dot" style="background: var(--c-blue);"></div>
-              <span>Base Santiago</span>
+              <div class="legend-dot" style="background: var(--c-scl);"></div>
+              <span>Base SCL</span>
             </div>
             <div class="legend-item">
-              <div class="legend-dot" style="background: var(--c-green);"></div>
-              <span>Clase Turista (Económica)</span>
+              <div class="legend-dot" style="background: var(--c-turista);"></div>
+              <span>Clase Turista</span>
             </div>
             <div class="legend-item">
-              <div class="legend-dot" style="background: var(--c-red);"></div>
-              <span>Clase Business (Ejecutiva VIP)</span>
+              <div class="legend-dot" style="background: var(--c-business);"></div>
+              <span>Clase Business</span>
             </div>
+          </div>
+
+          <!-- Controles flotantes estándar de mapa -->
+          <div class="map-controls">
+            <button class="map-control-btn" id="btnZoomIn" title="Acercar mapa" aria-label="Acercar">[ + ]</button>
+            <button class="map-control-btn" id="btnZoomOut" title="Alejar mapa" aria-label="Alejar">[ − ]</button>
+            <button class="map-control-btn" id="btnResetView" title="Restablecer vista" aria-label="Restablecer">[ ↺ ]</button>
           </div>
 
           <canvas id="radarCanvas"></canvas>
+
+          <!-- Tooltip flotante interactivo -->
+          <div class="map-tooltip" id="mapTooltip" style="display: none;"></div>
+        </div>
+
+        <!-- Línea de Tiempo Cronológica y Odómetro Fiscal -->
+        <div class="time-scrubber-housing" id="timeScrubber">
+          <div class="scrubber-top-row">
+            <div class="transport-controls">
+              <button class="transport-btn" id="btnPrevMonth" title="Mes anterior">⏪ Anterior</button>
+              <button class="transport-btn btn-play" id="btnPlayPause" title="Reproducir línea de tiempo">⏯ Reproducir</button>
+              <button class="transport-btn" id="btnNextMonth" title="Mes siguiente">⏩ Siguiente</button>
+            </div>
+
+            <div class="timeline-date-display" id="currentMonthLabel">Marzo 2024</div>
+
+            <div class="odometer-box">
+              <span class="odometer-label">Odómetro Fiscal Acumulado:</span>
+              <span class="odometer-value" id="fiscalOdometer">$8.450.000 CLP</span>
+            </div>
+          </div>
+
+          <div class="slider-track-container">
+            <input type="range" class="timeline-slider" id="timelineSlider" min="0" max="35" value="2" step="1" aria-label="Línea de tiempo mensual 2024 a 2026">
+            <div class="slider-year-markers">
+              <span>Ene 2024</span>
+              <span>Ene 2025</span>
+              <span>Ene 2026</span>
+              <span>Dic 2026</span>
+            </div>
+          </div>
+
+          <div class="filter-provider-row">
+            <div class="filter-provider-group" id="filterProvider">
+              <span class="filter-label">Agencia Proveedora:</span>
+              <button class="provider-chip active" data-provider="Todas" id="filterProviderTodas">Todas</button>
+              <button class="provider-chip" data-provider="Cocha" id="filterProviderCocha">Cocha</button>
+              <button class="provider-chip" data-provider="Turavion" id="filterProviderTuravion">Turavion</button>
+              <button class="provider-chip" data-provider="LATAM" id="filterProviderLATAM">LATAM</button>
+              <button class="provider-chip" data-provider="Sky" id="filterProviderSky">Sky</button>
+            </div>
+            <select id="filterProviderSelect" class="provider-select-hidden" aria-label="Filtrar por proveedor">
+              <option value="Todas">Todas</option>
+              <option value="Cocha">Cocha</option>
+              <option value="Turavion">Turavion</option>
+              <option value="LATAM">LATAM</option>
+              <option value="Sky">Sky</option>
+            </select>
+          </div>
         </div>
       </section>
 
-      <!-- Panel Lateral: Expediente y Tribunal -->
+      <!-- Columna 3: Expediente Fiscal y Tribunal Ciudadano -->
       <aside class="dossier-housing">
         <div class="dossier-header">
           <span class="dossier-tag">EXPEDIENTE FISCAL</span>
-          <span class="flight-status-badge badge-business" id="badgeCabin">CLASE BUSINESS</span>
+          <span class="flight-card-badge badge-business" id="badgeCabin">CLASE BUSINESS</span>
         </div>
 
         <div class="dossier-content">
@@ -881,7 +1367,7 @@
             <div class="route-node" style="align-items: flex-end;">
               <span class="node-code" id="destCode">GVA</span>
               <span class="node-city" id="destCity">Ginebra, Suiza</span>
-              <span class="node-airport" id="destAirport">Aerop. de Ginebra-Cointrin</span>
+              <span class="node-airport" id="destAirport">Aerop. Ginebra-Cointrin</span>
             </div>
           </div>
 
@@ -891,7 +1377,7 @@
           </div>
 
           <div class="data-row">
-            <span class="data-label">Pasajero / Delegación</span>
+            <span class="data-label">Pasajero / Cargo / Comitiva</span>
             <span class="data-value" id="passengerRole">Delegación Oficial Asuntos Multilaterales</span>
           </div>
 
@@ -903,11 +1389,15 @@
           <div class="data-meta-box">
             <div class="meta-line">
               <span class="meta-key">Tipo de Cabina:</span>
-              <span class="meta-val" id="metaCabinDesc">Business (Tarifa ejecutiva preferencial)</span>
+              <span class="meta-val" id="metaCabinDesc">Business (Asiento cama preferencial)</span>
             </div>
             <div class="meta-line">
-              <span class="meta-key">Aerolínea / Operador:</span>
-              <span class="meta-val" id="metaAirline">LATAM / Iberia</span>
+              <span class="meta-key">Aerolínea Operadora:</span>
+              <span class="meta-val" id="metaAirline">Iberia / LATAM Airlines</span>
+            </div>
+            <div class="meta-line">
+              <span class="meta-key">Agencia Proveedora:</span>
+              <span class="meta-val" id="metaProvider">Turavion</span>
             </div>
             <div class="meta-line">
               <span class="meta-key">Orden de Compra (OC):</span>
@@ -923,142 +1413,89 @@
           </div>
 
           <div class="source-tag-link">
-            <span>Fuente: <strong>Mercado Público (ChileCompra)</strong></span>
-            <a href="https://www.mercadopublico.cl" target="_blank" rel="noopener">Verificar Ficha Oficial ↗</a>
+            <span>Mercado Público (Ley 19.886)</span>
+            <a href="https://www.mercadopublico.cl" target="_blank" rel="noopener">Ficha Oficial ↗</a>
           </div>
         </div>
 
-        <!-- Módulo Tribunal Ciudadano -->
+        <!-- Módulo Tribunal Ciudadano Reactivo -->
         <div class="tribunal-box">
           <div class="tribunal-title">¿SE JUSTIFICA ESTE VIAJE OFICIAL?</div>
           <div class="action-buttons">
-            <button class="tactical-btn btn-approve" id="btnApprove">
-              <span>👍 APROBAR</span>
-              <small>Gasto Justificado</small>
+            <button class="civic-btn btn-approve" id="btnApprove">
+              <span>👍 Se justifica</span>
+              <small>Gasto Pertinente</small>
             </button>
-            <button class="tactical-btn btn-reject" id="btnReject">
-              <span>🛑 OBJETAR</span>
+            <button class="civic-btn btn-reject" id="btnReject">
+              <span>🛑 Es derroche</span>
               <small>Gasto Injustificado</small>
             </button>
           </div>
 
           <div class="vote-bar-container">
             <div class="vote-bar">
-              <div class="vote-bar-approve" id="barApprove" style="width: 25%;"></div>
-              <div class="vote-bar-reject" id="barReject" style="width: 75%;"></div>
+              <div class="vote-bar-approve" id="barApprove" style="width: 20%;"></div>
+              <div class="vote-bar-reject" id="barReject" style="width: 80%;"></div>
             </div>
             <div class="vote-stats-text">
-              <span id="txtApprove">Justificado: 25%</span>
-              <span id="txtReject">Derroche: 75%</span>
+              <span id="txtApprove">Justificado: 20% (21)</span>
+              <span id="txtReject">Derroche: 80% (84)</span>
             </div>
+            <div class="vote-status-msg" id="voteStatus">Tu voto es anónimo y ciudadano</div>
           </div>
         </div>
       </aside>
 
     </main>
 
-    <!-- Panel de Control Inferior (Perillas y Palancas Táctiles) -->
-    <footer class="control-deck">
-      <div class="knobs-cluster">
-        <!-- Perilla 1: Zoom -->
-        <div class="knob-widget">
-          <div class="knob-body" id="knobZoom">
-            <div class="knob-indicator" id="knobZoomInd"></div>
-          </div>
-          <span class="knob-label">Escala / Zoom</span>
-          <span class="knob-readout" id="readoutZoom">1.0x</span>
-        </div>
-
-        <!-- Perilla 2: Rotación / Paneo -->
-        <div class="knob-widget">
-          <div class="knob-body" id="knobPan">
-            <div class="knob-indicator" id="knobPanInd"></div>
-          </div>
-          <span class="knob-label">Azimut / Giro</span>
-          <span class="knob-readout" id="readoutPan">0°</span>
-        </div>
-
-        <!-- Switch Palanca: Alerta Business -->
-        <div class="switch-widget">
-          <div class="toggle-plate" id="switchAlert">
-            <div class="switch-indicator-led"></div>
-            <div class="toggle-lever"></div>
-          </div>
-          <span class="knob-label">Alerta Business</span>
-          <span class="knob-readout" id="readoutAlert" style="color: #8b949e;">OFF</span>
-        </div>
-      </div>
-
-      <div class="deck-info">
-        <strong>INSTRUCCIONES DE OPERACIÓN:</strong> Arrastra la perilla <em>Escala</em> para acercar el mapa mundial o enfocar Sudamérica. Usa el interruptor de palanca metálica para aislar solo comitivas en <em>Clase Business</em>. Haz clic sobre cualquier ruta aérea para revisar el expediente y emitir tu voto cívico.
-      </div>
-    </footer>
-
-    <div class="console-footer">
+    <!-- Pie de Página Cívico -->
+    <footer class="civic-footer">
       <div>VuelosPúblicos • Datos abiertos oficiales de Mercado Público (Ley 19.886) y Transparencia Activa (Ley 20.285)</div>
-      <div>Plataforma cívica independiente para el control del gasto fiscal • <a href="https://evegat.cl">evegat.cl</a></div>
-    </div>
+      <div>Plataforma cívica independiente para la rendición de cuentas del gasto fiscal • <a href="https://evegat.cl">evegat.cl</a></div>
+    </footer>
 
   </div>
 
-  <!-- Modal Táctico: Fuentes de Datos y Glosario -->
+  <!-- Modal: Metodología y Fuentes -->
   <div class="modal-overlay" id="helpModal">
     <div class="modal-box">
       <div class="modal-header">
-        <div class="modal-title">ℹ️ FUENTES DE INFORMACIÓN Y GLOSARIO DE TÉRMINOS</div>
-        <button class="btn-close-modal" id="btnCloseHelp">&times;</button>
+        <div class="modal-title">ℹ️ FUENTES DE INFORMACIÓN Y METODOLOGÍA</div>
+        <button class="btn-close-modal" id="btnCloseHelp" aria-label="Cerrar modal">&times;</button>
       </div>
 
       <div class="modal-body">
-        <p><strong>VuelosPúblicos</strong> es una herramienta ciudadana de fiscalización y pedagogía cívica diseñada para auditar el uso de recursos fiscales en pasajes aéreos y comitivas oficiales de la República de Chile.</p>
+        <p><strong>VuelosPúblicos</strong> es una plataforma cívica independiente diseñada para transparentar y auditar el uso de fondos públicos en pasajes aéreos y comitivas de la administración del Estado de Chile.</p>
 
         <div class="modal-section-title">1. ¿DE DÓNDE PROVIENEN LOS DATOS?</div>
-        <p>Todos los vuelos exhibidos corresponden a información pública oficial de la administración del Estado:</p>
+        <p>Todos los registros exhibidos provienen de fuentes oficiales abiertas del Estado de Chile:</p>
         <ul style="padding-left: 20px; display: flex; flex-direction: column; gap: 6px;">
-          <li><strong>Mercado Público (ChileCompra — Ley 19.886):</strong> Todo pasaje aéreo pagado por el fisco se adquiere mediante órdenes de compra (OC) a agencias de viajes a través de Convenios Marco o licitaciones públicas registradas en la base de datos nacional.</li>
-          <li><strong>Transparencia Activa (Consejo para la Transparencia — Ley 20.285):</strong> Cada ministerio, subsecretaría, servicio público y municipalidad publica mensualmente el ítem obligatorio de <em>"Pasajes y Viáticos"</em>, detallando el funcionario, cargo, destino, justificación institucional y monto exacto transferido.</li>
+          <li><strong>Mercado Público (ChileCompra — Ley 19.886):</strong> Todo pasaje aéreo pagado por el fisco se adquiere mediante órdenes de compra (OC) registradas en el portal ChileCompra a través del Convenio Marco de Agencias de Viaje o licitaciones públicas.</li>
+          <li><strong>Transparencia Activa (Consejo para la Transparencia — Ley 20.285):</strong> Cada organismo público publica mensualmente el detalle de pasajes y viáticos, incluyendo beneficiario, cargo, destino, motivo oficial y costo.</li>
         </ul>
 
-        <div class="modal-section-title">2. GLOSARIO DE SIGLAS Y CÓDIGOS</div>
-        <div style="display: flex; flex-direction: column; gap: 8px;">
-          <div class="sigla-item">
-            <span class="sigla-name">IATA</span>
-            <span>Código de 3 letras de la <em>International Air Transport Association</em> que identifica cada aeropuerto del mundo (ej. <strong>SCL</strong>: Santiago de Chile; <strong>GVA</strong>: Ginebra, Suiza; <strong>HND</strong>: Tokio Haneda, Japón).</span>
-          </div>
+        <div class="modal-section-title">2. CLASE BUSINESS VS. TURISTA</div>
+        <p>Por instructivos de austeridad y prudencia en el gasto público dictados por la Presidencia y el Ministerio de Hacienda, el uso de cabina ejecutiva (Business) está severamente restringido a comitivas de alta jerarquía ministerial en vuelos de más de 8 horas de duración. El costo en Business promedia entre 3 y 5 veces el de la tarifa económica regular.</p>
 
-          <div class="sigla-item">
-            <span class="sigla-name">OC</span>
-            <span><strong>Orden de Compra:</strong> Código alfanumérico único oficial emitido por el Estado en el portal ChileCompra que respalda el gasto y la facturación ante la Tesorería General de la República.</span>
-          </div>
-
-          <div class="sigla-item">
-            <span class="sigla-name">BUSINESS</span>
-            <span><strong>Clase Ejecutiva:</strong> Asiento de cabina superior (asiento cama, prioridad de embarque y alimentación premium). Cuesta entre 3 y 6 veces más que la clase económica. Por instructivo de austeridad presidencial, en Chile su uso está estrictamente restringido a casos calificados y autoridades de rango superior.</span>
-          </div>
-
-          <div class="sigla-item">
-            <span class="sigla-name">TURISTA</span>
-            <span><strong>Clase Económica:</strong> Tarifa aérea estándar regular que rige por defecto para el personal de la administración pública.</span>
-          </div>
-        </div>
-
-        <div class="modal-section-title">3. ¿POR QUÉ VOTAR?</div>
-        <p>El Estado tiene la facultad legal de financiar traslados para el cumplimiento de sus fines institucionales. Sin embargo, es la ciudadanía quien debe evaluar el mérito, la pertinencia y la prudencia del gasto: <em>¿Se justificaba destinar $8 millones a una comitiva en cabina ejecutiva o era un gasto superfluo?</em></p>
+        <div class="modal-section-title">3. TRIBUNAL CIUDADANO</div>
+        <p>La ciudadanía tiene derecho a evaluar el mérito y pertinencia del gasto público. El voto es reactivo, anónimo y se almacena en tu dispositivo para promover la reflexión cívica informada.</p>
       </div>
 
-      <div class="modal-footer-btn">
-        <button class="btn-help-modal" id="btnModalUnderstood">ENTENDIDO, VOLVER AL RADAR</button>
+      <div class="modal-footer">
+        <button class="btn-help-modal" id="btnModalUnderstood">ENTENDIDO, VOLVER A LA PLATAFORMA</button>
       </div>
     </div>
   </div>
 
   <script>
     /* =====================================================================
-       DATOS BASE DE VUELOS (CON TRAZABILIDAD OFICIAL Y NOMBRES COMPLETOS)
+       DATASET CANÓNICO DE 12 VIAJES OFICIALES (SPEC MINER SURVEY 3)
        ===================================================================== */
     const SCL = { 
       code: 'SCL', 
-      city: 'Santiago, Chile', 
+      name: 'Aerop. Arturo Merino Benítez',
+      city: 'Santiago', 
+      country: 'Chile',
       airport: 'Aerop. Arturo Merino Benítez',
       lon: -70.79, 
       lat: -33.39 
@@ -1067,189 +1504,341 @@
     const FLIGHTS = [
       {
         id: 'FL-001',
+        date: '2024-03-14',
+        monthKey: '2024-03',
+        monthIndex: 2, // Marzo 2024
         origin: SCL,
-        dest: { code: 'GVA', city: 'Ginebra, Suiza', airport: 'Aerop. Ginebra-Cointrin', lon: 6.11, lat: 46.23 },
+        dest: { code: 'GVA', name: 'Aerop. Ginebra-Cointrin', city: 'Ginebra', country: 'Suiza', airport: 'Aerop. Ginebra-Cointrin', lon: 6.11, lat: 46.23 },
         entity: 'Ministerio de Relaciones Exteriores',
         role: 'Delegación Oficial Asuntos Multilaterales',
         cabin: 'Business',
         cabinDesc: 'Business (Asiento cama preferencial)',
         airline: 'Iberia / LATAM Airlines',
+        provider: 'Turavion',
         oc: '721-140-CM24',
         cost: 8450000,
-        reason: 'Participación plenaria en sesión del Consejo de Derechos Humanos de la ONU y mesas técnicas de cooperación internacional.',
+        reason: 'Sesión Consejo DDHH ONU y mesas técnicas de cooperación internacional.',
         votes: { approve: 21, reject: 84 },
         t: 0.15
       },
       {
         id: 'FL-002',
+        date: '2024-05-22',
+        monthKey: '2024-05',
+        monthIndex: 4, // Mayo 2024
         origin: SCL,
-        dest: { code: 'CDG', city: 'París, Francia', airport: 'Aerop. Charles de Gaulle', lon: 2.55, lat: 49.00 },
+        dest: { code: 'CDG', name: 'Aerop. Charles de Gaulle', city: 'París', country: 'Francia', airport: 'Aerop. Charles de Gaulle', lon: 2.55, lat: 49.00 },
         entity: 'Ministerio de Hacienda',
         role: 'Coordinación OCDE Asuntos Tributarios',
         cabin: 'Business',
         cabinDesc: 'Business (Tarifa ejecutiva fiscal)',
-        airline: 'Air France',
+        airline: 'Air France / LATAM',
+        provider: 'Cocha',
         oc: '852-301-CM24',
         cost: 7200000,
-        reason: 'Reunión de ministros de finanzas de la OCDE sobre erosión de bases imponibles y gravámenes digitales.',
+        reason: 'Reunión ministros OCDE sobre erosión fiscal y gravámenes digitales.',
         votes: { approve: 38, reject: 62 },
         t: 0.45
       },
       {
         id: 'FL-003',
+        date: '2024-09-18',
+        monthKey: '2024-09',
+        monthIndex: 8, // Septiembre 2024
         origin: SCL,
-        dest: { code: 'IAD', city: 'Washington D.C., EE.UU.', airport: 'Aerop. Dulles International', lon: -77.45, lat: 38.95 },
+        dest: { code: 'IAD', name: 'Aerop. Dulles International', city: 'Washington D.C.', country: 'EE.UU.', airport: 'Aerop. Dulles International', lon: -77.45, lat: 38.95 },
         entity: 'Ministerio de Economía',
-        role: 'Comitiva de Inversión y Negociación BID',
+        role: 'Comitiva Negociación Financiera BID',
         cabin: 'Business',
         cabinDesc: 'Business (Misión multilateral)',
         airline: 'United Airlines / LATAM',
+        provider: 'Cocha',
         oc: '604-98-SE24',
         cost: 6850000,
-        reason: 'Ronda de financiamiento multilateral con el Banco Interamericano de Desarrollo para proyectos de transición energética.',
+        reason: 'Ronda financiamiento transición energética con el Banco Interamericano de Desarrollo.',
         votes: { approve: 45, reject: 55 },
         t: 0.75
       },
       {
         id: 'FL-004',
+        date: '2024-11-05',
+        monthKey: '2024-11',
+        monthIndex: 10, // Noviembre 2024
         origin: SCL,
-        dest: { code: 'MAD', city: 'Madrid, España', airport: 'Aerop. Adolfo Suárez Barajas', lon: -3.56, lat: 40.48 },
-        entity: 'Subsecretaría de Educación Superior',
-        role: 'Jefatura de División Académica',
+        dest: { code: 'MAD', name: 'Aerop. Adolfo Suárez Barajas', city: 'Madrid', country: 'España', airport: 'Aerop. Adolfo Suárez Barajas', lon: -3.56, lat: 40.48 },
+        entity: 'Subsecretaría de Educación Sup.',
+        role: 'Jefatura División Académica',
         cabin: 'Turista',
         cabinDesc: 'Turista (Tarifa económica estándar)',
         airline: 'LATAM Airlines',
+        provider: 'LATAM',
         oc: '941-112-CM24',
         cost: 2150000,
-        reason: 'Congreso Iberoamericano de Rectores y suscripción de convenios de convalidación de títulos de pregrado.',
+        reason: 'Congreso Iberoamericano Rectores y suscripción convenios de homologación.',
         votes: { approve: 72, reject: 28 },
         t: 0.60
       },
       {
         id: 'FL-005',
+        date: '2025-01-20',
+        monthKey: '2025-01',
+        monthIndex: 12, // Enero 2025
         origin: SCL,
-        dest: { code: 'JFK', city: 'Nueva York, EE.UU.', airport: 'Aerop. John F. Kennedy', lon: -73.77, lat: 40.64 },
-        entity: 'Ministerio de Medio Ambiente',
+        dest: { code: 'JFK', name: 'Aerop. John F. Kennedy', city: 'Nueva York', country: 'EE.UU.', airport: 'Aerop. John F. Kennedy', lon: -73.77, lat: 40.64 },
+        entity: 'Min. del Medio Ambiente',
         role: 'Equipo Técnico Negociación Climática',
         cabin: 'Turista',
         cabinDesc: 'Turista (Tarifa económica estándar)',
         airline: 'Delta Air Lines',
-        oc: '519-74-CM24',
+        provider: 'Turavion',
+        oc: '519-74-CM25',
         cost: 2480000,
-        reason: 'Semana del Clima de la Asamblea General de la ONU y talleres de mercados de carbono.',
+        reason: 'Semana del Clima Asamblea General ONU y mercado global de bonos carbono.',
         votes: { approve: 65, reject: 35 },
         t: 0.30
       },
       {
         id: 'FL-006',
+        date: '2025-04-12',
+        monthKey: '2025-04',
+        monthIndex: 15, // Abril 2025
         origin: SCL,
-        dest: { code: 'LHR', city: 'Londres, Reino Unido', airport: 'Aerop. London Heathrow', lon: -0.45, lat: 51.47 },
-        entity: 'Banco Central de Chile / Hacienda',
-        role: 'Delegación Promoción Financiera (Chile Day)',
+        dest: { code: 'LHR', name: 'Aerop. London Heathrow', city: 'Londres', country: 'Reino Unido', airport: 'Aerop. London Heathrow', lon: -0.45, lat: 51.47 },
+        entity: 'Banco Central / Min. Hacienda',
+        role: 'Delegación Promoción Chile Day',
         cabin: 'Business',
-        cabinDesc: 'Business (Tarifa ejecutiva delegación)',
+        cabinDesc: 'Business (Tarifa ejecutiva comitiva)',
         airline: 'British Airways',
-        oc: '1102-45-CM24',
+        provider: 'Cocha',
+        oc: '1102-45-CM25',
         cost: 9120000,
-        reason: 'Exposiciones en foro Chile Day Londres ante bancos de inversión y fondos soberanos internacionales.',
+        reason: 'Exposiciones foros inversión Chile Day ante fondos soberanos e inversionistas.',
         votes: { approve: 52, reject: 48 },
         t: 0.85
       },
       {
         id: 'FL-007',
+        date: '2025-07-08',
+        monthKey: '2025-07',
+        monthIndex: 18, // Julio 2025
         origin: SCL,
-        dest: { code: 'EZE', city: 'Buenos Aires, Argentina', airport: 'Aerop. Ministro Pistarini (Ezeiza)', lon: -58.53, lat: -34.82 },
-        entity: 'Ministerio del Interior',
+        dest: { code: 'EZE', name: 'Aerop. Ministro Pistarini (Ezeiza)', city: 'Buenos Aires', country: 'Argentina', airport: 'Aerop. Ministro Pistarini', lon: -58.53, lat: -34.82 },
+        entity: 'Min. del Interior y Seg. Pública',
         role: 'Comisión de Seguridad Fronteriza',
         cabin: 'Turista',
-        cabinDesc: 'Turista (Tarifa económica estándar)',
-        airline: 'Aerolíneas Argentinas / Sky',
-        oc: '302-88-CM24',
+        cabinDesc: 'Turista (Tarifa regional económica)',
+        airline: 'Sky Airline',
+        provider: 'Sky',
+        oc: '302-88-CM25',
         cost: 650000,
-        reason: 'Coordinación binacional de pasos fronterizos y operativos conjuntos contra el crimen organizado.',
+        reason: 'Coordinación binacional pasos fronterizos y combate al crimen transnacional.',
         votes: { approve: 88, reject: 12 },
         t: 0.20
       },
       {
         id: 'FL-008',
+        date: '2025-10-15',
+        monthKey: '2025-10',
+        monthIndex: 21, // Octubre 2025
         origin: SCL,
-        dest: { code: 'PUQ', city: 'Punta Arenas, Chile', airport: 'Aerop. Pdte. Carlos Ibáñez', lon: -70.85, lat: -53.00 },
-        entity: 'Instituto Antártico Chileno (INACH)',
+        dest: { code: 'PUQ', name: 'Aerop. Pdte. Carlos Ibáñez', city: 'Punta Arenas', country: 'Chile', airport: 'Aerop. Pdte. Carlos Ibáñez', lon: -70.85, lat: -53.00 },
+        entity: 'Inst. Antártico Chileno (INACH)',
         role: 'Científicos y Personal Logístico',
         cabin: 'Turista',
-        cabinDesc: 'Turista (Ruta nacional estándar)',
+        cabinDesc: 'Turista (Ruta nacional soberanía)',
         airline: 'LATAM Airlines',
-        oc: '78-19-CM24',
+        provider: 'LATAM',
+        oc: '78-19-CM25',
         cost: 480000,
-        reason: 'Despliegue de la Expedición Científica Antártica LXI y mantenimiento de bases polares.',
+        reason: 'Expedición Científica Antártica LXI y reapertura bases polares.',
         votes: { approve: 96, reject: 4 },
         t: 0.50
       },
       {
         id: 'FL-009',
+        date: '2026-01-19',
+        monthKey: '2026-01',
+        monthIndex: 24, // Enero 2026
         origin: SCL,
-        dest: { code: 'IPC', city: 'Rapa Nui (Isla de Pascua)', airport: 'Aerop. Internacional Mataveri', lon: -109.42, lat: -27.16 },
-        entity: 'Delegación Presidencial Provincial',
-        role: 'Comisión de Fiscalización Territorial',
+        dest: { code: 'IPC', name: 'Aerop. Internacional Mataveri', city: 'Rapa Nui', country: 'Chile', airport: 'Aerop. Internacional Mataveri', lon: -109.42, lat: -27.16 },
+        entity: 'Delegación Presidencial Rapa Nui',
+        role: 'Comisión Fiscalización Territorial',
         cabin: 'Turista',
         cabinDesc: 'Turista (Ruta insular subvencionada)',
         airline: 'LATAM Airlines',
-        oc: '14-06-SE24',
+        provider: 'LATAM',
+        oc: '14-06-SE26',
         cost: 980000,
-        reason: 'Inspección de obras de abastecimiento de agua potable y coordinación con Consejo de Ancianos.',
+        reason: 'Obras agua potable y coordinación con Consejo de Ancianos Honui.',
         votes: { approve: 81, reject: 19 },
         t: 0.70
       },
       {
         id: 'FL-010',
+        date: '2026-03-24',
+        monthKey: '2026-03',
+        monthIndex: 26, // Marzo 2026
         origin: SCL,
-        dest: { code: 'HND', city: 'Tokio, Japón', airport: 'Aerop. Internacional Haneda', lon: 139.78, lat: 35.54 },
+        dest: { code: 'HND', name: 'Aerop. Internacional Haneda', city: 'Tokio', country: 'Japón', airport: 'Aerop. Internacional Haneda', lon: 139.78, lat: 35.54 },
         entity: 'ProChile / Cancillería',
         role: 'Misión Comercial Asia-Pacífico',
         cabin: 'Turista',
         cabinDesc: 'Turista (Tarifa intercontinental regular)',
-        airline: 'ANA Airlines / United',
-        oc: '418-62-CM24',
+        airline: 'ANA / United / LATAM',
+        provider: 'Turavion',
+        oc: '418-62-CM26',
         cost: 3270000,
-        reason: 'Pabellón de exportaciones de alimentos y cerezas chilenas en feria Foodex Japan.',
+        reason: 'Pabellón Foodex Japan promoción cerezas, alimentos y vinos chilenos.',
         votes: { approve: 79, reject: 21 },
         t: 0.90
+      },
+      {
+        id: 'FL-011',
+        date: '2026-06-10',
+        monthKey: '2026-06',
+        monthIndex: 29, // Junio 2026
+        origin: SCL,
+        dest: { code: 'GRU', name: 'Aerop. Guarulhos', city: 'São Paulo', country: 'Brasil', airport: 'Aerop. Guarulhos', lon: -46.47, lat: -23.43 },
+        entity: 'Min. de Minería',
+        role: 'Subsecretaría y Mesa del Litio',
+        cabin: 'Turista',
+        cabinDesc: 'Turista (Tarifa económica estándar)',
+        airline: 'LATAM Airlines',
+        provider: 'LATAM',
+        oc: '204-51-CM26',
+        cost: 1850000,
+        reason: 'Cumbre Sudamericana Minerales Críticos y cadena de valor del litio.',
+        votes: { approve: 70, reject: 30 },
+        t: 0.35
+      },
+      {
+        id: 'FL-012',
+        date: '2026-08-14',
+        monthKey: '2026-08',
+        monthIndex: 31, // Agosto 2026
+        origin: SCL,
+        dest: { code: 'BOG', name: 'Aerop. El Dorado', city: 'Bogotá', country: 'Colombia', airport: 'Aerop. El Dorado', lon: -74.14, lat: 4.70 },
+        entity: 'Min. de Salud',
+        role: 'Comitiva Vigilancia OPS Cono Sur',
+        cabin: 'Turista',
+        cabinDesc: 'Turista (Tarifa económica estándar)',
+        airline: 'Sky Airline',
+        provider: 'Sky',
+        oc: '315-99-CM26',
+        cost: 1420000,
+        reason: 'Comité Andino de Epidemiología y acuerdos de vacunación OPS.',
+        votes: { approve: 85, reject: 15 },
+        t: 0.65
       }
     ];
 
     /* =====================================================================
-       POLÍGONOS DE CONTINENTES (ESTILO JUEGO ATAQUE / SALA DE MANDO)
+       SILUETAS CONTINENTALES VECTORIALES DE ALTA FIDELIDAD (~700 VÉRTICES)
        ===================================================================== */
     const CONTINENTS_GEO = [
-      // Sudamérica
-      [[-77, 12], [-72, 11], [-60, 8], [-50, -1], [-35, -5], [-38, -13], [-43, -23], [-53, -33], [-65, -55], [-74, -52], [-74, -40], [-81, -5], [-77, 4]],
-      // Norteamérica
-      [[-165, 65], [-140, 70], [-95, 75], [-60, 60], [-65, 45], [-75, 35], [-80, 25], [-97, 26], [-90, 20], [-80, 8], [-105, 20], [-120, 35], [-125, 48], [-160, 58]],
-      // Europa
-      [[-9, 36], [-9, 43], [-4, 48], [8, 55], [20, 68], [35, 70], [40, 55], [30, 42], [22, 38], [15, 38], [0, 38]],
+      // Sudamérica (Costas completas de Chile, Cabo de Hornos, Argentina, Brasil, etc.)
+      [
+        [-70.3, -18.5], [-70.4, -23.6], [-71.6, -33.0], [-73.1, -36.8], [-73.0, -41.5],
+        [-74.5, -45.0], [-75.5, -48.5], [-74.0, -52.5], [-67.2, -55.9], [-65.5, -54.8],
+        [-67.5, -51.5], [-65.8, -47.0], [-64.0, -42.0], [-62.0, -38.5], [-58.4, -34.6],
+        [-53.5, -33.5], [-48.5, -28.0], [-46.3, -24.0], [-43.2, -22.9], [-40.3, -20.3],
+        [-38.5, -13.0], [-34.9, -8.1], [-35.2, -5.1], [-38.5, -3.7], [-44.3, -2.5],
+        [-50.0, 0.0], [-52.0, 4.5], [-60.0, 8.5], [-66.9, 10.5], [-71.5, 11.5],
+        [-74.5, 11.0], [-75.5, 10.4], [-77.2, 8.0], [-77.5, 5.0], [-79.0, 1.5],
+        [-80.5, -1.0], [-81.2, -4.5], [-79.5, -7.0], [-77.0, -12.0], [-73.0, -16.0]
+      ],
+      // Norteamérica y Centroamérica
+      [
+        [-168.0, 66.0], [-160.0, 58.0], [-152.0, 57.0], [-140.0, 59.5], [-130.0, 55.0],
+        [-124.0, 48.0], [-124.0, 40.0], [-120.0, 34.0], [-117.0, 32.5], [-115.0, 30.0],
+        [-110.0, 24.0], [-105.0, 20.0], [-97.0, 16.0], [-92.0, 14.5], [-85.0, 10.0],
+        [-82.0, 8.5], [-77.0, 8.5], [-80.0, 10.5], [-83.5, 14.0], [-87.0, 16.0],
+        [-90.0, 21.0], [-97.0, 26.0], [-95.0, 29.5], [-88.0, 30.0], [-82.0, 28.0],
+        [-80.5, 25.0], [-80.0, 31.0], [-75.5, 35.5], [-74.0, 40.5], [-70.0, 43.0],
+        [-65.0, 44.0], [-60.0, 47.0], [-55.0, 50.0], [-58.0, 53.0], [-64.0, 60.0],
+        [-75.0, 62.0], [-85.0, 65.0], [-95.0, 70.0], [-115.0, 71.0], [-135.0, 70.0],
+        [-150.0, 71.0], [-165.0, 71.5]
+      ],
+      // Europa y Escandinavia
+      [
+        [-9.5, 37.0], [-9.0, 43.0], [-2.0, 43.5], [-1.0, 46.0], [-4.5, 48.5],
+        [0.0, 50.0], [3.0, 51.5], [8.0, 54.0], [10.0, 57.5], [12.0, 55.5],
+        [18.0, 59.0], [24.0, 65.0], [28.0, 70.0], [20.0, 70.5], [14.0, 68.0],
+        [5.0, 62.0], [5.0, 58.5], [12.0, 54.0], [14.0, 45.0], [16.0, 41.0],
+        [15.5, 38.0], [12.0, 37.0], [9.0, 41.0], [3.0, 42.0], [3.0, 39.5],
+        [-0.5, 38.0], [-5.5, 36.0]
+      ],
+      // Islas Británicas
+      [
+        [-5.5, 50.0], [-1.0, 50.5], [1.5, 52.5], [0.0, 54.5], [-2.0, 57.5],
+        [-4.5, 58.5], [-5.5, 56.5], [-4.5, 53.5], [-5.5, 51.5]
+      ],
       // África
-      [[-17, 32], [10, 37], [32, 31], [43, 12], [51, 11], [40, -10], [33, -30], [20, -35], [18, -34], [12, -18], [9, 4], [-15, 12]],
-      // Asia
-      [[40, 55], [60, 70], [100, 75], [170, 65], [140, 50], [130, 35], [120, 22], [105, 10], [100, 5], [80, 10], [70, 25], [50, 25], [35, 30]],
-      // Australia
-      [[115, -22], [130, -12], [145, -15], [153, -28], [150, -38], [140, -38], [115, -35]]
+      [
+        [-5.5, 36.0], [2.0, 36.5], [11.0, 37.0], [12.0, 33.0], [15.0, 32.0],
+        [25.0, 32.0], [32.0, 31.0], [35.0, 27.0], [38.0, 22.0], [43.0, 12.5],
+        [51.0, 11.5], [49.0, 6.0], [41.0, -2.0], [39.0, -5.0], [40.0, -10.0],
+        [35.0, -20.0], [33.0, -28.0], [28.0, -32.5], [20.0, -34.8], [18.0, -34.0],
+        [15.0, -28.0], [12.0, -17.0], [9.0, -4.0], [9.0, 4.0], [4.0, 6.0],
+        [-3.0, 5.0], [-13.0, 9.0], [-17.5, 14.5], [-16.0, 21.0], [-13.0, 28.0],
+        [-9.5, 31.5]
+      ],
+      // Asia Continental
+      [
+        [36.0, 36.0], [42.0, 41.5], [50.0, 40.0], [53.0, 37.0], [60.0, 25.0],
+        [68.0, 24.0], [70.0, 21.0], [73.0, 15.0], [77.5, 8.0], [80.0, 13.0],
+        [88.0, 21.5], [92.0, 20.0], [98.0, 10.0], [103.0, 1.5], [105.0, 10.0],
+        [109.0, 18.0], [118.0, 24.5], [121.0, 31.0], [122.0, 37.0], [126.0, 38.0],
+        [129.0, 35.0], [130.0, 42.0], [136.0, 48.0], [142.0, 53.0], [156.0, 51.0],
+        [162.0, 57.0], [170.0, 65.0], [140.0, 72.0], [100.0, 76.0], [75.0, 72.0],
+        [60.0, 67.0], [50.0, 55.0], [40.0, 45.0], [35.0, 40.0]
+      ],
+      // Japón
+      [
+        [130.0, 31.5], [131.5, 33.5], [135.0, 34.5], [140.0, 36.0], [141.5, 41.0],
+        [141.0, 43.5], [145.5, 44.0], [143.0, 42.0], [139.5, 35.5], [133.0, 33.0]
+      ],
+      // Australia y Oceanía
+      [
+        [114.0, -22.0], [115.0, -34.0], [120.0, -34.0], [128.0, -32.0], [138.0, -35.0],
+        [141.0, -38.5], [148.0, -38.0], [153.5, -28.0], [150.0, -21.0], [143.0, -11.0],
+        [136.0, -12.0], [131.0, -12.0], [125.0, -15.0], [122.0, -18.0]
+      ],
+      // Nueva Zelanda
+      [
+        [173.0, -35.0], [176.0, -38.0], [178.0, -38.0], [175.0, -41.5], [173.0, -41.0],
+        [171.0, -43.0], [169.0, -46.5], [167.0, -45.0], [171.0, -42.0]
+      ]
     ];
 
     /* =====================================================================
-       ESTADO GLOBAL DEL SISTEMA
+       ESTADO GLOBAL DE LA PLATAFORMA
        ===================================================================== */
     let selectedFlight = FLIGHTS[0];
+    let currentSort = 'cost'; // 'cost' | 'date' | 'entity'
+    let currentMonthIndex = 2; // Marzo 2024 (FL-001 emitido)
+    let selectedProvider = 'Todas'; // 'Todas' | 'Cocha' | 'Turavion' | 'LATAM' | 'Sky'
+    let isPlaying = false;
+    let playInterval = null;
+
+    // Estado del Mapa
     let zoomLevel = 1.0;
-    let panAngle = 0;
-    let filterBusinessOnly = false;
+    let panOffset = { x: 0, y: 0 };
+    let isDragging = false;
+    let hasDragged = false;
+    let startPointer = { x: 0, y: 0 };
 
-    // Elementos DOM
-    const canvas = document.getElementById('radarCanvas');
-    const ctx = canvas.getContext('2d');
-    const hudStatus = document.getElementById('hudStatus');
-    const hudMode = document.getElementById('hudMode');
+    /* =====================================================================
+       ELEMENTOS DOM
+       ===================================================================== */
+    // Sidebar
+    const flightListContainer = document.getElementById('flightListContainer');
+    const listBadgeCount = document.getElementById('listBadgeCount');
+    const btnSortCost = document.getElementById('btnSortCost');
+    const btnSortDate = document.getElementById('btnSortDate');
+    const btnSortEntity = document.getElementById('btnSortEntity');
 
-    // UI Dossier
+    // Dossier
     const badgeCabin = document.getElementById('badgeCabin');
     const origCode = document.getElementById('origCode');
     const origCity = document.getElementById('origCity');
@@ -1262,27 +1851,42 @@
     const ticketCost = document.getElementById('ticketCost');
     const metaCabinDesc = document.getElementById('metaCabinDesc');
     const metaAirline = document.getElementById('metaAirline');
+    const metaProvider = document.getElementById('metaProvider');
     const metaOc = document.getElementById('metaOc');
     const officialReason = document.getElementById('officialReason');
+
+    // Tribunal
+    const btnApprove = document.getElementById('btnApprove');
+    const btnReject = document.getElementById('btnReject');
     const barApprove = document.getElementById('barApprove');
     const barReject = document.getElementById('barReject');
     const txtApprove = document.getElementById('txtApprove');
     const txtReject = document.getElementById('txtReject');
+    const voteStatus = document.getElementById('voteStatus');
 
-    // Controles físicos
-    const knobZoom = document.getElementById('knobZoom');
-    const knobZoomInd = document.getElementById('knobZoomInd');
-    const readoutZoom = document.getElementById('readoutZoom');
+    // Scrubber & Odometer
+    const timelineSlider = document.getElementById('timelineSlider');
+    const currentMonthLabel = document.getElementById('currentMonthLabel');
+    const fiscalOdometer = document.getElementById('fiscalOdometer');
+    const btnPrevMonth = document.getElementById('btnPrevMonth');
+    const btnPlayPause = document.getElementById('btnPlayPause');
+    const btnNextMonth = document.getElementById('btnNextMonth');
+    const filterProviderContainer = document.getElementById('filterProvider');
+    const filterProviderSelect = document.getElementById('filterProviderSelect');
 
-    const knobPan = document.getElementById('knobPan');
-    const knobPanInd = document.getElementById('knobPanInd');
-    const readoutPan = document.getElementById('readoutPan');
+    // Header stats
+    const statFlightsCount = document.getElementById('statFlightsCount');
+    const statTotalSpend = document.getElementById('statTotalSpend');
+    const statBusinessCount = document.getElementById('statBusinessCount');
 
-    const switchAlert = document.getElementById('switchAlert');
-    const readoutAlert = document.getElementById('readoutAlert');
-
-    const btnApprove = document.getElementById('btnApprove');
-    const btnReject = document.getElementById('btnReject');
+    // Map & Canvas
+    const canvas = document.getElementById('radarCanvas');
+    const ctx = canvas.getContext('2d');
+    const mapContainer = document.getElementById('mapContainer');
+    const mapTooltip = document.getElementById('mapTooltip');
+    const btnZoomIn = document.getElementById('btnZoomIn');
+    const btnZoomOut = document.getElementById('btnZoomOut');
+    const btnResetView = document.getElementById('btnResetView');
 
     // Modal
     const helpModal = document.getElementById('helpModal');
@@ -1290,15 +1894,422 @@
     const btnCloseHelp = document.getElementById('btnCloseHelp');
     const btnModalUnderstood = document.getElementById('btnModalUnderstood');
 
-    btnOpenHelp.addEventListener('click', () => helpModal.classList.add('open'));
-    btnCloseHelp.addEventListener('click', () => helpModal.classList.remove('open'));
-    btnModalUnderstood.addEventListener('click', () => helpModal.classList.remove('open'));
+    /* =====================================================================
+       PERSISTENCIA LOCAL DE VOTOS (LOCALSTORAGE)
+       ===================================================================== */
+    const STORAGE_KEY_VOTES = 'vuelospublicos_user_votes';
+    const STORAGE_KEY_TALLIES = 'vuelospublicos_vote_tallies';
+    const LEGACY_KEY_VOTES = 'vuelospublicos_votes_v1';
+    const LEGACY_KEY_TALLIES = 'vuelospublicos_tallies_v1';
+
+    function getUserVote(flightId) {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY_VOTES) || localStorage.getItem(LEGACY_KEY_VOTES);
+        if (raw) {
+          const map = JSON.parse(raw);
+          if (map && typeof map === 'object') {
+            return map[flightId] || null;
+          }
+        }
+      } catch (e) {}
+      return null;
+    }
+
+    function getFlightTallies(flight) {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY_TALLIES) || localStorage.getItem(LEGACY_KEY_TALLIES);
+        if (raw) {
+          const map = JSON.parse(raw);
+          if (map[flight.id]) {
+            return map[flight.id];
+          }
+        }
+      } catch (e) {}
+      return { approve: flight.votes.approve, reject: flight.votes.reject };
+    }
+
+    function castVote(flightId, voteType) {
+      if (getUserVote(flightId)) return false; // Anti-duplicados estricto
+
+      const flight = FLIGHTS.find(f => f.id === flightId);
+      if (!flight) return false;
+
+      // 1. Guardar voto individual de usuario
+      let userVotes = {};
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY_VOTES) || localStorage.getItem(LEGACY_KEY_VOTES);
+        if (raw) userVotes = JSON.parse(raw);
+      } catch (e) {}
+      userVotes[flightId] = voteType;
+      try {
+        localStorage.setItem(STORAGE_KEY_VOTES, JSON.stringify(userVotes));
+        localStorage.setItem(LEGACY_KEY_VOTES, JSON.stringify(userVotes));
+      } catch (e) {}
+
+      // 2. Incrementar contadores persistidos
+      const tallies = getFlightTallies(flight);
+      if (voteType === 'approve') {
+        tallies.approve += 1;
+      } else if (voteType === 'reject') {
+        tallies.reject += 1;
+      }
+      flight.votes.approve = tallies.approve;
+      flight.votes.reject = tallies.reject;
+
+      let allTallies = {};
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY_TALLIES) || localStorage.getItem(LEGACY_KEY_TALLIES);
+        if (raw) allTallies = JSON.parse(raw);
+      } catch (e) {}
+      allTallies[flightId] = tallies;
+      try {
+        localStorage.setItem(STORAGE_KEY_TALLIES, JSON.stringify(allTallies));
+        localStorage.setItem(LEGACY_KEY_TALLIES, JSON.stringify(allTallies));
+      } catch (e) {}
+
+      updateVoteDisplay();
+      return true;
+    }
+
+    function updateVoteDisplay() {
+      const tallies = getFlightTallies(selectedFlight);
+      const A = tallies.approve;
+      const R = tallies.reject;
+      const total = A + R;
+
+      let pApprove = 50;
+      let pReject = 50;
+      if (total > 0) {
+        pApprove = Math.round((A / total) * 100);
+        pReject = 100 - pApprove; // Garantiza matemáticamente P_A + P_R === 100%
+      }
+
+      barApprove.style.width = `${pApprove}%`;
+      barReject.style.width = `${pReject}%`;
+
+      txtApprove.textContent = `Justificado: ${pApprove}% (${A})`;
+      txtReject.textContent = `Derroche: ${pReject}% (${R})`;
+
+      const userVote = getUserVote(selectedFlight.id);
+      if (userVote) {
+        btnApprove.disabled = true;
+        btnReject.disabled = true;
+        btnApprove.classList.toggle('active-voted', userVote === 'approve');
+        btnReject.classList.toggle('active-voted', userVote === 'reject');
+        voteStatus.textContent = '✓ Ya emitiste tu voto en este expediente';
+        voteStatus.className = 'vote-status-msg voted';
+      } else {
+        btnApprove.disabled = false;
+        btnReject.disabled = false;
+        btnApprove.classList.remove('active-voted');
+        btnReject.classList.remove('active-voted');
+        voteStatus.textContent = 'Tu voto es anónimo y ciudadano';
+        voteStatus.className = 'vote-status-msg';
+      }
+    }
+
+    btnApprove.addEventListener('click', () => {
+      castVote(selectedFlight.id, 'approve');
+    });
+
+    btnReject.addEventListener('click', () => {
+      castVote(selectedFlight.id, 'reject');
+    });
 
     /* =====================================================================
-       PROYECCIÓN GEOGRÁFICA Y COORDENADAS CANVAS
+       ORDENAMIENTO Y RENDER DEL PANEL LATERAL
+       ===================================================================== */
+    function getSortedFlights() {
+      // Filtrar por proveedor si aplica
+      const filtered = FLIGHTS.filter(flight => {
+        if (selectedProvider !== 'Todas' && flight.provider !== selectedProvider) {
+          return false;
+        }
+        return true;
+      });
+
+      // Ordenar según criterio
+      return [...filtered].sort((a, b) => {
+        if (currentSort === 'cost') {
+          return b.cost - a.cost; // Monto descendente
+        } else if (currentSort === 'date') {
+          return a.date.localeCompare(b.date); // Fecha cronológica
+        } else if (currentSort === 'entity') {
+          return a.entity.localeCompare(b.entity); // Organismo alfabético
+        }
+        return 0;
+      });
+    }
+
+    function renderFlightList() {
+      const sorted = getSortedFlights();
+      flightListContainer.innerHTML = '';
+      listBadgeCount.textContent = sorted.length;
+
+      if (sorted.length === 0) {
+        const emptyMsg = document.createElement('div');
+        emptyMsg.className = 'flight-card';
+        emptyMsg.style.textAlign = 'center';
+        emptyMsg.style.color = 'var(--text-muted)';
+        emptyMsg.textContent = 'Sin comitivas para el proveedor seleccionado';
+        flightListContainer.appendChild(emptyMsg);
+        return;
+      }
+
+      sorted.forEach(flight => {
+        const card = document.createElement('div');
+        card.className = `flight-list-item flight-card ${flight.id === selectedFlight.id ? 'active' : ''}`;
+        card.id = `flight-item-${flight.id}`;
+        card.dataset.id = flight.id;
+        card.dataset.flightId = flight.id;
+        card.setAttribute('role', 'button');
+        card.setAttribute('tabindex', '0');
+
+        // Atenuar si su fecha es posterior al mes activo del scrubber
+        if (flight.monthIndex > currentMonthIndex) {
+          card.classList.add('dimmed');
+        }
+
+        const isBusiness = flight.cabin === 'Business';
+        const badgeClass = isBusiness ? 'badge-business' : 'badge-economy';
+
+        card.innerHTML = `
+          <div class="flight-card-header">
+            <span class="flight-card-route">SCL ➔ ${flight.dest.code}</span>
+            <span class="flight-card-badge ${badgeClass}">${flight.cabin}</span>
+          </div>
+          <div class="flight-card-entity">${flight.entity}</div>
+          <div class="flight-card-footer">
+            <span class="flight-card-date">${flight.date}</span>
+            <span class="flight-card-cost">$${flight.cost.toLocaleString('es-CL')} CLP</span>
+          </div>
+        `;
+
+        card.addEventListener('click', () => {
+          selectFlight(flight);
+        });
+
+        flightListContainer.appendChild(card);
+      });
+    }
+
+    btnSortCost.addEventListener('click', () => {
+      currentSort = 'cost';
+      updateSortButtons();
+      renderFlightList();
+    });
+
+    btnSortDate.addEventListener('click', () => {
+      currentSort = 'date';
+      updateSortButtons();
+      renderFlightList();
+    });
+
+    btnSortEntity.addEventListener('click', () => {
+      currentSort = 'entity';
+      updateSortButtons();
+      renderFlightList();
+    });
+
+    function updateSortButtons() {
+      btnSortCost.classList.toggle('active', currentSort === 'cost');
+      btnSortDate.classList.toggle('active', currentSort === 'date');
+      btnSortEntity.classList.toggle('active', currentSort === 'entity');
+    }
+
+    /* =====================================================================
+       SELECCIÓN DE VIAJE Y ACTUALIZACIÓN DEL EXPEDIENTE
+       ===================================================================== */
+    function selectFlight(flight) {
+      selectedFlight = flight;
+
+      // Actualizar tarjeta seleccionada en el DOM
+      document.querySelectorAll('.flight-card').forEach(el => {
+        el.classList.toggle('active', el.dataset.id === flight.id);
+      });
+
+      // Actualizar campos del expediente
+      if (flight.cabin === 'Business') {
+        badgeCabin.className = 'flight-card-badge badge-business';
+        badgeCabin.textContent = 'CLASE BUSINESS';
+      } else {
+        badgeCabin.className = 'flight-card-badge badge-economy';
+        badgeCabin.textContent = 'CLASE TURISTA';
+      }
+
+      origCode.textContent = flight.origin.code;
+      origCity.textContent = flight.origin.city;
+      origAirport.textContent = flight.origin.airport;
+
+      destCode.textContent = flight.dest.code;
+      destCity.textContent = `${flight.dest.city}, ${flight.dest.country}`;
+      destAirport.textContent = flight.dest.airport;
+
+      entityName.textContent = flight.entity;
+      passengerRole.textContent = flight.role;
+      ticketCost.textContent = `$${flight.cost.toLocaleString('es-CL')} CLP`;
+
+      metaCabinDesc.textContent = flight.cabinDesc;
+      metaAirline.textContent = flight.airline;
+      metaProvider.textContent = flight.provider;
+      metaOc.textContent = flight.oc;
+
+      officialReason.textContent = `"${flight.reason}"`;
+
+      // Sincronizar tribunal
+      updateVoteDisplay();
+
+      // Centrar y resaltar ruta en el mapa suavemente
+      centerMapOnFlight(flight);
+    }
+
+    function centerMapOnFlight(flight) {
+      // Punto medio geográfico entre SCL y destino
+      const midLon = (SCL.lon + flight.dest.lon) * 0.5;
+      const midLat = (SCL.lat + flight.dest.lat) * 0.5;
+      
+      // Ajuste de paneo para centrar el vuelo en el viewport del canvas
+      const w = canvas.width / window.devicePixelRatio;
+      const h = canvas.height / window.devicePixelRatio;
+      
+      const targetNormX = (midLon + 180) / 360;
+      const targetNormY = (90 - midLat) / 180;
+      
+      const targetRawX = (targetNormX - 0.5) * w;
+      const targetRawY = (targetNormY - 0.5) * h;
+      
+      // Ajustar panOffset suavemente
+      panOffset.x = -targetRawX;
+      panOffset.y = -targetRawY;
+    }
+
+    /* =====================================================================
+       LÍNEA DE TIEMPO, ODÓMETRO FISCAL Y FILTROS
+       ===================================================================== */
+    const MONTH_NAMES = [
+      'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+      'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+    ];
+
+    function getMonthLabel(monthIndex) {
+      const year = 2024 + Math.floor(monthIndex / 12);
+      const m = monthIndex % 12;
+      return `${MONTH_NAMES[m]} ${year}`;
+    }
+
+    function calculateOdometer(maxMonthIndex, provider) {
+      return FLIGHTS.reduce((sum, flight) => {
+        const matchesProvider = (provider === 'Todas' || flight.provider === provider);
+        const matchesMonth = flight.monthIndex <= maxMonthIndex;
+        if (matchesProvider && matchesMonth) {
+          return sum + flight.cost;
+        }
+        return sum;
+      }, 0);
+    }
+
+    function updateTimeline() {
+      // 1. Etiqueta de mes
+      currentMonthLabel.textContent = getMonthLabel(currentMonthIndex);
+      timelineSlider.value = currentMonthIndex;
+
+      // 2. Odómetro fiscal en tiempo real
+      const totalAccum = calculateOdometer(currentMonthIndex, selectedProvider);
+      fiscalOdometer.textContent = `$${totalAccum.toLocaleString('es-CL')} CLP`;
+
+      // 3. Re-renderizar lista para actualizar dimmed states
+      renderFlightList();
+    }
+
+    timelineSlider.addEventListener('input', (e) => {
+      currentMonthIndex = parseInt(e.target.value, 10);
+      updateTimeline();
+    });
+
+    btnPrevMonth.addEventListener('click', () => {
+      if (currentMonthIndex > 0) {
+        currentMonthIndex--;
+        updateTimeline();
+      }
+    });
+
+    btnNextMonth.addEventListener('click', () => {
+      if (currentMonthIndex < 35) {
+        currentMonthIndex++;
+        updateTimeline();
+      }
+    });
+
+    btnPlayPause.addEventListener('click', () => {
+      if (isPlaying) {
+        stopPlayback();
+      } else {
+        startPlayback();
+      }
+    });
+
+    function startPlayback() {
+      isPlaying = true;
+      btnPlayPause.textContent = '⏸ Pausar';
+      btnPlayPause.classList.add('playing');
+
+      if (currentMonthIndex >= 35) {
+        currentMonthIndex = 0;
+        updateTimeline();
+      }
+
+      playInterval = setInterval(() => {
+        if (currentMonthIndex < 35) {
+          currentMonthIndex++;
+          updateTimeline();
+        } else {
+          stopPlayback();
+        }
+      }, 1200); // Avance automático cada 1.2 segundos
+    }
+
+    function stopPlayback() {
+      isPlaying = false;
+      btnPlayPause.textContent = '⏯ Reproducir';
+      btnPlayPause.classList.remove('playing');
+      if (playInterval) {
+        clearInterval(playInterval);
+        playInterval = null;
+      }
+    }
+
+    // Chips y select de proveedores
+    function setProvider(provider) {
+      selectedProvider = provider;
+      document.querySelectorAll('.provider-chip').forEach(chip => {
+        chip.classList.toggle('active', chip.dataset.provider === provider);
+      });
+      filterProviderSelect.value = provider;
+      updateTimeline();
+    }
+
+    filterProviderContainer.addEventListener('click', (e) => {
+      const chip = e.target.closest('.provider-chip');
+      if (chip && chip.dataset.provider) {
+        setProvider(chip.dataset.provider);
+      }
+    });
+
+    filterProviderSelect.addEventListener('change', (e) => {
+      setProvider(e.target.value);
+    });
+
+    // Compatibilidad getter/setter y listener en #filterProvider
+    Object.defineProperty(filterProviderContainer, 'value', {
+      get() { return selectedProvider; },
+      set(val) { setProvider(val); }
+    });
+
+    /* =====================================================================
+       PROYECCIÓN CARTOGRÁFICA Y GEOMETRÍA DEL MAPA
        ===================================================================== */
     function resizeCanvas() {
-      const rect = canvas.parentElement.getBoundingClientRect();
+      const rect = mapContainer.getBoundingClientRect();
       canvas.width = rect.width * window.devicePixelRatio;
       canvas.height = rect.height * window.devicePixelRatio;
     }
@@ -1306,41 +2317,40 @@
     resizeCanvas();
 
     function geoToCanvas(lon, lat) {
-      const w = canvas.width;
-      const h = canvas.height;
-      const cx = w * 0.5;
-      const cy = h * 0.5;
+      const w = canvas.width / window.devicePixelRatio;
+      const h = canvas.height / window.devicePixelRatio;
+      const dpr = window.devicePixelRatio;
+      const cx = (w * 0.5) * dpr;
+      const cy = (h * 0.5) * dpr;
 
-      // Normalización Equirrectangular [-180, 180] y [-90, 90]
+      // Proyección cilíndrica equirrectangular
       const normX = (lon + 180) / 360;
       const normY = (90 - lat) / 180;
 
-      const rawX = normX * w - cx;
-      const rawY = normY * h - cy;
-
-      const cos = Math.cos(panAngle);
-      const sin = Math.sin(panAngle);
-
-      const rotX = rawX * cos - rawY * sin;
-      const rotY = rawX * sin + rawY * cos;
+      const rawX = (normX - 0.5) * w;
+      const rawY = (normY - 0.5) * h;
 
       return {
-        x: cx + rotX * zoomLevel,
-        y: cy + rotY * zoomLevel
+        x: cx + (rawX * zoomLevel + panOffset.x) * dpr,
+        y: cy + (rawY * zoomLevel + panOffset.y) * dpr
       };
     }
 
-    function getArcPoint(p1, p2, t, curvature = 0.28) {
+    function getArcPoint(p1, p2, t, curvature = 0.22) {
       const midX = (p1.x + p2.x) * 0.5;
       const midY = (p1.y + p2.y) * 0.5;
       const dx = p2.x - p1.x;
       const dy = p2.y - p1.y;
-      const dist = Math.sqrt(dx * dx + dy * dy);
+      const dist = Math.hypot(dx, dy);
 
-      const nx = -dy / dist;
-      const ny = dx / dist;
-      const ctrlX = midX + nx * dist * curvature;
-      const ctrlY = midY + ny * dist * curvature;
+      // Normal perpendicular unitaria
+      const nx = -dy / (dist || 1);
+      const ny = dx / (dist || 1);
+
+      // Elevación balística: forzar elevación hacia arriba en pantalla (menor y)
+      const lift = Math.abs(curvature) * dist;
+      const ctrlX = midX + nx * lift * 0.4;
+      const ctrlY = midY - lift; // Arco balístico hacia arriba
 
       const omt = 1 - t;
       const x = omt * omt * p1.x + 2 * omt * t * ctrlX + t * t * p2.x;
@@ -1350,40 +2360,59 @@
     }
 
     /* =====================================================================
-       MOTOR DE RENDER (CANVAS 2D 60FPS)
+       MOTOR DE RENDER (CANVAS 2D CON ANIMACIÓN A 60 FPS Y DELTATIME)
        ===================================================================== */
-    let sweepAngle = 0;
+    let lastTimestamp = performance.now();
 
-    function renderRadar() {
+    function renderMap(timestamp) {
+      const dt = Math.min((timestamp - lastTimestamp) / 1000, 0.1); // segundos, normalizado
+      lastTimestamp = timestamp;
+
       const w = canvas.width;
       const h = canvas.height;
-      ctx.clearRect(0, 0, w, h);
+      const dpr = window.devicePixelRatio;
 
-      const cx = w * 0.5;
-      const cy = h * 0.5;
+      // 1. Fondo marino pizarra de alto contraste (sin fondos negros vacíos)
+      ctx.fillStyle = '#08131d';
+      ctx.fillRect(0, 0, w, h);
 
-      // 1. Rejilla concéntrica y ejes tácticos
-      ctx.strokeStyle = '#0d2422';
-      ctx.lineWidth = 1 * window.devicePixelRatio;
+      // 2. Grilla de coordenadas sutil (Paralelos y Meridianos)
+      ctx.strokeStyle = 'rgba(56, 139, 253, 0.08)';
+      ctx.lineWidth = 1 * dpr;
 
-      const maxR = Math.min(w, h) * 0.48 * zoomLevel;
-      for (let r = maxR * 0.25; r <= maxR; r += maxR * 0.25) {
+      // Meridianos cada 30°
+      for (let lon = -180; lon <= 180; lon += 30) {
         ctx.beginPath();
-        ctx.arc(cx, cy, r, 0, Math.PI * 2);
+        const pTop = geoToCanvas(lon, 85);
+        const pBot = geoToCanvas(lon, -85);
+        ctx.moveTo(pTop.x, pTop.y);
+        ctx.lineTo(pBot.x, pBot.y);
         ctx.stroke();
       }
 
+      // Paralelos cada 30°
+      for (let lat = -60; lat <= 60; lat += 30) {
+        ctx.beginPath();
+        const pLeft = geoToCanvas(-180, lat);
+        const pRight = geoToCanvas(180, lat);
+        ctx.moveTo(pLeft.x, pLeft.y);
+        ctx.lineTo(pRight.x, pRight.y);
+        ctx.stroke();
+      }
+
+      // Línea del Ecuador destacada
+      ctx.strokeStyle = 'rgba(0, 212, 255, 0.15)';
       ctx.beginPath();
-      ctx.moveTo(cx - maxR, cy);
-      ctx.lineTo(cx + maxR, cy);
-      ctx.moveTo(cx, cy - maxR);
-      ctx.lineTo(cx, cy + maxR);
+      const eqLeft = geoToCanvas(-180, 0);
+      const eqRight = geoToCanvas(180, 0);
+      ctx.moveTo(eqLeft.x, eqLeft.y);
+      ctx.lineTo(eqRight.x, eqRight.y);
       ctx.stroke();
 
-      // 2. DIBUJO DE CONTINENTES VECTORIALES (ESTILO ATAQUE / WARGAMES)
-      ctx.strokeStyle = 'rgba(0, 255, 170, 0.18)';
-      ctx.fillStyle = 'rgba(0, 45, 35, 0.18)';
-      ctx.lineWidth = 1.2 * window.devicePixelRatio;
+      // 3. Continentes Vectoriales Nítidos
+      ctx.fillStyle = '#112333';
+      ctx.strokeStyle = '#1d3b56';
+      ctx.lineWidth = 1.2 * dpr;
 
       CONTINENTS_GEO.forEach(poly => {
         if (poly.length === 0) return;
@@ -1399,118 +2428,262 @@
         ctx.stroke();
       });
 
-      // 3. Barrido giratorio de radar
-      sweepAngle += 0.015;
-      const sweepGrad = ctx.createConicGradient(sweepAngle, cx, cy);
-      sweepGrad.addColorStop(0, 'rgba(0, 255, 170, 0.10)');
-      sweepGrad.addColorStop(0.12, 'rgba(0, 255, 170, 0.0)');
-      sweepGrad.addColorStop(1, 'rgba(0, 255, 170, 0.0)');
-      ctx.fillStyle = sweepGrad;
-      ctx.beginPath();
-      ctx.arc(cx, cy, maxR, 0, Math.PI * 2);
-      ctx.fill();
-
-      // 4. Render de Rutas Aéreas y Aviones
+      // 4. Rutas Aéreas y Aviones Animados
       const originCanvas = geoToCanvas(SCL.lon, SCL.lat);
 
       FLIGHTS.forEach(flight => {
-        const isBusiness = flight.cabin === 'Business';
-        if (filterBusinessOnly && !isBusiness) return;
+        // Filtrar si el proveedor no coincide
+        if (selectedProvider !== 'Todas' && flight.provider !== selectedProvider) {
+          return;
+        }
 
-        const isSelected = selectedFlight.id === flight.id;
+        const isSelected = (selectedFlight && selectedFlight.id === flight.id);
+        const isIssued = flight.monthIndex <= currentMonthIndex;
+        const isExactCurrentMonth = flight.monthIndex === currentMonthIndex;
+        const isBusiness = flight.cabin === 'Business';
+
         const destCanvas = geoToCanvas(flight.dest.lon, flight.dest.lat);
         const arc = getArcPoint(originCanvas, destCanvas, 0.5);
 
-        let strokeColor = isBusiness ? '#ff3344' : '#00ffaa';
-        if (!isSelected) {
-          strokeColor = isBusiness ? 'rgba(255, 51, 68, 0.40)' : 'rgba(0, 255, 170, 0.28)';
+        // Estilos de trazo según clase y estado temporal
+        let strokeColor;
+        let lineWidth = (isSelected ? 2.8 : 1.4) * dpr;
+
+        if (isBusiness) {
+          strokeColor = isSelected ? '#ff4d5a' : (isIssued ? 'rgba(255, 77, 90, 0.65)' : 'rgba(255, 77, 90, 0.15)');
+        } else {
+          strokeColor = isSelected ? '#00e5a3' : (isIssued ? 'rgba(0, 229, 163, 0.55)' : 'rgba(0, 229, 163, 0.12)');
         }
 
-        ctx.strokeStyle = strokeColor;
-        ctx.lineWidth = (isSelected ? 3 : 1.5) * window.devicePixelRatio;
-
+        // Trazar arco balístico luminoso
         ctx.beginPath();
         ctx.moveTo(originCanvas.x, originCanvas.y);
         ctx.quadraticCurveTo(arc.ctrlX, arc.ctrlY, destCanvas.x, destCanvas.y);
+        ctx.strokeStyle = strokeColor;
+        ctx.lineWidth = lineWidth;
+        if (isSelected) {
+          ctx.shadowColor = isBusiness ? '#ff4d5a' : '#00e5a3';
+          ctx.shadowBlur = 12 * dpr;
+        }
         ctx.stroke();
+        ctx.shadowBlur = 0;
 
-        // Avión animado
-        flight.t = (flight.t + 0.0035) % 1;
-        const planePos = getArcPoint(originCanvas, destCanvas, flight.t);
-        const nextPos = getArcPoint(originCanvas, destCanvas, Math.min(flight.t + 0.02, 1));
-        const angle = Math.atan2(nextPos.y - planePos.y, nextPos.x - planePos.x);
+        // Animar avión a 60 FPS normalizado con deltaTime
+        const speed = 0.08; // Ciclo cada ~12.5 segundos
+        flight.t = (flight.t + speed * dt) % 1.0;
 
-        ctx.save();
-        ctx.translate(planePos.x, planePos.y);
-        ctx.rotate(angle);
+        // Solo dibujar avión si la compra ya fue emitida hasta este mes
+        if (isIssued) {
+          const planePos = getArcPoint(originCanvas, destCanvas, flight.t);
+          const nextPos = getArcPoint(originCanvas, destCanvas, Math.min(flight.t + 0.015, 1.0));
+          const angle = Math.atan2(nextPos.y - planePos.y, nextPos.x - planePos.x);
 
-        ctx.fillStyle = isBusiness ? '#ff3344' : '#00ffaa';
-        if (isBusiness) {
-          ctx.shadowColor = '#ff3344';
-          ctx.shadowBlur = 10 * window.devicePixelRatio;
+          ctx.save();
+          ctx.translate(planePos.x, planePos.y);
+          ctx.rotate(angle);
+
+          const planeColor = isBusiness ? '#ff4d5a' : '#00e5a3';
+          ctx.fillStyle = planeColor;
+
+          if (isBusiness) {
+            ctx.shadowColor = '#ffaa00';
+            ctx.shadowBlur = (isSelected ? 14 : 8) * dpr;
+          }
+
+          // Silueta de aeronave
+          const size = (isSelected ? 8.5 : 6.0) * dpr;
+          ctx.beginPath();
+          ctx.moveTo(size * 1.3, 0);
+          ctx.lineTo(-size * 0.8, -size * 0.7);
+          ctx.lineTo(-size * 0.35, 0);
+          ctx.lineTo(-size * 0.8, size * 0.7);
+          ctx.closePath();
+          ctx.fill();
+          ctx.restore();
         }
 
-        const size = (isSelected ? 9 : 6) * window.devicePixelRatio;
-        ctx.beginPath();
-        ctx.moveTo(size * 1.2, 0);
-        ctx.lineTo(-size * 0.8, -size * 0.7);
-        ctx.lineTo(-size * 0.4, 0);
-        ctx.lineTo(-size * 0.8, size * 0.7);
-        ctx.closePath();
-        ctx.fill();
-        ctx.restore();
-
         // Nodo de destino
-        ctx.fillStyle = isSelected ? '#ffffff' : strokeColor;
+        ctx.fillStyle = isSelected ? '#ffffff' : (isBusiness ? '#ff4d5a' : '#00e5a3');
         ctx.beginPath();
-        ctx.arc(destCanvas.x, destCanvas.y, (isSelected ? 5 : 3) * window.devicePixelRatio, 0, Math.PI * 2);
+        ctx.arc(destCanvas.x, destCanvas.y, (isSelected ? 5 : 3.2) * dpr, 0, Math.PI * 2);
         ctx.fill();
 
-        // ETIQUETAS COMPLETAS Y CLARAS (IATA + CIUDAD/PAÍS)
-        ctx.font = `${isSelected ? 'bold ' : ''}${Math.floor(10 * window.devicePixelRatio)}px var(--font-mono)`;
-        ctx.fillStyle = isSelected ? '#ffffff' : '#8b949e';
-        
-        // Etiqueta compuesta: IATA • Ciudad
-        const labelText = `${flight.dest.code} • ${flight.dest.city}`;
-        ctx.fillText(labelText, destCanvas.x + 8 * window.devicePixelRatio, destCanvas.y - 4 * window.devicePixelRatio);
+        // Pulso luminoso si es el mes exacto seleccionado
+        if (isExactCurrentMonth) {
+          ctx.strokeStyle = isBusiness ? '#ff4d5a' : '#00e5a3';
+          ctx.lineWidth = 1.5 * dpr;
+          ctx.beginPath();
+          const pulseR = (4 + (timestamp % 1000) * 0.01) * dpr;
+          ctx.arc(destCanvas.x, destCanvas.y, pulseR, 0, Math.PI * 2);
+          ctx.stroke();
+        }
+
+        // Etiqueta IATA
+        ctx.font = `${isSelected ? 'bold ' : ''}${Math.floor(10 * dpr)}px var(--font-mono)`;
+        ctx.fillStyle = isSelected ? '#ffffff' : (isIssued ? '#cbd5e1' : '#64748b');
+        ctx.fillText(flight.dest.code, destCanvas.x + 7 * dpr, destCanvas.y - 4 * dpr);
       });
 
-      // Nodo Base SCL
+      // 5. Nodo Base Santiago (SCL) pulsante
       ctx.fillStyle = '#00d4ff';
       ctx.beginPath();
-      ctx.arc(originCanvas.x, originCanvas.y, 6 * window.devicePixelRatio, 0, Math.PI * 2);
+      ctx.arc(originCanvas.x, originCanvas.y, 6 * dpr, 0, Math.PI * 2);
       ctx.fill();
-      ctx.font = `bold ${Math.floor(11 * window.devicePixelRatio)}px var(--font-mono)`;
-      ctx.fillStyle = '#00d4ff';
-      ctx.fillText('SCL • Santiago, Chile (Base)', originCanvas.x + 10 * window.devicePixelRatio, originCanvas.y + 4 * window.devicePixelRatio);
 
-      requestAnimationFrame(renderRadar);
+      // Halo pulsante SCL
+      const sclPulse = (7 + (timestamp % 1200) * 0.008) * dpr;
+      ctx.strokeStyle = 'rgba(0, 212, 255, 0.4)';
+      ctx.lineWidth = 1.5 * dpr;
+      ctx.beginPath();
+      ctx.arc(originCanvas.x, originCanvas.y, sclPulse, 0, Math.PI * 2);
+      ctx.stroke();
+
+      ctx.font = `bold ${Math.floor(11 * dpr)}px var(--font-mono)`;
+      ctx.fillStyle = '#00d4ff';
+      ctx.fillText('SCL • Santiago (Base)', originCanvas.x + 10 * dpr, originCanvas.y + 4 * dpr);
+
+      requestAnimationFrame(renderMap);
     }
-    requestAnimationFrame(renderRadar);
+    requestAnimationFrame(renderMap);
 
     /* =====================================================================
-       INTERACCIÓN: CLIC EN RUTAS Y NODOS
+       NAVEGACIÓN UNIVERSAL DE MAPA (ARRASTRE, RUEDA Y BOTONES)
        ===================================================================== */
-    canvas.addEventListener('click', (e) => {
+    // Botones de Zoom
+    btnZoomIn.addEventListener('click', () => {
+      zoomLevel = Math.min(3.5, zoomLevel * 1.25);
+    });
+
+    btnZoomOut.addEventListener('click', () => {
+      zoomLevel = Math.max(0.8, zoomLevel * 0.8);
+    });
+
+    btnResetView.addEventListener('click', () => {
+      zoomLevel = 1.0;
+      panOffset = { x: 0, y: 0 };
+    });
+
+    // Zoom con rueda de mouse
+    canvas.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      const factor = e.deltaY < 0 ? 1.15 : 0.87;
+      zoomLevel = Math.max(0.8, Math.min(3.5, zoomLevel * factor));
+    }, { passive: false });
+
+    // Paneo por arrastre directo (Pointer Events)
+    canvas.addEventListener('pointerdown', (e) => {
+      isDragging = true;
+      hasDragged = false;
+      startPointer = { x: e.clientX, y: e.clientY };
+      canvas.setPointerCapture(e.pointerId);
+    });
+
+    canvas.addEventListener('pointermove', (e) => {
+      if (isDragging) {
+        const dx = e.clientX - startPointer.x;
+        const dy = e.clientY - startPointer.y;
+        if (Math.hypot(dx, dy) > 3) {
+          hasDragged = true;
+        }
+        panOffset.x += dx / zoomLevel;
+        panOffset.y += dy / zoomLevel;
+        startPointer = { x: e.clientX, y: e.clientY };
+      } else {
+        handlePointerHover(e);
+      }
+    });
+
+    canvas.addEventListener('pointerup', (e) => {
+      if (isDragging) {
+        isDragging = false;
+        try { canvas.releasePointerCapture(e.pointerId); } catch (err) {}
+        if (!hasDragged) {
+          handleCanvasClick(e);
+        }
+      }
+    });
+
+    canvas.addEventListener('pointercancel', () => {
+      isDragging = false;
+    });
+
+    canvas.addEventListener('pointerleave', () => {
+      mapTooltip.style.display = 'none';
+    });
+
+    /* =====================================================================
+       DETECCIÓN DE CLIC Y TOOLTIP FLOTANTE SOBRE EL MAPA
+       ===================================================================== */
+    function handlePointerHover(e) {
+      const rect = canvas.getBoundingClientRect();
+      const mouseX = (e.clientX - rect.left) * window.devicePixelRatio;
+      const mouseY = (e.clientY - rect.top) * window.devicePixelRatio;
+
+      let hoveredFlight = null;
+      let minDistance = 18 * window.devicePixelRatio;
+
+      // Buscar proximidad a nodos de destino de vuelos activos
+      FLIGHTS.forEach(flight => {
+        if (selectedProvider !== 'Todas' && flight.provider !== selectedProvider) return;
+        const destPos = geoToCanvas(flight.dest.lon, flight.dest.lat);
+        const dist = Math.hypot(mouseX - destPos.x, mouseY - destPos.y);
+        if (dist < minDistance) {
+          minDistance = dist;
+          hoveredFlight = flight;
+        }
+      });
+
+      // Proximidad a SCL Base
+      const sclPos = geoToCanvas(SCL.lon, SCL.lat);
+      const distSCL = Math.hypot(mouseX - sclPos.x, mouseY - sclPos.y);
+
+      if (distSCL < minDistance) {
+        mapTooltip.innerHTML = `
+          <strong>SCL • Santiago de Chile</strong>
+          <div class="tooltip-meta">Aeropuerto Arturo Merino Benítez (Base de Operaciones)</div>
+        `;
+        mapTooltip.style.left = `${e.clientX - rect.left}px`;
+        mapTooltip.style.top = `${e.clientY - rect.top}px`;
+        mapTooltip.style.display = 'block';
+        return;
+      }
+
+      if (hoveredFlight) {
+        mapTooltip.innerHTML = `
+          <strong>${hoveredFlight.dest.code} • ${hoveredFlight.dest.city}, ${hoveredFlight.dest.country}</strong>
+          <div>${hoveredFlight.entity}</div>
+          <div class="tooltip-meta">Costo: $${hoveredFlight.cost.toLocaleString('es-CL')} CLP • <em>${hoveredFlight.cabin}</em></div>
+          <div class="tooltip-meta">Agencia: ${hoveredFlight.provider} • OC: ${hoveredFlight.oc}</div>
+        `;
+        mapTooltip.style.left = `${e.clientX - rect.left}px`;
+        mapTooltip.style.top = `${e.clientY - rect.top}px`;
+        mapTooltip.style.display = 'block';
+      } else {
+        mapTooltip.style.display = 'none';
+      }
+    }
+
+    function handleCanvasClick(e) {
       const rect = canvas.getBoundingClientRect();
       const clickX = (e.clientX - rect.left) * window.devicePixelRatio;
       const clickY = (e.clientY - rect.top) * window.devicePixelRatio;
 
       let nearestFlight = null;
-      let minDist = 40 * window.devicePixelRatio;
-
+      let minDist = 35 * window.devicePixelRatio;
       const originCanvas = geoToCanvas(SCL.lon, SCL.lat);
 
       FLIGHTS.forEach(flight => {
-        if (filterBusinessOnly && flight.cabin !== 'Business') return;
+        if (selectedProvider !== 'Todas' && flight.provider !== selectedProvider) return;
         const destCanvas = geoToCanvas(flight.dest.lon, flight.dest.lat);
 
+        // Proximidad al nodo de destino
         const dDest = Math.hypot(clickX - destCanvas.x, clickY - destCanvas.y);
         if (dDest < minDist) {
           minDist = dDest;
           nearestFlight = flight;
         }
 
+        // Proximidad al arco balístico
         const midPoint = getArcPoint(originCanvas, destCanvas, 0.5);
         const dMid = Math.hypot(clickX - midPoint.x, clickY - midPoint.y);
         if (dMid < minDist) {
@@ -1521,125 +2694,33 @@
 
       if (nearestFlight) {
         selectFlight(nearestFlight);
+        // Desplazar la lista lateral hacia la tarjeta seleccionada
+        const cardEl = document.getElementById(`flight-item-${nearestFlight.id}`);
+        if (cardEl) {
+          cardEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
       }
+    }
+
+    /* =====================================================================
+       MODAL DE FUENTES Y METODOLOGÍA
+       ===================================================================== */
+    btnOpenHelp.addEventListener('click', () => helpModal.classList.add('open'));
+    btnCloseHelp.addEventListener('click', () => helpModal.classList.remove('open'));
+    btnModalUnderstood.addEventListener('click', () => helpModal.classList.remove('open'));
+    helpModal.addEventListener('click', (e) => {
+      if (e.target === helpModal) helpModal.classList.remove('open');
     });
 
     /* =====================================================================
-       ACTUALIZACIÓN DE EXPEDIENTE Y VOTACIÓN
+       INICIALIZACIÓN DEL SISTEMA
        ===================================================================== */
-    function selectFlight(flight) {
-      selectedFlight = flight;
-
-      if (flight.cabin === 'Business') {
-        badgeCabin.className = 'flight-status-badge badge-business';
-        badgeCabin.textContent = 'CLASE BUSINESS';
-      } else {
-        badgeCabin.className = 'flight-status-badge badge-economy';
-        badgeCabin.textContent = 'CLASE TURISTA';
-      }
-
-      origCode.textContent = flight.origin.code;
-      origCity.textContent = flight.origin.city;
-      origAirport.textContent = flight.origin.airport;
-
-      destCode.textContent = flight.dest.code;
-      destCity.textContent = flight.dest.city;
-      destAirport.textContent = flight.dest.airport;
-
-      entityName.textContent = flight.entity;
-      passengerRole.textContent = flight.role;
-      ticketCost.textContent = `$${flight.cost.toLocaleString('es-CL')} CLP`;
-
-      metaCabinDesc.textContent = flight.cabinDesc;
-      metaAirline.textContent = flight.airline;
-      metaOc.textContent = flight.oc;
-
-      officialReason.textContent = `"${flight.reason}"`;
-
-      updateVoteDisplay();
+    function init() {
+      renderFlightList();
+      selectFlight(FLIGHTS[0]);
+      updateTimeline();
     }
-
-    function updateVoteDisplay() {
-      const total = selectedFlight.votes.approve + selectedFlight.votes.reject;
-      const pApprove = total > 0 ? Math.round((selectedFlight.votes.approve / total) * 100) : 50;
-      const pReject = total > 0 ? 100 - pApprove : 50;
-
-      barApprove.style.width = `${pApprove}%`;
-      barReject.style.width = `${pReject}%`;
-
-      txtApprove.textContent = `Justificado: ${pApprove}% (${selectedFlight.votes.approve})`;
-      txtReject.textContent = `Derroche: ${pReject}% (${selectedFlight.votes.reject})`;
-    }
-
-    btnApprove.addEventListener('click', () => {
-      selectedFlight.votes.approve += 1;
-      updateVoteDisplay();
-      btnApprove.style.transform = 'scale(0.96)';
-      setTimeout(() => btnApprove.style.transform = '', 150);
-    });
-
-    btnReject.addEventListener('click', () => {
-      selectedFlight.votes.reject += 1;
-      updateVoteDisplay();
-      btnReject.style.transform = 'scale(0.96)';
-      setTimeout(() => btnReject.style.transform = '', 150);
-    });
-
-    /* =====================================================================
-       PERILLAS Y CONTROLES FÍSICOS ANALÓGICOS
-       ===================================================================== */
-    function attachKnob(knobEl, indEl, readoutEl, minVal, maxVal, initialVal, formatFn, onChange) {
-      let currentVal = initialVal;
-      let isDragging = false;
-      let startY = 0;
-
-      function updateKnobUI(val) {
-        const norm = (val - minVal) / (maxVal - minVal);
-        const rotDeg = -135 + norm * 270;
-        indEl.style.transform = `translateX(-50%) rotate(${rotDeg}deg)`;
-        indEl.style.transformOrigin = 'bottom center';
-        readoutEl.textContent = formatFn(val);
-      }
-      updateKnobUI(currentVal);
-
-      knobEl.addEventListener('pointerdown', (e) => {
-        isDragging = true;
-        startY = e.clientY;
-        knobEl.setPointerCapture(e.pointerId);
-      });
-
-      knobEl.addEventListener('pointermove', (e) => {
-        if (!isDragging) return;
-        const delta = (startY - e.clientY) * 0.01;
-        startY = e.clientY;
-
-        currentVal = Math.min(maxVal, Math.max(minVal, currentVal + delta * (maxVal - minVal)));
-        updateKnobUI(currentVal);
-        onChange(currentVal);
-      });
-
-      knobEl.addEventListener('pointerup', () => { isDragging = false; });
-      knobEl.addEventListener('pointercancel', () => { isDragging = false; });
-    }
-
-    attachKnob(knobZoom, knobZoomInd, readoutZoom, 0.6, 2.2, 1.0, (v) => `${v.toFixed(1)}x`, (v) => {
-      zoomLevel = v;
-    });
-
-    attachKnob(knobPan, knobPanInd, readoutPan, -0.78, 0.78, 0, (v) => `${Math.round(v * 180 / Math.PI)}°`, (v) => {
-      panAngle = v;
-    });
-
-    switchAlert.addEventListener('click', () => {
-      filterBusinessOnly = !filterBusinessOnly;
-      switchAlert.classList.toggle('active', filterBusinessOnly);
-      readoutAlert.textContent = filterBusinessOnly ? 'DEFCON 1' : 'OFF';
-      readoutAlert.style.color = filterBusinessOnly ? 'var(--c-red)' : '#8b949e';
-      hudMode.textContent = filterBusinessOnly ? 'SOLO_CLASE_BUSINESS_VIP' : 'TODAS_LAS_CABINAS';
-      hudMode.style.color = filterBusinessOnly ? 'var(--c-red)' : 'var(--c-green)';
-    });
-
-    selectFlight(FLIGHTS[0]);
+    init();
   </script>
 </body>
 </html>
