@@ -1347,6 +1347,21 @@
               <option value="LATAM">LATAM</option>
               <option value="Sky">Sky</option>
             </select>
+            <div class="filter-secondary-group">
+              <span class="filter-label">Organismo:</span>
+              <select id="filterEntitySelect" class="filter-entity-select" aria-label="Filtrar por organismo">
+                <option value="Todas">Todos los Organismos</option>
+                <option value="Presidencia">Presidencia y Gobierno Central</option>
+                <option value="Defensa">Defensa y Fuerzas Armadas</option>
+                <option value="Cancillería">Cancillería y Minrel</option>
+                <option value="Sectoriales">Ministerios Sectoriales</option>
+                <option value="Otros">Otras Instituciones</option>
+              </select>
+              <button class="btn-toggle-business" id="btnToggleBusiness" title="Aislar pasajes de clase ejecutiva">
+                <span class="business-dot"></span>
+                <span>Solo Clase Business</span>
+              </button>
+            </div>
           </div>
         </div>
       </section>
@@ -1444,6 +1459,12 @@
               <span id="txtReject">Derroche: 80% (84)</span>
             </div>
             <div class="vote-status-msg" id="voteStatus">Tu voto es anónimo y ciudadano</div>
+          </div>
+          <div class="share-box">
+            <button class="btn-share-expediente" id="btnShareExpediente" title="Compartir este expediente oficial">
+              <span>📤 Compartir Expediente (WhatsApp / X)</span>
+            </button>
+            <div class="share-toast" id="shareToast">Enlace directo copiado al portapapeles ✓</div>
           </div>
         </div>
       </aside>
@@ -16712,6 +16733,31 @@
     let currentSort = 'cost'; // 'cost' | 'date' | 'entity'
     let currentMonthIndex = 235; // Agosto 2026 (FL-001 emitido)
     let selectedProvider = 'Todas'; // 'Todas' | 'Cocha' | 'Turavion' | 'LATAM' | 'Sky'
+    let filterBusinessOnly = false;
+    let selectedEntityGroup = 'Todas';
+
+    function matchesEntityGroup(entity, group) {
+      if (!group || group.toLowerCase() === 'todas') return true;
+      const entityStr = typeof entity === 'object' && entity !== null ? (entity.entity || '') : String(entity || '');
+      const up = entityStr.toUpperCase();
+      const gNorm = group.toLowerCase();
+      if (gNorm === 'presidencia') {
+        return up.includes('PRESIDENCIA') || up.includes('SECRETARÍA GENERAL') || up.includes('SECRETARIA GENERAL') || up.includes('INTERIOR');
+      }
+      if (gNorm === 'defensa') {
+        return up.includes('FUERZA AÉREA') || up.includes('FUERZA AEREA') || up.includes('EJÉRCITO') || up.includes('EJERCITO') || up.includes('ARMADA') || up.includes('DEFENSA') || up.includes('LOGÍSTICO') || up.includes('LOGISTICO') || up.includes('COMANDO');
+      }
+      if (gNorm.includes('cancil') || gNorm.includes('exteriores')) {
+        return up.includes('RELACIONES EXTERIORES') || up.includes('CANCIL') || up.includes('MINREL') || up.includes('PROCHILE') || up.includes('CONSUL');
+      }
+      if (gNorm === 'sectoriales') {
+        return up.includes('MINISTERIO') || up.includes('SUBSECRETARÍA') || up.includes('SUBSECRETARIA') || up.includes('MINERÍA') || up.includes('HACIENDA') || up.includes('SALUD') || up.includes('EDUCACIÓN') || up.includes('OBRAS PÚBLICAS');
+      }
+      if (gNorm === 'otros') {
+        return !matchesEntityGroup(entityStr, 'presidencia') && !matchesEntityGroup(entityStr, 'defensa') && !matchesEntityGroup(entityStr, 'cancillería') && !matchesEntityGroup(entityStr, 'sectoriales');
+      }
+      return true;
+    }
     let isPlaying = false;
     let playInterval = null;
 
@@ -16914,9 +16960,15 @@
        ORDENAMIENTO Y RENDER DEL PANEL LATERAL
        ===================================================================== */
     function getSortedFlights() {
-      // Filtrar por proveedor si aplica
+      // Filtrar por proveedor, clase y organismo si aplica
       const filtered = FLIGHTS.filter(flight => {
         if (selectedProvider !== 'Todas' && flight.provider !== selectedProvider) {
+          return false;
+        }
+        if (filterBusinessOnly && flight.cabin !== 'Business') {
+          return false;
+        }
+        if (selectedEntityGroup !== 'Todas' && !matchesEntityGroup(flight.entity, selectedEntityGroup)) {
           return false;
         }
         return true;
@@ -17095,7 +17147,9 @@
       return FLIGHTS.reduce((sum, flight) => {
         const matchesProvider = (provider === 'Todas' || flight.provider === provider);
         const matchesMonth = flight.monthIndex <= maxMonthIndex;
-        if (matchesProvider && matchesMonth) {
+        const matchesBusiness = !filterBusinessOnly || flight.cabin === 'Business';
+        const matchesEntity = matchesEntityGroup(flight.entity, selectedEntityGroup);
+        if (matchesProvider && matchesMonth && matchesBusiness && matchesEntity) {
           return sum + flight.cost;
         }
         return sum;
@@ -17519,6 +17573,8 @@
       // Buscar proximidad a nodos de destino de vuelos activos
       FLIGHTS.forEach(flight => {
         if (selectedProvider !== 'Todas' && flight.provider !== selectedProvider) return;
+        if (filterBusinessOnly && flight.cabin !== 'Business') return;
+        if (!matchesEntityGroup(flight.entity, selectedEntityGroup)) return;
         const destPos = geoToCanvas(flight.dest.lon, flight.dest.lat);
         const dist = Math.hypot(mouseX - destPos.x, mouseY - destPos.y);
         if (dist < minDistance) {
@@ -17568,6 +17624,8 @@
 
       FLIGHTS.forEach(flight => {
         if (selectedProvider !== 'Todas' && flight.provider !== selectedProvider) return;
+        if (filterBusinessOnly && flight.cabin !== 'Business') return;
+        if (!matchesEntityGroup(flight.entity, selectedEntityGroup)) return;
         const destCanvas = geoToCanvas(flight.dest.lon, flight.dest.lat);
 
         // Proximidad al nodo de destino
@@ -17609,10 +17667,71 @@
     /* =====================================================================
        INICIALIZACIÓN DEL SISTEMA
        ===================================================================== */
+    // Controles de filtro secundario
+    const filterEntitySelect = document.getElementById('filterEntitySelect');
+    const btnToggleBusiness = document.getElementById('btnToggleBusiness');
+    const btnShareExpediente = document.getElementById('btnShareExpediente');
+    const shareToast = document.getElementById('shareToast');
+
+    if (filterEntitySelect) {
+      filterEntitySelect.addEventListener('change', (e) => {
+        selectedEntityGroup = e.target.value;
+        updateTimeline();
+      });
+    }
+
+    if (btnToggleBusiness) {
+      btnToggleBusiness.addEventListener('click', () => {
+        filterBusinessOnly = !filterBusinessOnly;
+        btnToggleBusiness.classList.toggle('active', filterBusinessOnly);
+        updateTimeline();
+      });
+    }
+
+    // Compartir Expediente en WhatsApp / X / Portapapeles
+    if (btnShareExpediente) {
+      btnShareExpediente.addEventListener('click', () => {
+        if (!selectedFlight) return;
+        const url = `${window.location.origin}${window.location.pathname}#${selectedFlight.id}`;
+        const texto = `🇨🇱 [VuelosPúblicos] El Estado gastó $${selectedFlight.cost.toLocaleString('es-CL')} CLP en viaje a ${selectedFlight.dest.city} (${selectedFlight.cabin}) para ${selectedFlight.entity}. OC: ${selectedFlight.oc}. ¿Se justifica o es derroche? Vota aquí: ${url}`;
+        
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(texto).then(() => {
+            if (shareToast) {
+              shareToast.style.display = 'block';
+              setTimeout(() => { shareToast.style.display = 'none'; }, 2500);
+            }
+          });
+        }
+        // Abrir diálogo de compartir si está disponible
+        if (navigator.share) {
+          navigator.share({
+            title: `VuelosPúblicos — ${selectedFlight.dest.city}`,
+            text: texto,
+            url: url
+          }).catch(() => {});
+        }
+      });
+    }
+
+    // Deep Linking por hash URL
+    function handleHashNavigation() {
+      const hash = window.location.hash.replace('#', '').trim();
+      if (!hash) return;
+      const target = FLIGHTS.find(f => f.id === hash || f.oc === hash);
+      if (target) {
+        selectFlight(target);
+        const card = document.getElementById(`flight-item-${target.id}`);
+        if (card && typeof card.scrollIntoView === 'function') card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+    window.addEventListener('hashchange', handleHashNavigation);
+
     function init() {
       renderFlightList();
       selectFlight(FLIGHTS[0]);
       updateTimeline();
+      handleHashNavigation();
     }
     init();
   </script>

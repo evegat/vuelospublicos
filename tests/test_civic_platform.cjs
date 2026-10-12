@@ -112,6 +112,7 @@ function createMockElement(id = '', tag = 'div') {
     setAttribute: () => {},
     getAttribute: () => null,
     closest: () => null,
+    scrollIntoView: () => {},
     getBoundingClientRect: () => ({ left: 0, top: 0, width: 800, height: 600 }),
     getContext: () => ({
       clearRect: () => {},
@@ -183,6 +184,8 @@ const sandbox = {
   setInterval: () => 1,
   clearInterval: () => {}
 };
+sandbox.window.location = { hash: '', href: 'https://vuelospublicos.evegat.cl' };
+sandbox.window.history = { replaceState: () => {} };
 sandbox.window.addEventListener = () => {};
 sandbox.window.document = mockDocument;
 
@@ -286,6 +289,34 @@ assert(turavionFiltered.length > 0, 'Turavion filter must yield flights');
 assert(turavionFiltered.every(f => f.provider === 'Turavion'), 'All filtered flights must belong to Turavion');
 vm.runInContext("selectedProvider = 'Todas';", sandbox);
 console.log(`   [PASS] Multidimensional sorting and provider filters verified (${turavionFiltered.length} Turavion flights).`);
+
+// 6b. Test Business Only Toggle and Entity Group Filters
+console.log('\n6b. Verifying Business Only Toggle and Entity Group Filters...');
+vm.runInContext("filterBusinessOnly = true;", sandbox);
+const businessOnlyFlights = getSortedFlights();
+assert(businessOnlyFlights.length > 0, 'Must have flights in Business class');
+assert(businessOnlyFlights.every(f => f.cabin === 'Business'), 'All flights must have cabin Business when filterBusinessOnly is active');
+console.log(`   [PASS] Business-only filter verified (${businessOnlyFlights.length} Business class flights isolated).`);
+vm.runInContext("filterBusinessOnly = false;", sandbox);
+
+// Filter by Entity Group
+vm.runInContext("selectedEntityGroup = 'presidencia';", sandbox);
+const presidenciaFlights = getSortedFlights();
+assert(presidenciaFlights.length > 0, 'Presidencia filter must yield flights');
+const matchesEntityGroup = vm.runInContext('matchesEntityGroup', sandbox);
+assert(presidenciaFlights.every(f => matchesEntityGroup(f, 'presidencia')), 'All filtered flights must match Presidencia group');
+console.log(`   [PASS] Entity group filter (Presidencia) verified (${presidenciaFlights.length} flights).`);
+vm.runInContext("selectedEntityGroup = 'todas';", sandbox);
+
+// 6c. Test Deep Linking Hash Navigation
+console.log('\n6c. Verifying Deep Linking Hash Navigation...');
+const handleHashNavigation = vm.runInContext('handleHashNavigation', sandbox);
+const selectFlight = vm.runInContext('selectFlight', sandbox);
+sandbox.window.location.hash = '#' + flights[0].id;
+handleHashNavigation();
+const selectedFlightAfterHash = vm.runInContext('selectedFlight', sandbox);
+assert.strictEqual(selectedFlightAfterHash.id, flights[0].id, 'handleHashNavigation must select flight matching location.hash');
+console.log(`   [PASS] Deep linking by flight ID hash verified (${flights[0].id} loaded from hash).`);
 
 // 7. Test 240-Month Timeline Scrubber and Fiscal Odometer (2007-2026)
 console.log('\n7. Verifying 240-Month Timeline Scrubber & Fiscal Odometer (2007–2026)...');

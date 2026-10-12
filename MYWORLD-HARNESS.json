@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0.0",
+  "product_id": "P167",
+  "name": "VuelosPúblicos: Observatorio del Gasto en Pasajes Aéreos",
+  "owner": "Eduardo Vega Toledo",
+  "myworld_project": "2 - Project/P167 - VuelosPublicos",
+  "kind": "static_site",
+  "lifecycle_stage": "prototype",
+  "risk": "low",
+  "data_classification": [
+    "public"
+  ],
+  "deployment": {
+    "state": "public",
+    "production_urls": [
+      "https://vuelospublicos.evegat.cl"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "default_branch": "main",
+    "remote_policy": "existing"
+  },
+  "commands": {
+    "quality": [
+      "node tests/test_civic_platform.cjs"
+    ],
+    "build": [],
+    "test": [
+      "node tests/test_civic_platform.cjs"
+    ]
+  },
+  "critical_paths": [
+    "index.html",
+    "docs/index.html"
+  ],
+  "forbidden_paths": [
+    ".env"
+  ],
+  "multi_agent": {
+    "isolation": "single_writer",
+    "integration_owner": "Eduardo Vega Toledo"
+  },
+  "observability": {
+    "level": 0,
+    "domains": [
+      "pipeline"
+    ],
+    "monitors": []
+  },
+  "release": {
+    "backup_required": false,
+    "restore_test_required": false,
+    "rollback_required": false,
+    "rpo_hours": null,
+    "rto_hours": null
+  },
+  "evidence": {
+    "last_audit": null,
+    "pending_register": "odd/tasks/rediseño-integral-m1.md"
+  }
+}
