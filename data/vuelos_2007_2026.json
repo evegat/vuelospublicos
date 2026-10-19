@@ -15118,5 +15118,1409 @@
       "approve": 65,
       "reject": 30
     }
+  },
+  {
+    "id": "FL-0421",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-07",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "PUQ",
+      "city": "Punta Arenas",
+      "country": "Chile",
+      "lon": -70.854,
+      "lat": -53.002,
+      "airport": "Pdte. Carlos Ibáñez del Campo (PUQ)"
+    },
+    "entity": "Ministerio De Obras Publicas Direc Cion Gral De Oo Pp Dcyf",
+    "role": "Comitiva Oficial",
+    "cost": 1168448,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía LATAM",
+    "airline": "Vuelo Comercial",
+    "oc": "1020-275-SE26",
+    "provider": "LATAM",
+    "reason": "CAMBIO DE PASAJE - DESTINO PUNTA ARENAS",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0422",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-01",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "CCP",
+      "city": "Concepción",
+      "country": "Chile",
+      "lon": -73.063,
+      "lat": -36.772,
+      "airport": "Carriel Sur (CCP)"
+    },
+    "entity": "Gobierno Regional De Aysen",
+    "role": "Comitiva Oficial",
+    "cost": 551800,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía LATAM",
+    "airline": "Vuelo Comercial",
+    "oc": "868-152-CM26",
+    "provider": "LATAM",
+    "reason": "Pasaje Nacional Boris Parra Concepcion Orden de Compra: 868-152-CM26",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0423",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-02",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "PUQ",
+      "city": "Punta Arenas",
+      "country": "Chile",
+      "lon": -70.854,
+      "lat": -53.002,
+      "airport": "Pdte. Carlos Ibáñez del Campo (PUQ)"
+    },
+    "entity": "Ministerio De Obras Publicas Direc Cion Gral De Oo Pp Dcyf",
+    "role": "Comitiva Oficial",
+    "cost": 475920,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía LATAM",
+    "airline": "Vuelo Comercial",
+    "oc": "1020-286-SE26",
+    "provider": "LATAM",
+    "reason": "CAMBIO DE PASAJE - DESTINO PUNTA ARENAS",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0424",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-01",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "IQQ",
+      "city": "Iquique",
+      "country": "Chile",
+      "lon": -70.181,
+      "lat": -20.535,
+      "airport": "Diego Aracena (IQQ)"
+    },
+    "entity": "Direccion De Abastecimiento De La Armada",
+    "role": "Comitiva Oficial",
+    "cost": 482200,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía LATAM",
+    "airline": "Vuelo Comercial",
+    "oc": "3160-138-CM26",
+    "provider": "LATAM",
+    "reason": "VA DELGADO SANTIAGO-IQUIQUE 21 AL 25 DE SEPTIEMBRE.",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0425",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-01",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "IQQ",
+      "city": "Iquique",
+      "country": "Chile",
+      "lon": -70.181,
+      "lat": -20.535,
+      "airport": "Diego Aracena (IQQ)"
+    },
+    "entity": "Universidad De Chile",
+    "role": "Comitiva Oficial",
+    "cost": 1081692,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía LATAM",
+    "airline": "Vuelo Comercial",
+    "oc": "758004-100-CM26",
+    "provider": "LATAM",
+    "reason": "Orden de Compra: 758004-100-CM26 \"Pasaje Iquique - Ortega-Troncoso - 21-25 septiembre 2026",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0426",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-02",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "MAD",
+      "city": "Madrid",
+      "country": "España",
+      "lon": -3.567,
+      "lat": 40.483,
+      "airport": "Adolfo Suárez Madrid-Barajas (MAD)"
+    },
+    "entity": "Universidad De Tarapaca",
+    "role": "Comitiva Oficial",
+    "cost": 3221800,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía Otras Agencias",
+    "airline": "Vuelo Comercial",
+    "oc": "5484-222-SE26",
+    "provider": "Otras Agencias",
+    "reason": "Compra de pasaje internacional.",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0427",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-02",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "ANF",
+      "city": "Antofagasta",
+      "country": "Chile",
+      "lon": -70.445,
+      "lat": -23.444,
+      "airport": "Andrés Sabella (ANF)"
+    },
+    "entity": "Servicio Nacional Del Patrimonio Cultural",
+    "role": "Comitiva Oficial",
+    "cost": 1207432,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía LATAM",
+    "airline": "Vuelo Comercial",
+    "oc": "622847-119-SE26",
+    "provider": "LATAM",
+    "reason": "PASAJES AEREOS ANTOFAGASTA 25-26 agosto",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0428",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-04",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "IQQ",
+      "city": "Iquique",
+      "country": "Chile",
+      "lon": -70.181,
+      "lat": -20.535,
+      "airport": "Diego Aracena (IQQ)"
+    },
+    "entity": "Direccion De Abastecimiento De La Armada",
+    "role": "Comitiva Oficial",
+    "cost": 1001570,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía Sky",
+    "airline": "Vuelo Comercial",
+    "oc": "2950-543-CM26",
+    "provider": "Sky",
+    "reason": "PASAJES AEREOS SANTIAGO - IQUIQUE - SANTIAGO. Orden de Compra: 2950-543-CM26",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0429",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-14",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "EZE",
+      "city": "Buenos Aires",
+      "country": "Argentina",
+      "lon": -58.535,
+      "lat": -34.822,
+      "airport": "Ezeiza Ministro Pistarini (EZE)"
+    },
+    "entity": "Instituto Nacional De Deportes De Chile",
+    "role": "Comitiva Oficial",
+    "cost": 863296,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía Otras Agencias",
+    "airline": "Vuelo Comercial",
+    "oc": "858-358-SE26",
+    "provider": "Otras Agencias",
+    "reason": "Pasaje Jorge Silva SCL-Buenos Aires 17-21 Septiemb",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0430",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-04",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "CCP",
+      "city": "Concepción",
+      "country": "Chile",
+      "lon": -73.063,
+      "lat": -36.772,
+      "airport": "Carriel Sur (CCP)"
+    },
+    "entity": "I Municipalidad De Santa Juana",
+    "role": "Comitiva Oficial",
+    "cost": 624960,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía LATAM",
+    "airline": "Vuelo Comercial",
+    "oc": "3947-637-CM26",
+    "provider": "LATAM",
+    "reason": "PASAJES AEREOS, CONCEPCION - SANTIAGO - CONCEPCION, DIA 07 SEPTIEMBRE 2026  (ANGEL CASTRO",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0431",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-07",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "ANF",
+      "city": "Antofagasta",
+      "country": "Chile",
+      "lon": -70.445,
+      "lat": -23.444,
+      "airport": "Andrés Sabella (ANF)"
+    },
+    "entity": "Servicio De Salud Antofagasta Hospital M",
+    "role": "Comitiva Oficial",
+    "cost": 3967100,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía Otras Agencias",
+    "airline": "Vuelo Comercial",
+    "oc": "1057384-734-SE26",
+    "provider": "Otras Agencias",
+    "reason": "SUMINISTROS DE PASAJES- ANTOFAGASTA",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0432",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-08",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "IQQ",
+      "city": "Iquique",
+      "country": "Chile",
+      "lon": -70.181,
+      "lat": -20.535,
+      "airport": "Diego Aracena (IQQ)"
+    },
+    "entity": "Direccion General De Movilizacionn Nacional",
+    "role": "Comitiva Oficial",
+    "cost": 463460,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía LATAM",
+    "airline": "Vuelo Comercial",
+    "oc": "1867-265-CM26",
+    "provider": "LATAM",
+    "reason": "Traslado de Soldados Conscriptos Iquique - Arica - Iquique Grupo 27",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0433",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-08",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "CCP",
+      "city": "Concepción",
+      "country": "Chile",
+      "lon": -73.063,
+      "lat": -36.772,
+      "airport": "Carriel Sur (CCP)"
+    },
+    "entity": "Direccion De Abastecimiento De La Armada",
+    "role": "Comitiva Oficial",
+    "cost": 1755000,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía Otras Agencias",
+    "airline": "Vuelo Comercial",
+    "oc": "3220-485-AG26",
+    "provider": "Otras Agencias",
+    "reason": "TRASLADO DE DELEGACIONES REGIMIENTO ESGRUM PARA EL 18 DE SEPTIEMBRE (IDA Y VUELTA)",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0434",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-08",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "IQQ",
+      "city": "Iquique",
+      "country": "Chile",
+      "lon": -70.181,
+      "lat": -20.535,
+      "airport": "Diego Aracena (IQQ)"
+    },
+    "entity": "Universidad Arturo Prat",
+    "role": "Comitiva Oficial",
+    "cost": 3305100,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía Otras Agencias",
+    "airline": "Vuelo Comercial",
+    "oc": "2013-1458-TD26",
+    "provider": "Otras Agencias",
+    "reason": "Orden de Compra generada por Trato Directo ID 2013-166-FTD26",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0435",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-09",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "ANF",
+      "city": "Antofagasta",
+      "country": "Chile",
+      "lon": -70.445,
+      "lat": -23.444,
+      "airport": "Andrés Sabella (ANF)"
+    },
+    "entity": "Direccion General De Movilizacionn Nacional",
+    "role": "Comitiva Oficial",
+    "cost": 2539320,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía LATAM",
+    "airline": "Vuelo Comercial",
+    "oc": "1867-276-CM26",
+    "provider": "LATAM",
+    "reason": "Traslado de Soldados Conscriptos Antofagasta - Pto. Montt - Antofagasta Grupo 2 y 8",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0436",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-10",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "ARI",
+      "city": "Arica",
+      "country": "Chile",
+      "lon": -70.338,
+      "lat": -18.348,
+      "airport": "Chacalluta (ARI)"
+    },
+    "entity": "Universidad De Tarapaca",
+    "role": "Comitiva Oficial",
+    "cost": 544000,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía Otras Agencias",
+    "airline": "Vuelo Comercial",
+    "oc": "5484-235-TD26",
+    "provider": "Otras Agencias",
+    "reason": "Orden de Compra generada por Trato Directo ID 5484-71-FTD26",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0437",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-11",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "PUQ",
+      "city": "Punta Arenas",
+      "country": "Chile",
+      "lon": -70.854,
+      "lat": -53.002,
+      "airport": "Pdte. Carlos Ibáñez del Campo (PUQ)"
+    },
+    "entity": "Servicio Nacional Del Patrimonio Cultural",
+    "role": "Comitiva Oficial",
+    "cost": 385716,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía LATAM",
+    "airline": "Vuelo Comercial",
+    "oc": "622847-129-SE26",
+    "provider": "LATAM",
+    "reason": "PASAJES AEREOS PUNTA ARENAS ALEXIS G 25-26 agosto",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0438",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-11",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "MAD",
+      "city": "Madrid",
+      "country": "España",
+      "lon": -3.567,
+      "lat": 40.483,
+      "airport": "Adolfo Suárez Madrid-Barajas (MAD)"
+    },
+    "entity": "Universidad De Chile",
+    "role": "Comitiva Oficial",
+    "cost": 2279985,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía Otras Agencias",
+    "airline": "Vuelo Comercial",
+    "oc": "5621-447-SE26",
+    "provider": "Otras Agencias",
+    "reason": "72309 - Pasaje Manuel Cancio Madrid",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0439",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-11",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "LIM",
+      "city": "Lima",
+      "country": "Perú",
+      "lon": -77.114,
+      "lat": -12.021,
+      "airport": "Jorge Chávez (LIM)"
+    },
+    "entity": "Universidad De Chile",
+    "role": "Comitiva Oficial",
+    "cost": 803538,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía Otras Agencias",
+    "airline": "Vuelo Comercial",
+    "oc": "5621-449-SE26",
+    "provider": "Otras Agencias",
+    "reason": "72316 - Pasaje Fernando del Mastro Lima",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0440",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-11",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "FCO",
+      "city": "Roma",
+      "country": "Italia",
+      "lon": 12.238,
+      "lat": 41.8,
+      "airport": "Leonardo da Vinci Fiumicino (FCO)"
+    },
+    "entity": "Corp Nacional Forestal",
+    "role": "Comitiva Oficial",
+    "cost": 3254000,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía Otras Agencias",
+    "airline": "Vuelo Comercial",
+    "oc": "633-563-AG26",
+    "provider": "Otras Agencias",
+    "reason": "Solicitud de Pasajes Internacionales",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0441",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-22",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "PUQ",
+      "city": "Punta Arenas",
+      "country": "Chile",
+      "lon": -70.854,
+      "lat": -53.002,
+      "airport": "Pdte. Carlos Ibáñez del Campo (PUQ)"
+    },
+    "entity": "Division Logistica Del Ejercito",
+    "role": "Comitiva Oficial",
+    "cost": 5044160,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía Otras Agencias",
+    "airline": "Vuelo Comercial",
+    "oc": "5195-180-AG26",
+    "provider": "Otras Agencias",
+    "reason": "22.08.007 Pasajes, flete y bodegajes Agrucom LIENTUR",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0442",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-15",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "ARI",
+      "city": "Arica",
+      "country": "Chile",
+      "lon": -70.338,
+      "lat": -18.348,
+      "airport": "Chacalluta (ARI)"
+    },
+    "entity": "Ilustre Municipalidad  De Sagrada Familia",
+    "role": "Comitiva Oficial",
+    "cost": 1205135,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía LATAM",
+    "airline": "Vuelo Comercial",
+    "oc": "4134-688-CM26",
+    "provider": "LATAM",
+    "reason": "PASAJES AEREOS IDA Y VUELTA. STGO-ARICA",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0443",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-15",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "JFK",
+      "city": "Nueva York",
+      "country": "EE.UU.",
+      "lon": -73.778,
+      "lat": 40.639,
+      "airport": "John F. Kennedy (JFK)"
+    },
+    "entity": "Subsecretaria De Evaluacion Social",
+    "role": "Comitiva Oficial",
+    "cost": 1419215,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía Otras Agencias",
+    "airline": "Vuelo Comercial",
+    "oc": "730566-254-SE26",
+    "provider": "Otras Agencias",
+    "reason": "INI26-UAI-44 /PASAJE NUEVA YORK/ID 247/ERM",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0444",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-16",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "MEX",
+      "city": "Ciudad de México",
+      "country": "México",
+      "lon": -99.072,
+      "lat": 19.436,
+      "airport": "Benito Juárez (MEX)"
+    },
+    "entity": "Universidad Del Bio Bio",
+    "role": "Fee Nacional E Internacional",
+    "cost": 1401752,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía Otras Agencias",
+    "airline": "Vuelo Comercial",
+    "oc": "2705-1513-SE26",
+    "provider": "Otras Agencias",
+    "reason": "PASAJE INTERNACIONAL SANTIAGO-MEXICO",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0445",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-17",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "PUQ",
+      "city": "Punta Arenas",
+      "country": "Chile",
+      "lon": -70.854,
+      "lat": -53.002,
+      "airport": "Pdte. Carlos Ibáñez del Campo (PUQ)"
+    },
+    "entity": "Direccion De Abastecimiento De La Armada",
+    "role": "Comitiva Oficial",
+    "cost": 365267,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía LATAM",
+    "airline": "Vuelo Comercial",
+    "oc": "1178407-82-CM26",
+    "provider": "LATAM",
+    "reason": "PASAJES AEREOS PUNTA ARENAS",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0446",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-17",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "PUQ",
+      "city": "Punta Arenas",
+      "country": "Chile",
+      "lon": -70.854,
+      "lat": -53.002,
+      "airport": "Pdte. Carlos Ibáñez del Campo (PUQ)"
+    },
+    "entity": "Direccion De Abastecimiento De La Armada",
+    "role": "Comitiva Oficial",
+    "cost": 365267,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía LATAM",
+    "airline": "Vuelo Comercial",
+    "oc": "1178407-83-CM26",
+    "provider": "LATAM",
+    "reason": "PASAJES AEREOS PUNTA ARENAS",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0447",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-22",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "EZE",
+      "city": "Buenos Aires",
+      "country": "Argentina",
+      "lon": -58.535,
+      "lat": -34.822,
+      "airport": "Ezeiza Ministro Pistarini (EZE)"
+    },
+    "entity": "I Municipalidad De Puerto Montt",
+    "role": "Comitiva Oficial",
+    "cost": 1866000,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía Otras Agencias",
+    "airline": "Vuelo Comercial",
+    "oc": "2324-1333-AG26",
+    "provider": "Otras Agencias",
+    "reason": "ADQ. PASAJES AEREOS IDA Y REGRESO INTERNACIONAL PARA LOS FUNCIONARIOS QUE PARTICIPARAN EN",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0448",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-24",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "PUQ",
+      "city": "Punta Arenas",
+      "country": "Chile",
+      "lon": -70.854,
+      "lat": -53.002,
+      "airport": "Pdte. Carlos Ibáñez del Campo (PUQ)"
+    },
+    "entity": "Servicio Medico Legal",
+    "role": "Comitiva Oficial",
+    "cost": 739436,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía LATAM",
+    "airline": "Vuelo Comercial",
+    "oc": "837-632-CM26",
+    "provider": "LATAM",
+    "reason": "COMPRA DE PASAJES ANGELA MELILLA SANTIAGO-PUNTA ARENAS Orden de Compra: 837-632-CM26",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0449",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-24",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "IQQ",
+      "city": "Iquique",
+      "country": "Chile",
+      "lon": -70.181,
+      "lat": -20.535,
+      "airport": "Diego Aracena (IQQ)"
+    },
+    "entity": "Universidad Arturo Prat",
+    "role": "Comitiva Oficial",
+    "cost": 3299100,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía Otras Agencias",
+    "airline": "Vuelo Comercial",
+    "oc": "2013-1514-TD26",
+    "provider": "Otras Agencias",
+    "reason": "Orden de Compra generada por Trato Directo ID 2013-177-FTD26",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0450",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-25",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "FCO",
+      "city": "Roma",
+      "country": "Italia",
+      "lon": 12.238,
+      "lat": 41.8,
+      "airport": "Leonardo da Vinci Fiumicino (FCO)"
+    },
+    "entity": "Ilustre Municipalidad De Macul",
+    "role": "Comitiva Oficial",
+    "cost": 2826000,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía Otras Agencias",
+    "airline": "Vuelo Comercial",
+    "oc": "2287-748-AG26",
+    "provider": "Otras Agencias",
+    "reason": "DIDECO-519-521-ARRIENDO BUSES TRASLADO DE PERSONAS",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0451",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-24",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "BRU",
+      "city": "Bruselas",
+      "country": "Bélgica",
+      "lon": 4.484,
+      "lat": 50.901,
+      "airport": "Brussels Airport (BRU)"
+    },
+    "entity": "Universidad De Santiago De Chile",
+    "role": "Comitiva Oficial",
+    "cost": 1630000,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía Otras Agencias",
+    "airline": "Vuelo Comercial",
+    "oc": "564162-921-AG26",
+    "provider": "Otras Agencias",
+    "reason": "11 - 93437 -PASAJE INTERNACIONAL BRUSELAS (BELGICA) - SANTIAGO (CHILE) - BRUSELAS (BELGICA",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0452",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-28",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "BOG",
+      "city": "Bogotá",
+      "country": "Colombia",
+      "lon": -74.146,
+      "lat": 4.701,
+      "airport": "El Dorado (BOG)"
+    },
+    "entity": "Universidad De Tarapaca",
+    "role": "Comitiva Oficial",
+    "cost": 1578535,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía Otras Agencias",
+    "airline": "Vuelo Comercial",
+    "oc": "5865-180-SE26",
+    "provider": "Otras Agencias",
+    "reason": "PASAJE INTERNACIONAL IDA Y VUELTA, MEDELLIN-BOGOTA-SANTIAGO-ARICA, DRA. ALICIA KRIKORIAN,",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0453",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-28",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "EZE",
+      "city": "Buenos Aires",
+      "country": "Argentina",
+      "lon": -58.535,
+      "lat": -34.822,
+      "airport": "Ezeiza Ministro Pistarini (EZE)"
+    },
+    "entity": "Universidad De Atacama",
+    "role": "Comitiva Oficial",
+    "cost": 2557800,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía Otras Agencias",
+    "airline": "Vuelo Comercial",
+    "oc": "511505-379-AG26",
+    "provider": "Otras Agencias",
+    "reason": "DEPARTAMENTO DE METALURGIA",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0454",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-29",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "EZE",
+      "city": "Buenos Aires",
+      "country": "Argentina",
+      "lon": -58.535,
+      "lat": -34.822,
+      "airport": "Ezeiza Ministro Pistarini (EZE)"
+    },
+    "entity": "Universidad De Atacama",
+    "role": "Comitiva Oficial",
+    "cost": 1497584,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía Otras Agencias",
+    "airline": "Vuelo Comercial",
+    "oc": "511505-381-AG26",
+    "provider": "Otras Agencias",
+    "reason": "DEPARTAMENTO DE METALURGIA",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0455",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-29",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "MAD",
+      "city": "Madrid",
+      "country": "España",
+      "lon": -3.567,
+      "lat": 40.483,
+      "airport": "Adolfo Suárez Madrid-Barajas (MAD)"
+    },
+    "entity": "Universidad De Chile",
+    "role": "Comitiva Oficial",
+    "cost": 2827432,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía LATAM",
+    "airline": "Vuelo Comercial",
+    "oc": "5428-29-SE26",
+    "provider": "LATAM",
+    "reason": "Pasajes Rectora Santiago-Madrid- Santiago",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0456",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-30",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "FCO",
+      "city": "Roma",
+      "country": "Italia",
+      "lon": 12.238,
+      "lat": 41.8,
+      "airport": "Leonardo da Vinci Fiumicino (FCO)"
+    },
+    "entity": "Ilustre Municipalidad De Macul",
+    "role": "Comitiva Oficial",
+    "cost": 760000,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía Sky",
+    "airline": "Vuelo Comercial",
+    "oc": "2287-766-AG26",
+    "provider": "Sky",
+    "reason": "SOL.535-DIDECO-OOCC-BUS IDA Y VUELTA EL TABO",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0457",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-30",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "ARI",
+      "city": "Arica",
+      "country": "Chile",
+      "lon": -70.338,
+      "lat": -18.348,
+      "airport": "Chacalluta (ARI)"
+    },
+    "entity": "Servicio Agricola Y Ganadero",
+    "role": "Comitiva Oficial",
+    "cost": 422778,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía LATAM",
+    "airline": "Vuelo Comercial",
+    "oc": "612-619-CM26",
+    "provider": "LATAM",
+    "reason": "DPP SC PAC 1002-2026 Pasaje Diego Grandon Stgo- Arica-Stgo",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0458",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-30",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "ANF",
+      "city": "Antofagasta",
+      "country": "Chile",
+      "lon": -70.445,
+      "lat": -23.444,
+      "airport": "Andrés Sabella (ANF)"
+    },
+    "entity": "Universidad De Atacama",
+    "role": "Comitiva Oficial",
+    "cost": 925900,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía Otras Agencias",
+    "airline": "Vuelo Comercial",
+    "oc": "2859-1145-AG26",
+    "provider": "Otras Agencias",
+    "reason": "SERVICIO COMPRA PASAJES BUS",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0459",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-30",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "GVA",
+      "city": "Ginebra",
+      "country": "Suiza",
+      "lon": 6.109,
+      "lat": 46.238,
+      "airport": "Aeropuerto de Ginebra (GVA)"
+    },
+    "entity": "Instituto Nacional De Propiedad Industrial",
+    "role": "Comitiva Oficial",
+    "cost": 4499090,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía Otras Agencias",
+    "airline": "Vuelo Comercial",
+    "oc": "519302-135-AG26",
+    "provider": "Otras Agencias",
+    "reason": "COMPRA DE PASAJES A GINEBRA 2 FUNCIONARIOS",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
   }
 ]

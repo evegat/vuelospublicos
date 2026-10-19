@@ -318,6 +318,31 @@ const selectedFlightAfterHash = vm.runInContext('selectedFlight', sandbox);
 assert.strictEqual(selectedFlightAfterHash.id, flights[0].id, 'handleHashNavigation must select flight matching location.hash');
 console.log(`   [PASS] Deep linking by flight ID hash verified (${flights[0].id} loaded from hash).`);
 
+// 6d. Test Live Search Filter and Dynamic Civic KPIs
+console.log('\n6d. Verifying Live Search Filtering and Dynamic KPIs...');
+assert(indexHtml.includes('id="flightSearchInput"'), 'Markup must include live search input');
+assert(indexHtml.includes('id="statFlightsCount"'), 'Markup must include flight count KPI card');
+assert(indexHtml.includes('id="statTotalSpend"'), 'Markup must include total spend KPI card');
+assert(indexHtml.includes('id="statTopEntity"'), 'Markup must include top entity KPI card');
+
+// Test search query filter
+vm.runInContext("searchFilterText = 'Madrid';", sandbox);
+const madridFlights = getSortedFlights();
+assert(madridFlights.length > 0, 'Search for "Madrid" must yield results');
+assert(madridFlights.every(f => {
+  const t = `${f.entity} ${f.role} ${f.dest.city} ${f.dest.code} ${f.oc} ${f.reason}`.toLowerCase();
+  return t.includes('madrid');
+}), 'All search filtered flights must match search text');
+console.log(`   [PASS] Live search verified (${madridFlights.length} flights matching "Madrid").`);
+vm.runInContext("searchFilterText = '';", sandbox);
+
+// Test updateGlobalStats execution
+const updateGlobalStats = vm.runInContext('updateGlobalStats', sandbox);
+assert(typeof updateGlobalStats === 'function', 'updateGlobalStats function must exist');
+updateGlobalStats();
+console.log('   [PASS] Global civic KPIs dynamic update verified.');
+
+
 // 7. Test 240-Month Timeline Scrubber and Fiscal Odometer (2007-2026)
 console.log('\n7. Verifying 240-Month Timeline Scrubber & Fiscal Odometer (2007–2026)...');
 

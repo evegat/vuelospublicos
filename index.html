@@ -4,37 +4,40 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>VuelosPúblicos — Observatorio Cívico del Gasto en Pasajes Aéreos del Estado de Chile</title>
-  <meta name="description" content="Observatorio ciudadano y auditoría del gasto en pasajes aéreos y comitivas oficiales de la administración del Estado de Chile. Trazabilidad oficial con Mercado Público (Ley 19.886) y Transparencia Activa (Ley 20.285).">
+  <meta name="description" content="Observatorio ciudadano y auditoría del gasto en pasajes aéreos y comitivas oficiales de la administración del Estado de Chile (2007-2026). Trazabilidad oficial con Mercado Público (Ley 19.886) y Transparencia Activa (Ley 20.285).">
   <meta property="og:title" content="VuelosPúblicos — Observatorio Cívico de Pasajes del Estado">
-  <meta property="og:description" content="Auditoría ciudadana y visualización geoespacial de compras públicas de pasajes aéreos en comitivas oficiales de Chile.">
+  <meta property="og:description" content="Auditoría ciudadana y visualización geoespacial de 459 compras públicas de pasajes aéreos en comitivas oficiales de Chile.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://vuelospublicos.evegat.cl/">
   <style>
     :root {
-      --bg-base: #081018;
-      --bg-surface: #0e1724;
-      --bg-card: #141f2e;
-      --bg-card-hover: #1a293d;
-      --bg-ocean: #091420;
-      --land-fill: #122133;
-      --land-stroke: #1f3752;
-      --border-subtle: #1e2c3f;
-      --border-focus: #388bfd;
+      --bg-base: #060b11;
+      --bg-surface: #0c1420;
+      --bg-card: #121d2c;
+      --bg-card-hover: #1a283c;
+      --bg-card-active: rgba(47, 129, 247, 0.15);
+      --bg-ocean: #07101a;
+      --land-fill: #102132;
+      --land-stroke: #1b3754;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-focus: #2f81f7;
       --text-primary: #f0f6fc;
       --text-secondary: #8b9bb0;
-      --text-muted: #5c6c80;
+      --text-muted: #576577;
       --c-turista: #00e5a3;
-      --c-turista-dim: rgba(0, 229, 163, 0.25);
+      --c-turista-dim: rgba(0, 229, 163, 0.2);
       --c-business: #ff4d5a;
-      --c-business-dim: rgba(255, 77, 90, 0.25);
+      --c-business-dim: rgba(255, 77, 90, 0.2);
       --c-scl: #00d4ff;
-      --c-accent: #388bfd;
+      --c-accent: #2f81f7;
       --c-gold: #f59e0b;
+      --c-purple: #a855f7;
       --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
       --font-mono: 'Space Mono', 'SF Mono', Consolas, Menlo, monospace;
       --radius-sm: 4px;
       --radius-md: 8px;
       --radius-lg: 12px;
+      --radius-xl: 16px;
     }
 
     * {
@@ -59,10 +62,10 @@
       display: flex;
       flex-direction: column;
       width: 100%;
-      max-width: 1680px;
+      max-width: 1720px;
       margin: 0 auto;
       padding: 14px 18px;
-      gap: 14px;
+      gap: 12px;
       flex: 1;
     }
 
@@ -71,31 +74,31 @@
       background: var(--bg-surface);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-lg);
-      padding: 14px 20px;
+      padding: 12px 18px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 16px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+      gap: 14px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
     }
 
     .brand-group {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
     }
 
     .brand-icon {
-      width: 40px;
-      height: 40px;
+      width: 42px;
+      height: 42px;
       border-radius: var(--radius-md);
-      background: linear-gradient(135deg, #00d4ff 0%, #0077b6 100%);
+      background: linear-gradient(135deg, #00d4ff 0%, #005bb5 100%);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 20px;
-      box-shadow: 0 0 14px rgba(0, 212, 255, 0.35);
+      font-size: 22px;
+      box-shadow: 0 0 16px rgba(0, 212, 255, 0.4);
     }
 
     .brand-title {
@@ -120,49 +123,64 @@
     }
 
     .brand-sub {
-      font-size: 0.78rem;
+      font-size: 0.74rem;
       color: var(--text-secondary);
       font-weight: 400;
+      letter-spacing: 0.4px;
     }
 
     .header-actions {
       display: flex;
       align-items: center;
-      gap: 18px;
+      gap: 14px;
       flex-wrap: wrap;
     }
 
-    .telemetry-strip {
+    /* Barra de KPIs Cívicos */
+    .kpi-strip {
       display: flex;
       align-items: center;
-      gap: 16px;
-      background: rgba(0, 0, 0, 0.25);
-      padding: 6px 14px;
-      border-radius: var(--radius-md);
-      border: 1px solid var(--border-subtle);
+      gap: 10px;
+      flex-wrap: wrap;
     }
 
-    .telemetry-item {
+    .kpi-card {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 6px 12px;
       display: flex;
       flex-direction: column;
+      min-width: 110px;
+      transition: all 0.2s ease;
     }
 
-    .telemetry-label {
-      font-size: 0.68rem;
+    .kpi-card:hover {
+      border-color: rgba(47, 129, 247, 0.4);
+      background: rgba(47, 129, 247, 0.05);
+    }
+
+    .kpi-label {
+      font-size: 0.65rem;
       text-transform: uppercase;
       letter-spacing: 0.5px;
       color: var(--text-muted);
       font-weight: 600;
     }
 
-    .telemetry-value {
+    .kpi-value {
       font-family: var(--font-mono);
-      font-size: 0.95rem;
+      font-size: 0.88rem;
       font-weight: 700;
       color: var(--text-primary);
+      white-space: nowrap;
     }
 
-    .telemetry-value.accent-business {
+    .kpi-value.accent-spend {
+      color: #38bdf8;
+    }
+
+    .kpi-value.accent-business {
       color: var(--c-business);
     }
 
@@ -170,15 +188,16 @@
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
       color: var(--text-secondary);
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 600;
-      padding: 8px 14px;
+      padding: 8px 12px;
       border-radius: var(--radius-md);
       cursor: pointer;
       transition: all 0.2s ease;
       display: flex;
       align-items: center;
       gap: 6px;
+      white-space: nowrap;
     }
 
     .btn-help-modal:hover {
@@ -187,11 +206,45 @@
       border-color: var(--border-focus);
     }
 
-    /* Layout Principal de 3 Columnas Responsivo */
+    /* Navegación por pestañas móvil (Oculta en Desktop) */
+    .mobile-view-tabs {
+      display: none;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 4px;
+      gap: 4px;
+      margin-bottom: 2px;
+    }
+
+    .mobile-tab-btn {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 8px 6px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    .mobile-tab-btn.active {
+      background: var(--bg-card);
+      color: #ffffff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Layout Principal de 3 Columnas */
     .main-workspace {
       display: grid;
-      grid-template-columns: 320px 1fr 340px;
-      gap: 14px;
+      grid-template-columns: 330px 1fr 350px;
+      gap: 12px;
       flex: 1;
       min-height: 0;
     }
@@ -208,20 +261,22 @@
     }
 
     .sidebar-header {
-      padding: 14px 16px;
+      padding: 12px 14px;
       border-bottom: 1px solid var(--border-subtle);
       background: rgba(0, 0, 0, 0.15);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
 
     .sidebar-title-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 10px;
     }
 
     .sidebar-title {
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.5px;
@@ -233,7 +288,7 @@
 
     .sidebar-count-badge {
       font-family: var(--font-mono);
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
       padding: 2px 8px;
@@ -241,15 +296,62 @@
       color: var(--text-secondary);
     }
 
+    /* Buscador en el Sidebar */
+    .sidebar-search-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 100%;
+    }
+
+    .sidebar-search-input {
+      width: 100%;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+      font-size: 0.78rem;
+      padding: 7px 28px 7px 10px;
+      border-radius: var(--radius-sm);
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .sidebar-search-input:focus {
+      border-color: var(--border-focus);
+      background: var(--bg-card-hover);
+      box-shadow: 0 0 0 2px rgba(47, 129, 247, 0.2);
+    }
+
+    .sidebar-search-input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .btn-clear-search {
+      position: absolute;
+      right: 8px;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-clear-search:hover {
+      color: #ffffff;
+    }
+
     /* Toolbar de Ordenamiento */
     .sort-toolbar {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 4px;
     }
 
     .sort-label {
-      font-size: 0.72rem;
+      font-size: 0.68rem;
       color: var(--text-muted);
       font-weight: 600;
       text-transform: uppercase;
@@ -261,7 +363,7 @@
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
       color: var(--text-secondary);
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       font-weight: 600;
       padding: 5px 6px;
       border-radius: var(--radius-sm);
@@ -278,63 +380,57 @@
     }
 
     .sort-btn.active {
-      background: rgba(56, 139, 253, 0.2);
+      background: rgba(47, 129, 247, 0.2);
       color: #58a6ff;
-      border-color: #388bfd;
+      border-color: #2f81f7;
     }
 
     /* Lista Scrolleable de Viajes */
     .flight-scroll-list {
       flex: 1;
       overflow-y: auto;
-      padding: 10px;
+      padding: 8px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      max-height: calc(100vh - 240px);
+      gap: 6px;
+      max-height: calc(100vh - 250px);
     }
 
     .flight-scroll-list::-webkit-scrollbar {
-      width: 6px;
-    }
-
-    .flight-scroll-list::-webkit-scrollbar-track {
-      background: transparent;
+      width: 5px;
     }
 
     .flight-scroll-list::-webkit-scrollbar-thumb {
-      background: var(--border-subtle);
+      background: rgba(255, 255, 255, 0.15);
       border-radius: 3px;
     }
 
-    .flight-scroll-list::-webkit-scrollbar-thumb:hover {
-      background: var(--text-muted);
-    }
-
-    /* Card de Viaje en la Lista */
     .flight-card {
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
-      padding: 10px 12px;
+      padding: 8px 10px;
       cursor: pointer;
       transition: all 0.18s ease;
       display: flex;
       flex-direction: column;
-      gap: 6px;
-      position: relative;
+      gap: 4px;
     }
 
     .flight-card:hover {
       background: var(--bg-card-hover);
-      border-color: rgba(56, 139, 253, 0.4);
-      transform: translateY(-1px);
+      border-color: rgba(47, 129, 247, 0.4);
+      transform: translateX(2px);
     }
 
     .flight-card.active {
-      background: #17263b;
-      border-color: var(--c-accent);
-      box-shadow: 0 0 12px rgba(56, 139, 253, 0.25);
+      background: var(--bg-card-active);
+      border-color: var(--border-focus);
+      box-shadow: 0 0 12px rgba(47, 129, 247, 0.25);
+    }
+
+    .flight-card.dimmed {
+      opacity: 0.45;
     }
 
     .flight-card-header {
@@ -344,39 +440,52 @@
     }
 
     .flight-card-route {
-      font-family: var(--font-mono);
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       font-weight: 700;
       color: #ffffff;
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 4px;
     }
 
     .flight-card-badge {
-      font-size: 0.65rem;
+      font-size: 0.62rem;
       font-weight: 700;
-      padding: 2px 7px;
-      border-radius: var(--radius-sm);
+      padding: 1px 6px;
+      border-radius: 10px;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.4px;
+    }
+
+    .badge-turista {
+      background: var(--c-turista-dim);
+      color: var(--c-turista);
+      border: 1px solid rgba(0, 229, 163, 0.4);
     }
 
     .badge-business {
       background: var(--c-business-dim);
-      color: #ff6b77;
+      color: var(--c-business);
       border: 1px solid rgba(255, 77, 90, 0.4);
     }
 
-    .badge-economy {
-      background: var(--c-turista-dim);
-      color: #00ffaa;
-      border: 1px solid rgba(0, 229, 163, 0.4);
+    .flight-card-body {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
     }
 
     .flight-card-entity {
-      font-size: 0.76rem;
+      font-size: 0.74rem;
       color: var(--text-secondary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .flight-card-passenger {
+      font-size: 0.7rem;
+      color: var(--text-muted);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -386,10 +495,10 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       color: var(--text-muted);
       border-top: 1px dashed rgba(255, 255, 255, 0.08);
-      padding-top: 5px;
+      padding-top: 4px;
       margin-top: 2px;
     }
 
@@ -399,19 +508,14 @@
       color: #f0f6fc;
     }
 
-    .flight-card.dimmed {
-      opacity: 0.45;
-    }
-
     /* Columna 2: Área Central de Mapa y Línea de Tiempo */
     .map-area {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
       min-height: 0;
     }
 
-    /* Contenedor del Mapa */
     .map-container {
       background: var(--bg-ocean);
       border: 1px solid var(--border-subtle);
@@ -435,43 +539,37 @@
       cursor: grabbing;
     }
 
-    /* HUD de Información sobre el Mapa */
     .map-hud-top {
       position: absolute;
       top: 12px;
       left: 14px;
-      background: rgba(8, 16, 24, 0.82);
+      background: rgba(6, 12, 19, 0.85);
       backdrop-filter: blur(8px);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
-      padding: 8px 12px;
-      font-size: 0.72rem;
+      padding: 6px 10px;
+      font-size: 0.7rem;
       color: var(--text-secondary);
       pointer-events: none;
       display: flex;
       flex-direction: column;
-      gap: 3px;
+      gap: 2px;
       z-index: 10;
     }
 
-    .map-hud-top strong {
-      color: var(--c-scl);
-    }
-
-    /* Leyenda de Cabina */
     .map-legend {
       position: absolute;
       bottom: 12px;
       left: 14px;
-      background: rgba(8, 16, 24, 0.82);
+      background: rgba(6, 12, 19, 0.85);
       backdrop-filter: blur(8px);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
-      padding: 8px 14px;
+      padding: 6px 12px;
       display: flex;
       align-items: center;
-      gap: 14px;
-      font-size: 0.72rem;
+      gap: 12px;
+      font-size: 0.7rem;
       color: var(--text-secondary);
       pointer-events: none;
       z-index: 10;
@@ -480,7 +578,7 @@
     .legend-item {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
     }
 
     .legend-dot {
@@ -489,7 +587,6 @@
       border-radius: 50%;
     }
 
-    /* Controles Flotantes del Mapa */
     .map-controls {
       position: absolute;
       top: 12px;
@@ -501,14 +598,14 @@
     }
 
     .map-control-btn {
-      width: 34px;
-      height: 34px;
+      width: 32px;
+      height: 32px;
       background: rgba(14, 23, 36, 0.9);
       backdrop-filter: blur(8px);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-sm);
       color: var(--text-primary);
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 700;
       display: flex;
       align-items: center;
@@ -525,19 +622,14 @@
       transform: scale(1.05);
     }
 
-    .map-control-btn:active {
-      transform: scale(0.95);
-    }
-
-    /* Tooltip Flotante del Mapa */
     .map-tooltip {
       position: absolute;
-      background: rgba(14, 23, 36, 0.96);
+      background: rgba(12, 20, 32, 0.96);
       backdrop-filter: blur(8px);
       border: 1px solid var(--border-focus);
       border-radius: var(--radius-md);
       padding: 8px 12px;
-      font-size: 0.76rem;
+      font-size: 0.74rem;
       color: var(--text-primary);
       pointer-events: none;
       z-index: 20;
@@ -548,14 +640,14 @@
 
     .map-tooltip strong {
       color: #ffffff;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       display: block;
       margin-bottom: 2px;
     }
 
     .map-tooltip .tooltip-meta {
       color: var(--text-secondary);
-      font-size: 0.72rem;
+      font-size: 0.7rem;
     }
 
     /* Contenedor de Línea de Tiempo y Odómetro */
@@ -563,10 +655,10 @@
       background: var(--bg-surface);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-lg);
-      padding: 12px 16px;
+      padding: 10px 14px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
     }
 
@@ -581,16 +673,16 @@
     .transport-controls {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
     }
 
     .transport-btn {
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
       color: var(--text-primary);
-      font-size: 0.76rem;
+      font-size: 0.74rem;
       font-weight: 600;
-      padding: 6px 12px;
+      padding: 5px 10px;
       border-radius: var(--radius-sm);
       cursor: pointer;
       transition: all 0.15s ease;
@@ -601,116 +693,116 @@
 
     .transport-btn:hover {
       background: var(--bg-card-hover);
+      color: #ffffff;
       border-color: var(--border-focus);
-      color: #58a6ff;
     }
 
     .transport-btn.btn-play.playing {
-      background: rgba(0, 229, 163, 0.2);
-      border-color: var(--c-turista);
-      color: var(--c-turista);
+      background: rgba(47, 129, 247, 0.2);
+      color: #58a6ff;
+      border-color: #2f81f7;
     }
 
     .timeline-date-display {
       font-family: var(--font-mono);
       font-size: 0.95rem;
       font-weight: 700;
-      color: #ffffff;
-      background: rgba(0, 0, 0, 0.25);
+      color: #58a6ff;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 4px 12px;
+      border-radius: var(--radius-md);
       border: 1px solid var(--border-subtle);
-      padding: 4px 14px;
-      border-radius: var(--radius-sm);
-      min-width: 140px;
-      text-align: center;
     }
 
-    /* Odómetro Fiscal Acumulativo */
     .odometer-box {
       display: flex;
-      align-items: baseline;
+      align-items: center;
       gap: 8px;
+      background: rgba(0, 0, 0, 0.35);
+      padding: 4px 12px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
     }
 
     .odometer-label {
-      font-size: 0.7rem;
-      font-weight: 600;
+      font-size: 0.68rem;
       text-transform: uppercase;
       color: var(--text-muted);
+      font-weight: 600;
     }
 
     .odometer-value {
       font-family: var(--font-mono);
-      font-size: 1.15rem;
+      font-size: 0.98rem;
       font-weight: 800;
-      color: #00ffaa;
+      color: #38bdf8;
       letter-spacing: 0.5px;
     }
 
-    /* Slider de la Línea de Tiempo */
+    /* Sparkline & Slider */
     .slider-track-container {
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 2px;
+    }
+
+    .scrubber-sparkline-canvas {
+      width: 100%;
+      height: 18px;
+      display: block;
+      opacity: 0.85;
+      border-radius: 2px;
     }
 
     .timeline-slider {
       -webkit-appearance: none;
       width: 100%;
-      height: 8px;
-      border-radius: 4px;
-      background: #182638;
+      height: 6px;
+      border-radius: 3px;
+      background: rgba(255, 255, 255, 0.1);
       outline: none;
       cursor: pointer;
-      border: 1px solid var(--border-subtle);
     }
 
     .timeline-slider::-webkit-slider-thumb {
       -webkit-appearance: none;
-      width: 18px;
-      height: 18px;
+      appearance: none;
+      width: 16px;
+      height: 16px;
       border-radius: 50%;
-      background: #00d4ff;
-      border: 2px solid #ffffff;
+      background: #58a6ff;
       cursor: pointer;
-      box-shadow: 0 0 10px rgba(0, 212, 255, 0.6);
-      transition: transform 0.1s;
+      box-shadow: 0 0 10px rgba(56, 139, 253, 0.8);
+      border: 2px solid #ffffff;
+      transition: transform 0.1s ease;
     }
 
     .timeline-slider::-webkit-slider-thumb:hover {
-      transform: scale(1.15);
-    }
-
-    .timeline-slider::-moz-range-thumb {
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background: #00d4ff;
-      border: 2px solid #ffffff;
-      cursor: pointer;
-      box-shadow: 0 0 10px rgba(0, 212, 255, 0.6);
+      transform: scale(1.2);
     }
 
     .slider-year-markers {
       display: flex;
       justify-content: space-between;
+      font-size: 0.65rem;
       font-family: var(--font-mono);
-      font-size: 0.68rem;
       color: var(--text-muted);
       padding: 0 2px;
     }
 
-    /* Filtro de Proveedores */
     .filter-provider-row {
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
       flex-wrap: wrap;
       gap: 8px;
-      border-top: 1px dashed rgba(255, 255, 255, 0.08);
+      border-top: 1px solid var(--border-subtle);
       padding-top: 8px;
     }
 
-    .filter-provider-group {
+    .filter-provider-group, .filter-secondary-group {
       display: flex;
       align-items: center;
       gap: 6px;
@@ -718,11 +810,10 @@
     }
 
     .filter-label {
-      font-size: 0.72rem;
-      font-weight: 600;
+      font-size: 0.68rem;
       text-transform: uppercase;
+      font-weight: 600;
       color: var(--text-muted);
-      margin-right: 4px;
     }
 
     .provider-chip {
@@ -731,8 +822,8 @@
       color: var(--text-secondary);
       font-size: 0.72rem;
       font-weight: 600;
-      padding: 4px 10px;
-      border-radius: 14px;
+      padding: 3px 8px;
+      border-radius: var(--radius-sm);
       cursor: pointer;
       transition: all 0.15s ease;
     }
@@ -744,16 +835,66 @@
     }
 
     .provider-chip.active {
-      background: rgba(56, 139, 253, 0.25);
-      border-color: #388bfd;
+      background: rgba(47, 129, 247, 0.2);
       color: #58a6ff;
+      border-color: #2f81f7;
     }
 
     .provider-select-hidden {
       display: none;
     }
 
-    /* Columna 3: Expediente Fiscal y Tribunal Ciudadano */
+    .filter-entity-select {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 4px 8px;
+      border-radius: var(--radius-sm);
+      outline: none;
+      cursor: pointer;
+    }
+
+    .filter-entity-select:focus {
+      border-color: var(--border-focus);
+    }
+
+    .btn-toggle-business {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 4px 8px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .btn-toggle-business .business-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--c-business);
+      opacity: 0.5;
+    }
+
+    .btn-toggle-business.active {
+      background: var(--c-business-dim);
+      color: #ffffff;
+      border-color: var(--c-business);
+    }
+
+    .btn-toggle-business.active .business-dot {
+      opacity: 1;
+      box-shadow: 0 0 6px var(--c-business);
+    }
+
+    /* Columna 3: Expediente Fiscal y Tribunal */
     .dossier-housing {
       background: var(--bg-surface);
       border: 1px solid var(--border-subtle);
@@ -765,7 +906,7 @@
     }
 
     .dossier-header {
-      padding: 14px 16px;
+      padding: 10px 14px;
       border-bottom: 1px solid var(--border-subtle);
       background: rgba(0, 0, 0, 0.15);
       display: flex;
@@ -774,31 +915,30 @@
     }
 
     .dossier-tag {
-      font-size: 0.85rem;
-      font-weight: 700;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.8px;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: var(--text-primary);
+      color: #58a6ff;
     }
 
     .dossier-content {
-      padding: 14px 16px;
+      padding: 12px 14px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
       flex: 1;
       overflow-y: auto;
     }
 
-    /* Display de Ruta Aérea */
     .route-display {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       background: rgba(0, 0, 0, 0.25);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
-      padding: 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      padding: 10px 12px;
     }
 
     .route-node {
@@ -808,77 +948,79 @@
 
     .node-code {
       font-family: var(--font-mono);
-      font-size: 1.35rem;
+      font-size: 1.25rem;
       font-weight: 800;
       color: #ffffff;
-      line-height: 1.1;
     }
 
     .node-city {
-      font-size: 0.76rem;
+      font-size: 0.74rem;
       color: var(--text-secondary);
       font-weight: 600;
     }
 
     .node-airport {
-      font-size: 0.68rem;
+      font-size: 0.65rem;
       color: var(--text-muted);
-      max-width: 110px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
 
     .route-arrow {
-      color: var(--c-accent);
-      font-size: 1.1rem;
-      font-weight: 700;
+      font-size: 1rem;
+      color: #58a6ff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
     }
 
-    /* Fila de Datos */
+    .route-dist-label {
+      font-size: 0.62rem;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+    }
+
     .data-row {
       display: flex;
       flex-direction: column;
-      gap: 3px;
+      gap: 2px;
     }
 
     .data-label {
-      font-size: 0.7rem;
+      font-size: 0.66rem;
       text-transform: uppercase;
       color: var(--text-muted);
       font-weight: 600;
-      letter-spacing: 0.4px;
+      letter-spacing: 0.3px;
     }
 
     .data-value {
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       color: var(--text-primary);
       font-weight: 600;
     }
 
     .data-value.price {
       font-family: var(--font-mono);
-      font-size: 1.25rem;
+      font-size: 1.15rem;
       font-weight: 800;
-      color: #00ffaa;
+      color: #38bdf8;
     }
 
-    /* Caja de Metadatos */
     .data-meta-box {
       background: rgba(0, 0, 0, 0.2);
       border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-sm);
+      border-radius: var(--radius-md);
       padding: 8px 10px;
       display: flex;
       flex-direction: column;
-      gap: 5px;
-      font-size: 0.74rem;
+      gap: 4px;
     }
 
     .meta-line {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      font-size: 0.72rem;
     }
 
     .meta-key {
@@ -891,15 +1033,29 @@
       font-weight: 600;
     }
 
+    .oc-copy-btn {
+      background: transparent;
+      border: none;
+      color: #58a6ff;
+      cursor: pointer;
+      font-size: 11px;
+      margin-left: 4px;
+      transition: color 0.15s ease;
+    }
+
+    .oc-copy-btn:hover {
+      color: #ffffff;
+    }
+
     .data-reason {
-      background: rgba(0, 0, 0, 0.2);
-      border-left: 3px solid var(--c-accent);
+      background: rgba(47, 129, 247, 0.05);
+      border-left: 3px solid #2f81f7;
       padding: 8px 10px;
-      font-size: 0.76rem;
-      color: var(--text-secondary);
-      line-height: 1.35;
-      font-style: italic;
       border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      font-size: 0.74rem;
+      color: var(--text-secondary);
+      line-height: 1.4;
+      font-style: italic;
     }
 
     .source-tag-link {
@@ -908,37 +1064,36 @@
       align-items: center;
       font-size: 0.7rem;
       color: var(--text-muted);
-      border-top: 1px dashed rgba(255, 255, 255, 0.08);
-      padding-top: 8px;
+      border-top: 1px dashed var(--border-subtle);
+      padding-top: 6px;
     }
 
     .source-tag-link a {
       color: #58a6ff;
       text-decoration: none;
-      font-weight: 600;
     }
 
     .source-tag-link a:hover {
       text-decoration: underline;
     }
 
-    /* Módulo Tribunal Ciudadano */
+    /* Tribunal Ciudadano */
     .tribunal-box {
-      background: rgba(0, 0, 0, 0.25);
       border-top: 1px solid var(--border-subtle);
-      padding: 14px 16px;
+      padding: 12px 14px;
+      background: rgba(0, 0, 0, 0.2);
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
     }
 
     .tribunal-title {
-      font-size: 0.74rem;
-      font-weight: 700;
+      font-size: 0.72rem;
+      font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 0.6px;
-      color: var(--text-secondary);
+      letter-spacing: 0.5px;
       text-align: center;
+      color: #f0f6fc;
     }
 
     .action-buttons {
@@ -948,147 +1103,188 @@
     }
 
     .civic-btn {
-      border: 1px solid transparent;
+      padding: 8px;
       border-radius: var(--radius-md);
-      padding: 10px 8px;
+      border: 1px solid transparent;
       cursor: pointer;
+      font-weight: 700;
+      font-size: 0.78rem;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 2px;
-      font-weight: 700;
-      font-size: 0.8rem;
-      transition: all 0.15s ease;
+      transition: all 0.18s ease;
     }
 
     .civic-btn small {
       font-size: 0.65rem;
-      font-weight: 500;
-      opacity: 0.85;
+      font-weight: 400;
+      opacity: 0.8;
     }
 
     .btn-approve {
-      background: rgba(0, 229, 163, 0.12);
-      border-color: rgba(0, 229, 163, 0.35);
-      color: #00ffaa;
+      background: rgba(0, 229, 163, 0.1);
+      border-color: rgba(0, 229, 163, 0.3);
+      color: var(--c-turista);
     }
 
     .btn-approve:hover:not(:disabled) {
-      background: rgba(0, 229, 163, 0.25);
-      border-color: #00ffaa;
+      background: rgba(0, 229, 163, 0.2);
+      border-color: var(--c-turista);
       transform: translateY(-1px);
+    }
+
+    .btn-approve.active-voted {
+      background: var(--c-turista);
+      color: #000000;
+      font-weight: 800;
     }
 
     .btn-reject {
-      background: rgba(255, 77, 90, 0.12);
-      border-color: rgba(255, 77, 90, 0.35);
-      color: #ff6b77;
+      background: rgba(255, 77, 90, 0.1);
+      border-color: rgba(255, 77, 90, 0.3);
+      color: var(--c-business);
     }
 
     .btn-reject:hover:not(:disabled) {
-      background: rgba(255, 77, 90, 0.25);
-      border-color: #ff4d5a;
+      background: rgba(255, 77, 90, 0.2);
+      border-color: var(--c-business);
       transform: translateY(-1px);
     }
 
+    .btn-reject.active-voted {
+      background: var(--c-business);
+      color: #ffffff;
+      font-weight: 800;
+    }
+
     .civic-btn:disabled {
-      opacity: 0.55;
       cursor: not-allowed;
-      transform: none !important;
+      opacity: 0.8;
     }
 
-    .civic-btn.active-voted {
-      border-width: 2px;
-      box-shadow: 0 0 10px currentColor;
-    }
-
-    .vote-bar-container {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .vote-bar {
+    .voting-bar-container {
       height: 8px;
+      background: rgba(255, 255, 255, 0.1);
       border-radius: 4px;
-      background: #1c2b3d;
-      display: flex;
       overflow: hidden;
+      display: flex;
     }
 
-    .vote-bar-approve {
-      background: #00e5a3;
+    .bar-approve {
+      background: var(--c-turista);
+      height: 100%;
+      width: 50%;
       transition: width 0.3s ease;
     }
 
-    .vote-bar-reject {
-      background: #ff4d5a;
+    .bar-reject {
+      background: var(--c-business);
+      height: 100%;
+      width: 50%;
       transition: width 0.3s ease;
     }
 
-    .vote-stats-text {
+    .voting-stats-row {
       display: flex;
       justify-content: space-between;
-      font-family: var(--font-mono);
       font-size: 0.7rem;
+      font-family: var(--font-mono);
       font-weight: 600;
     }
 
-    #txtApprove {
-      color: #00ffaa;
+    .txt-approve {
+      color: var(--c-turista);
     }
 
-    #txtReject {
-      color: #ff6b77;
+    .txt-reject {
+      color: var(--c-business);
     }
 
     .vote-status-msg {
       font-size: 0.68rem;
       text-align: center;
-      font-weight: 600;
       color: var(--text-muted);
-      margin-top: 2px;
     }
 
     .vote-status-msg.voted {
       color: #58a6ff;
+      font-weight: 600;
+    }
+
+    /* Compartir Expediente */
+    .share-box {
+      border-top: 1px solid var(--border-subtle);
+      padding: 8px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      position: relative;
+    }
+
+    .btn-share-expediente {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+      font-size: 0.74rem;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+
+    .btn-share-expediente:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--border-focus);
+      color: #ffffff;
+    }
+
+    .share-toast {
+      display: none;
+      font-size: 0.7rem;
+      color: #38bdf8;
+      text-align: center;
+      font-weight: 600;
     }
 
     /* Pie de Página */
     .civic-footer {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-lg);
-      padding: 12px 18px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      font-size: 0.74rem;
+      padding: 8px 10px;
+      font-size: 0.7rem;
       color: var(--text-muted);
+      border-top: 1px solid var(--border-subtle);
+      margin-top: auto;
     }
 
     .civic-footer a {
-      color: #58a6ff;
+      color: var(--text-secondary);
       text-decoration: none;
     }
 
     .civic-footer a:hover {
+      color: #ffffff;
       text-decoration: underline;
     }
 
-    /* Modal de Glosario y Fuentes */
+    /* Modal */
     .modal-overlay {
+      display: none;
       position: fixed;
       inset: 0;
-      background: rgba(4, 9, 14, 0.85);
-      backdrop-filter: blur(6px);
-      display: none;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
       align-items: center;
       justify-content: center;
       padding: 16px;
-      z-index: 1000;
     }
 
     .modal-overlay.open {
@@ -1099,12 +1295,12 @@
       background: var(--bg-surface);
       border: 1px solid var(--border-focus);
       border-radius: var(--radius-lg);
+      max-width: 650px;
       width: 100%;
-      max-width: 640px;
-      max-height: 85vh;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
       display: flex;
       flex-direction: column;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7);
+      overflow: hidden;
     }
 
     .modal-header {
@@ -1118,19 +1314,16 @@
     .modal-title {
       font-size: 0.95rem;
       font-weight: 800;
+      letter-spacing: 0.5px;
       color: #ffffff;
-      display: flex;
-      align-items: center;
-      gap: 8px;
     }
 
     .btn-close-modal {
-      background: transparent;
+      background: none;
       border: none;
       color: var(--text-secondary);
-      font-size: 1.4rem;
+      font-size: 22px;
       cursor: pointer;
-      line-height: 1;
     }
 
     .btn-close-modal:hover {
@@ -1138,14 +1331,15 @@
     }
 
     .modal-body {
-      padding: 18px;
-      overflow-y: auto;
-      font-size: 0.82rem;
+      padding: 16px 18px;
+      font-size: 0.8rem;
       color: var(--text-secondary);
-      line-height: 1.5;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
+      line-height: 1.5;
+      max-height: 70vh;
+      overflow-y: auto;
     }
 
     .modal-section-title {
@@ -1164,37 +1358,48 @@
       justify-content: flex-end;
     }
 
-    /* Adaptabilidad Móvil y Tablet */
-    @media (max-width: 1080px) {
+    /* Media Queries */
+    @media (max-width: 1120px) {
       .main-workspace {
-        grid-template-columns: 280px 1fr;
+        grid-template-columns: 290px 1fr;
       }
       .dossier-housing {
         grid-column: span 2;
       }
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 860px) {
       .civic-container {
         padding: 8px;
-        gap: 10px;
+        gap: 8px;
+      }
+      .kpi-strip {
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 4px;
+      }
+      .mobile-view-tabs {
+        display: flex;
       }
       .main-workspace {
         display: flex;
         flex-direction: column;
       }
+      .flight-list-sidebar.mobile-hidden,
+      .map-area.mobile-hidden,
+      .dossier-housing.mobile-hidden {
+        display: none !important;
+      }
       .map-container {
-        min-height: 380px;
+        min-height: 400px;
       }
       .flight-scroll-list {
-        max-height: 280px;
+        max-height: 450px;
       }
-      .telemetry-strip {
-        width: 100%;
-        justify-content: space-between;
-      }
-      .civic-header {
-        padding: 10px 12px;
+      .civic-footer {
+        flex-direction: column;
+        gap: 4px;
+        text-align: center;
       }
     }
   </style>
@@ -1217,41 +1422,65 @@
       </div>
 
       <div class="header-actions">
-        <div class="telemetry-strip">
-          <div class="telemetry-item">
-            <span class="telemetry-label">Viajes Oficiales</span>
-            <span class="telemetry-value" id="statFlightsCount">12</span>
+        <!-- Barra de KPIs Dinámicos -->
+        <div class="kpi-strip">
+          <div class="kpi-card">
+            <span class="kpi-label">Viajes Oficiales</span>
+            <span class="kpi-value" id="statFlightsCount">459</span>
           </div>
-          <div class="telemetry-item">
-            <span class="telemetry-label">Gasto Consolidado</span>
-            <span class="telemetry-value" id="statTotalSpend">$44.900.000 CLP</span>
+          <div class="kpi-card">
+            <span class="kpi-label">Gasto Consolidado</span>
+            <span class="kpi-value accent-spend" id="statTotalSpend">$3.176M CLP</span>
           </div>
-          <div class="telemetry-item">
-            <span class="telemetry-label">Comitivas Business</span>
-            <span class="telemetry-value accent-business" id="statBusinessCount">4 (33%)</span>
+          <div class="kpi-card">
+            <span class="kpi-label">Clase Business</span>
+            <span class="kpi-value accent-business" id="statBusinessCount">33 (7%)</span>
+          </div>
+          <div class="kpi-card">
+            <span class="kpi-label">Top Organismo</span>
+            <span class="kpi-value" id="statTopEntity" title="Organismo líder en gasto">Presidencia</span>
+          </div>
+          <div class="kpi-card">
+            <span class="kpi-label">Top Destino</span>
+            <span class="kpi-value" id="statTopDest" title="Destino más concurrido">Rapa Nui</span>
           </div>
         </div>
 
         <button class="btn-help-modal" id="btnOpenHelp" aria-label="Abrir fuentes y metodología">
-          <span>ℹ️ Metodología y Glosario</span>
+          <span>ℹ️ Metodología</span>
         </button>
       </div>
     </header>
+
+    <!-- Pestañas de Vista Móvil -->
+    <nav class="mobile-view-tabs" id="mobileViewTabs">
+      <button class="mobile-tab-btn active" data-view="map">🗺️ Mapa</button>
+      <button class="mobile-tab-btn" data-view="list">📋 Viajes (<span id="mobileCountBadge">459</span>)</button>
+      <button class="mobile-tab-btn" data-view="dossier">📄 Expediente</button>
+    </nav>
 
     <!-- Área de Trabajo Principal (3 Columnas) -->
     <main class="main-workspace">
 
       <!-- Columna 1: Panel Lateral de Viajes Oficiales -->
-      <aside class="flight-list-sidebar">
+      <aside class="flight-list-sidebar" id="sidebarColumn">
         <div class="sidebar-header">
           <div class="sidebar-title-row">
             <div class="sidebar-title">
               <span>✈️ Viajes Oficiales</span>
-              <span class="sidebar-count-badge" id="listBadgeCount">12</span>
+              <span class="sidebar-count-badge" id="listBadgeCount">459</span>
             </div>
           </div>
+
+          <!-- Buscador en Vivo -->
+          <div class="sidebar-search-box">
+            <input type="search" id="flightSearchInput" class="sidebar-search-input" placeholder="🔍 Buscar pasajero, ministerio u OC..." aria-label="Buscar viaje oficial">
+            <button id="btnClearSearch" class="btn-clear-search" title="Limpiar búsqueda" style="display: none;">&times;</button>
+          </div>
+
+          <!-- Barra de Ordenamiento -->
           <div class="sort-toolbar">
-            <span class="sort-label">Ordenar:</span>
+            <span class="sort-label">Orden:</span>
             <button class="sort-btn active" id="btnSortCost" data-sort="cost">💰 Monto ↓</button>
             <button class="sort-btn" id="btnSortDate" data-sort="date">📅 Fecha</button>
             <button class="sort-btn" id="btnSortEntity" data-sort="entity">🏛️ Organismo</button>
@@ -1260,12 +1489,12 @@
 
         <!-- Lista scrolleable interactiva -->
         <div class="flight-scroll-list" id="flightListContainer">
-          <!-- Las tarjetas de viaje se inyectan dinámicamente aquí -->
+          <!-- Inyectado dinámicamente -->
         </div>
       </aside>
 
       <!-- Columna 2: Mapa Geoespacial y Línea de Tiempo -->
-      <section class="map-area">
+      <section class="map-area" id="mapColumn">
         <!-- Canvas de Cartografía y Rutas 60 FPS -->
         <div class="map-container" id="mapContainer">
           <div class="map-hud-top">
@@ -1289,7 +1518,7 @@
             </div>
           </div>
 
-          <!-- Controles flotantes estándar de mapa -->
+          <!-- Controles flotantes de mapa -->
           <div class="map-controls">
             <button class="map-control-btn" id="btnZoomIn" title="Acercar mapa" aria-label="Acercar">[ + ]</button>
             <button class="map-control-btn" id="btnZoomOut" title="Alejar mapa" aria-label="Alejar">[ − ]</button>
@@ -1311,16 +1540,18 @@
               <button class="transport-btn" id="btnNextMonth" title="Mes siguiente">⏩ Siguiente</button>
             </div>
 
-            <div class="timeline-date-display" id="currentMonthLabel">Agosto 2026</div>
+            <div class="timeline-date-display" id="currentMonthLabel">Septiembre 2026</div>
 
             <div class="odometer-box">
-              <span class="odometer-label">Odómetro Fiscal Acumulado:</span>
-              <span class="odometer-value" id="fiscalOdometer">$8.450.000 CLP</span>
+              <span class="odometer-label">Odómetro Fiscal:</span>
+              <span class="odometer-value" id="fiscalOdometer">$3.176.541.160 CLP</span>
             </div>
           </div>
 
+          <!-- Sparkline de Actividad y Slider -->
           <div class="slider-track-container">
-            <input type="range" class="timeline-slider" id="timelineSlider" min="0" max="239" value="235" step="1" aria-label="Línea de tiempo mensual 2007 a 2026">
+            <canvas id="scrubberSparkline" class="scrubber-sparkline-canvas" height="20"></canvas>
+            <input type="range" class="timeline-slider" id="timelineSlider" min="0" max="239" value="236" step="1" aria-label="Línea de tiempo mensual 2007 a 2026">
             <div class="slider-year-markers">
               <span>2007</span>
               <span>2011</span>
@@ -1331,9 +1562,10 @@
             </div>
           </div>
 
+          <!-- Barra de Filtros -->
           <div class="filter-provider-row">
             <div class="filter-provider-group" id="filterProvider">
-              <span class="filter-label">Agencia Proveedora:</span>
+              <span class="filter-label">Agencia:</span>
               <button class="provider-chip active" data-provider="Todas" id="filterProviderTodas">Todas</button>
               <button class="provider-chip" data-provider="Cocha" id="filterProviderCocha">Cocha</button>
               <button class="provider-chip" data-provider="Turavion" id="filterProviderTuravion">Turavion</button>
@@ -1367,7 +1599,7 @@
       </section>
 
       <!-- Columna 3: Expediente Fiscal y Tribunal Ciudadano -->
-      <aside class="dossier-housing">
+      <aside class="dossier-housing" id="dossierColumn">
         <div class="dossier-header">
           <span class="dossier-tag">EXPEDIENTE FISCAL</span>
           <span class="flight-card-badge badge-business" id="badgeCabin">CLASE BUSINESS</span>
@@ -1380,7 +1612,10 @@
               <span class="node-city" id="origCity">Santiago</span>
               <span class="node-airport" id="origAirport">Aerop. Arturo Merino Benítez</span>
             </div>
-            <div class="route-arrow">✈ ➔</div>
+            <div class="route-arrow">
+              <span>✈ ➔</span>
+              <span class="route-dist-label" id="routeDistance">-- km</span>
+            </div>
             <div class="route-node" style="align-items: flex-end;">
               <span class="node-code" id="destCode">GVA</span>
               <span class="node-city" id="destCity">Ginebra, Suiza</span>
@@ -1389,7 +1624,7 @@
           </div>
 
           <div class="data-row">
-            <span class="data-label">Organismo Público Responsable</span>
+            <span class="data-label">Organismo Público Comprador</span>
             <span class="data-value" id="entityName">Ministerio de Relaciones Exteriores</span>
           </div>
 
@@ -1405,25 +1640,28 @@
 
           <div class="data-meta-box">
             <div class="meta-line">
-              <span class="meta-key">Tipo de Cabina:</span>
-              <span class="meta-val" id="metaCabinDesc">Business (Asiento cama preferencial)</span>
+              <span class="meta-key">Cabina:</span>
+              <span class="meta-val" id="metaCabinDesc">Business • Vía Turavion</span>
             </div>
             <div class="meta-line">
-              <span class="meta-key">Aerolínea Operadora:</span>
-              <span class="meta-val" id="metaAirline">Iberia / LATAM Airlines</span>
+              <span class="meta-key">Aerolínea:</span>
+              <span class="meta-val" id="metaAirline">Vuelo Comercial</span>
             </div>
             <div class="meta-line">
-              <span class="meta-key">Agencia Proveedora:</span>
+              <span class="meta-key">Proveedor:</span>
               <span class="meta-val" id="metaProvider">Turavion</span>
             </div>
             <div class="meta-line">
-              <span class="meta-key">Orden de Compra (OC):</span>
-              <span class="meta-val" id="metaOc">721-140-CM24</span>
+              <span class="meta-key">Orden de Compra:</span>
+              <span class="meta-val">
+                <span id="metaOc">721-140-CM24</span>
+                <button class="oc-copy-btn" id="btnCopyOc" title="Copiar código OC">📋 Copiar</button>
+              </span>
             </div>
           </div>
 
           <div class="data-row">
-            <span class="data-label">Motivo Oficial Declarado en Decreto</span>
+            <span class="data-label">Motivo Oficial Declarado en Decreto / OC</span>
             <div class="data-reason" id="officialReason">
               "Participación plenaria en sesión del Consejo de Derechos Humanos de la ONU y mesas técnicas de cooperación internacional."
             </div>
@@ -1431,13 +1669,13 @@
 
           <div class="source-tag-link">
             <span>Mercado Público (Ley 19.886)</span>
-            <a href="https://www.mercadopublico.cl" target="_blank" rel="noopener">Ficha Oficial ↗</a>
+            <a href="https://www.mercadopublico.cl" target="_blank" rel="noopener" id="mpLink">Ficha Oficial ↗</a>
           </div>
         </div>
 
         <!-- Módulo Tribunal Ciudadano Reactivo -->
         <div class="tribunal-box">
-          <div class="tribunal-title">¿SE JUSTIFICA ESTE VIAJE OFICIAL?</div>
+          <div class="tribunal-title">TRIBUNAL CIUDADANO • ¿SE JUSTIFICA ESTE GASTO?</div>
           <div class="action-buttons">
             <button class="civic-btn btn-approve" id="btnApprove">
               <span>👍 Se justifica</span>
@@ -1449,23 +1687,25 @@
             </button>
           </div>
 
-          <div class="vote-bar-container">
-            <div class="vote-bar">
-              <div class="vote-bar-approve" id="barApprove" style="width: 20%;"></div>
-              <div class="vote-bar-reject" id="barReject" style="width: 80%;"></div>
-            </div>
-            <div class="vote-stats-text">
-              <span id="txtApprove">Justificado: 20% (21)</span>
-              <span id="txtReject">Derroche: 80% (84)</span>
-            </div>
-            <div class="vote-status-msg" id="voteStatus">Tu voto es anónimo y ciudadano</div>
+          <!-- Barra de porcentaje simétrica -->
+          <div class="voting-bar-container">
+            <div class="bar-approve" id="barApprove"></div>
+            <div class="bar-reject" id="barReject"></div>
           </div>
-          <div class="share-box">
-            <button class="btn-share-expediente" id="btnShareExpediente" title="Compartir este expediente oficial">
-              <span>📤 Compartir Expediente (WhatsApp / X)</span>
-            </button>
-            <div class="share-toast" id="shareToast">Enlace directo copiado al portapapeles ✓</div>
+
+          <div class="voting-stats-row">
+            <span class="txt-approve" id="txtApprove">Justificado: 50%</span>
+            <span class="txt-reject" id="txtReject">Derroche: 50%</span>
           </div>
+          <div class="vote-status-msg" id="voteStatus">Tu voto es anónimo y ciudadano</div>
+        </div>
+
+        <!-- Compartir Expediente -->
+        <div class="share-box">
+          <button class="btn-share-expediente" id="btnShareExpediente" title="Compartir este expediente oficial">
+            <span>📤 Compartir Expediente (WhatsApp / X)</span>
+          </button>
+          <div class="share-toast" id="shareToast">Enlace directo copiado al portapapeles ✓</div>
         </div>
       </aside>
 
@@ -1512,7 +1752,7 @@
 
   <script>
     /* =====================================================================
-       DATASET CANÓNICO DE 12 VIAJES OFICIALES (SPEC MINER SURVEY 3)
+       DATASET OFICIAL DE COMITIVAS PÚBLICAS (2007-2026)
        ===================================================================== */
     const SCL = { 
       code: 'SCL', 
@@ -16644,11 +16884,1420 @@
       "approve": 65,
       "reject": 30
     }
+  },
+  {
+    "id": "FL-0421",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-07",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "PUQ",
+      "city": "Punta Arenas",
+      "country": "Chile",
+      "lon": -70.854,
+      "lat": -53.002,
+      "airport": "Pdte. Carlos Ibáñez del Campo (PUQ)"
+    },
+    "entity": "Ministerio De Obras Publicas Direc Cion Gral De Oo Pp Dcyf",
+    "role": "Comitiva Oficial",
+    "cost": 1168448,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía LATAM",
+    "airline": "Vuelo Comercial",
+    "oc": "1020-275-SE26",
+    "provider": "LATAM",
+    "reason": "CAMBIO DE PASAJE - DESTINO PUNTA ARENAS",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0422",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-01",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "CCP",
+      "city": "Concepción",
+      "country": "Chile",
+      "lon": -73.063,
+      "lat": -36.772,
+      "airport": "Carriel Sur (CCP)"
+    },
+    "entity": "Gobierno Regional De Aysen",
+    "role": "Comitiva Oficial",
+    "cost": 551800,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía LATAM",
+    "airline": "Vuelo Comercial",
+    "oc": "868-152-CM26",
+    "provider": "LATAM",
+    "reason": "Pasaje Nacional Boris Parra Concepcion Orden de Compra: 868-152-CM26",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0423",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-02",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "PUQ",
+      "city": "Punta Arenas",
+      "country": "Chile",
+      "lon": -70.854,
+      "lat": -53.002,
+      "airport": "Pdte. Carlos Ibáñez del Campo (PUQ)"
+    },
+    "entity": "Ministerio De Obras Publicas Direc Cion Gral De Oo Pp Dcyf",
+    "role": "Comitiva Oficial",
+    "cost": 475920,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía LATAM",
+    "airline": "Vuelo Comercial",
+    "oc": "1020-286-SE26",
+    "provider": "LATAM",
+    "reason": "CAMBIO DE PASAJE - DESTINO PUNTA ARENAS",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0424",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-01",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "IQQ",
+      "city": "Iquique",
+      "country": "Chile",
+      "lon": -70.181,
+      "lat": -20.535,
+      "airport": "Diego Aracena (IQQ)"
+    },
+    "entity": "Direccion De Abastecimiento De La Armada",
+    "role": "Comitiva Oficial",
+    "cost": 482200,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía LATAM",
+    "airline": "Vuelo Comercial",
+    "oc": "3160-138-CM26",
+    "provider": "LATAM",
+    "reason": "VA DELGADO SANTIAGO-IQUIQUE 21 AL 25 DE SEPTIEMBRE.",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0425",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-01",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "IQQ",
+      "city": "Iquique",
+      "country": "Chile",
+      "lon": -70.181,
+      "lat": -20.535,
+      "airport": "Diego Aracena (IQQ)"
+    },
+    "entity": "Universidad De Chile",
+    "role": "Comitiva Oficial",
+    "cost": 1081692,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía LATAM",
+    "airline": "Vuelo Comercial",
+    "oc": "758004-100-CM26",
+    "provider": "LATAM",
+    "reason": "Orden de Compra: 758004-100-CM26 \"Pasaje Iquique - Ortega-Troncoso - 21-25 septiembre 2026",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0426",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-02",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "MAD",
+      "city": "Madrid",
+      "country": "España",
+      "lon": -3.567,
+      "lat": 40.483,
+      "airport": "Adolfo Suárez Madrid-Barajas (MAD)"
+    },
+    "entity": "Universidad De Tarapaca",
+    "role": "Comitiva Oficial",
+    "cost": 3221800,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía Otras Agencias",
+    "airline": "Vuelo Comercial",
+    "oc": "5484-222-SE26",
+    "provider": "Otras Agencias",
+    "reason": "Compra de pasaje internacional.",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0427",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-02",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "ANF",
+      "city": "Antofagasta",
+      "country": "Chile",
+      "lon": -70.445,
+      "lat": -23.444,
+      "airport": "Andrés Sabella (ANF)"
+    },
+    "entity": "Servicio Nacional Del Patrimonio Cultural",
+    "role": "Comitiva Oficial",
+    "cost": 1207432,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía LATAM",
+    "airline": "Vuelo Comercial",
+    "oc": "622847-119-SE26",
+    "provider": "LATAM",
+    "reason": "PASAJES AEREOS ANTOFAGASTA 25-26 agosto",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0428",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-04",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "IQQ",
+      "city": "Iquique",
+      "country": "Chile",
+      "lon": -70.181,
+      "lat": -20.535,
+      "airport": "Diego Aracena (IQQ)"
+    },
+    "entity": "Direccion De Abastecimiento De La Armada",
+    "role": "Comitiva Oficial",
+    "cost": 1001570,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía Sky",
+    "airline": "Vuelo Comercial",
+    "oc": "2950-543-CM26",
+    "provider": "Sky",
+    "reason": "PASAJES AEREOS SANTIAGO - IQUIQUE - SANTIAGO. Orden de Compra: 2950-543-CM26",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0429",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-14",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "EZE",
+      "city": "Buenos Aires",
+      "country": "Argentina",
+      "lon": -58.535,
+      "lat": -34.822,
+      "airport": "Ezeiza Ministro Pistarini (EZE)"
+    },
+    "entity": "Instituto Nacional De Deportes De Chile",
+    "role": "Comitiva Oficial",
+    "cost": 863296,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía Otras Agencias",
+    "airline": "Vuelo Comercial",
+    "oc": "858-358-SE26",
+    "provider": "Otras Agencias",
+    "reason": "Pasaje Jorge Silva SCL-Buenos Aires 17-21 Septiemb",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0430",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-04",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "CCP",
+      "city": "Concepción",
+      "country": "Chile",
+      "lon": -73.063,
+      "lat": -36.772,
+      "airport": "Carriel Sur (CCP)"
+    },
+    "entity": "I Municipalidad De Santa Juana",
+    "role": "Comitiva Oficial",
+    "cost": 624960,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía LATAM",
+    "airline": "Vuelo Comercial",
+    "oc": "3947-637-CM26",
+    "provider": "LATAM",
+    "reason": "PASAJES AEREOS, CONCEPCION - SANTIAGO - CONCEPCION, DIA 07 SEPTIEMBRE 2026  (ANGEL CASTRO",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0431",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-07",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "ANF",
+      "city": "Antofagasta",
+      "country": "Chile",
+      "lon": -70.445,
+      "lat": -23.444,
+      "airport": "Andrés Sabella (ANF)"
+    },
+    "entity": "Servicio De Salud Antofagasta Hospital M",
+    "role": "Comitiva Oficial",
+    "cost": 3967100,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía Otras Agencias",
+    "airline": "Vuelo Comercial",
+    "oc": "1057384-734-SE26",
+    "provider": "Otras Agencias",
+    "reason": "SUMINISTROS DE PASAJES- ANTOFAGASTA",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0432",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-08",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "IQQ",
+      "city": "Iquique",
+      "country": "Chile",
+      "lon": -70.181,
+      "lat": -20.535,
+      "airport": "Diego Aracena (IQQ)"
+    },
+    "entity": "Direccion General De Movilizacionn Nacional",
+    "role": "Comitiva Oficial",
+    "cost": 463460,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía LATAM",
+    "airline": "Vuelo Comercial",
+    "oc": "1867-265-CM26",
+    "provider": "LATAM",
+    "reason": "Traslado de Soldados Conscriptos Iquique - Arica - Iquique Grupo 27",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0433",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-08",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "CCP",
+      "city": "Concepción",
+      "country": "Chile",
+      "lon": -73.063,
+      "lat": -36.772,
+      "airport": "Carriel Sur (CCP)"
+    },
+    "entity": "Direccion De Abastecimiento De La Armada",
+    "role": "Comitiva Oficial",
+    "cost": 1755000,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía Otras Agencias",
+    "airline": "Vuelo Comercial",
+    "oc": "3220-485-AG26",
+    "provider": "Otras Agencias",
+    "reason": "TRASLADO DE DELEGACIONES REGIMIENTO ESGRUM PARA EL 18 DE SEPTIEMBRE (IDA Y VUELTA)",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0434",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-08",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "IQQ",
+      "city": "Iquique",
+      "country": "Chile",
+      "lon": -70.181,
+      "lat": -20.535,
+      "airport": "Diego Aracena (IQQ)"
+    },
+    "entity": "Universidad Arturo Prat",
+    "role": "Comitiva Oficial",
+    "cost": 3305100,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía Otras Agencias",
+    "airline": "Vuelo Comercial",
+    "oc": "2013-1458-TD26",
+    "provider": "Otras Agencias",
+    "reason": "Orden de Compra generada por Trato Directo ID 2013-166-FTD26",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0435",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-09",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "ANF",
+      "city": "Antofagasta",
+      "country": "Chile",
+      "lon": -70.445,
+      "lat": -23.444,
+      "airport": "Andrés Sabella (ANF)"
+    },
+    "entity": "Direccion General De Movilizacionn Nacional",
+    "role": "Comitiva Oficial",
+    "cost": 2539320,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía LATAM",
+    "airline": "Vuelo Comercial",
+    "oc": "1867-276-CM26",
+    "provider": "LATAM",
+    "reason": "Traslado de Soldados Conscriptos Antofagasta - Pto. Montt - Antofagasta Grupo 2 y 8",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0436",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-10",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "ARI",
+      "city": "Arica",
+      "country": "Chile",
+      "lon": -70.338,
+      "lat": -18.348,
+      "airport": "Chacalluta (ARI)"
+    },
+    "entity": "Universidad De Tarapaca",
+    "role": "Comitiva Oficial",
+    "cost": 544000,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía Otras Agencias",
+    "airline": "Vuelo Comercial",
+    "oc": "5484-235-TD26",
+    "provider": "Otras Agencias",
+    "reason": "Orden de Compra generada por Trato Directo ID 5484-71-FTD26",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0437",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-11",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "PUQ",
+      "city": "Punta Arenas",
+      "country": "Chile",
+      "lon": -70.854,
+      "lat": -53.002,
+      "airport": "Pdte. Carlos Ibáñez del Campo (PUQ)"
+    },
+    "entity": "Servicio Nacional Del Patrimonio Cultural",
+    "role": "Comitiva Oficial",
+    "cost": 385716,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía LATAM",
+    "airline": "Vuelo Comercial",
+    "oc": "622847-129-SE26",
+    "provider": "LATAM",
+    "reason": "PASAJES AEREOS PUNTA ARENAS ALEXIS G 25-26 agosto",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0438",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-11",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "MAD",
+      "city": "Madrid",
+      "country": "España",
+      "lon": -3.567,
+      "lat": 40.483,
+      "airport": "Adolfo Suárez Madrid-Barajas (MAD)"
+    },
+    "entity": "Universidad De Chile",
+    "role": "Comitiva Oficial",
+    "cost": 2279985,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía Otras Agencias",
+    "airline": "Vuelo Comercial",
+    "oc": "5621-447-SE26",
+    "provider": "Otras Agencias",
+    "reason": "72309 - Pasaje Manuel Cancio Madrid",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0439",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-11",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "LIM",
+      "city": "Lima",
+      "country": "Perú",
+      "lon": -77.114,
+      "lat": -12.021,
+      "airport": "Jorge Chávez (LIM)"
+    },
+    "entity": "Universidad De Chile",
+    "role": "Comitiva Oficial",
+    "cost": 803538,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía Otras Agencias",
+    "airline": "Vuelo Comercial",
+    "oc": "5621-449-SE26",
+    "provider": "Otras Agencias",
+    "reason": "72316 - Pasaje Fernando del Mastro Lima",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0440",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-11",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "FCO",
+      "city": "Roma",
+      "country": "Italia",
+      "lon": 12.238,
+      "lat": 41.8,
+      "airport": "Leonardo da Vinci Fiumicino (FCO)"
+    },
+    "entity": "Corp Nacional Forestal",
+    "role": "Comitiva Oficial",
+    "cost": 3254000,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía Otras Agencias",
+    "airline": "Vuelo Comercial",
+    "oc": "633-563-AG26",
+    "provider": "Otras Agencias",
+    "reason": "Solicitud de Pasajes Internacionales",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0441",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-22",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "PUQ",
+      "city": "Punta Arenas",
+      "country": "Chile",
+      "lon": -70.854,
+      "lat": -53.002,
+      "airport": "Pdte. Carlos Ibáñez del Campo (PUQ)"
+    },
+    "entity": "Division Logistica Del Ejercito",
+    "role": "Comitiva Oficial",
+    "cost": 5044160,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía Otras Agencias",
+    "airline": "Vuelo Comercial",
+    "oc": "5195-180-AG26",
+    "provider": "Otras Agencias",
+    "reason": "22.08.007 Pasajes, flete y bodegajes Agrucom LIENTUR",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0442",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-15",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "ARI",
+      "city": "Arica",
+      "country": "Chile",
+      "lon": -70.338,
+      "lat": -18.348,
+      "airport": "Chacalluta (ARI)"
+    },
+    "entity": "Ilustre Municipalidad  De Sagrada Familia",
+    "role": "Comitiva Oficial",
+    "cost": 1205135,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía LATAM",
+    "airline": "Vuelo Comercial",
+    "oc": "4134-688-CM26",
+    "provider": "LATAM",
+    "reason": "PASAJES AEREOS IDA Y VUELTA. STGO-ARICA",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0443",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-15",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "JFK",
+      "city": "Nueva York",
+      "country": "EE.UU.",
+      "lon": -73.778,
+      "lat": 40.639,
+      "airport": "John F. Kennedy (JFK)"
+    },
+    "entity": "Subsecretaria De Evaluacion Social",
+    "role": "Comitiva Oficial",
+    "cost": 1419215,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía Otras Agencias",
+    "airline": "Vuelo Comercial",
+    "oc": "730566-254-SE26",
+    "provider": "Otras Agencias",
+    "reason": "INI26-UAI-44 /PASAJE NUEVA YORK/ID 247/ERM",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0444",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-16",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "MEX",
+      "city": "Ciudad de México",
+      "country": "México",
+      "lon": -99.072,
+      "lat": 19.436,
+      "airport": "Benito Juárez (MEX)"
+    },
+    "entity": "Universidad Del Bio Bio",
+    "role": "Fee Nacional E Internacional",
+    "cost": 1401752,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía Otras Agencias",
+    "airline": "Vuelo Comercial",
+    "oc": "2705-1513-SE26",
+    "provider": "Otras Agencias",
+    "reason": "PASAJE INTERNACIONAL SANTIAGO-MEXICO",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0445",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-17",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "PUQ",
+      "city": "Punta Arenas",
+      "country": "Chile",
+      "lon": -70.854,
+      "lat": -53.002,
+      "airport": "Pdte. Carlos Ibáñez del Campo (PUQ)"
+    },
+    "entity": "Direccion De Abastecimiento De La Armada",
+    "role": "Comitiva Oficial",
+    "cost": 365267,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía LATAM",
+    "airline": "Vuelo Comercial",
+    "oc": "1178407-82-CM26",
+    "provider": "LATAM",
+    "reason": "PASAJES AEREOS PUNTA ARENAS",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0446",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-17",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "PUQ",
+      "city": "Punta Arenas",
+      "country": "Chile",
+      "lon": -70.854,
+      "lat": -53.002,
+      "airport": "Pdte. Carlos Ibáñez del Campo (PUQ)"
+    },
+    "entity": "Direccion De Abastecimiento De La Armada",
+    "role": "Comitiva Oficial",
+    "cost": 365267,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía LATAM",
+    "airline": "Vuelo Comercial",
+    "oc": "1178407-83-CM26",
+    "provider": "LATAM",
+    "reason": "PASAJES AEREOS PUNTA ARENAS",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0447",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-22",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "EZE",
+      "city": "Buenos Aires",
+      "country": "Argentina",
+      "lon": -58.535,
+      "lat": -34.822,
+      "airport": "Ezeiza Ministro Pistarini (EZE)"
+    },
+    "entity": "I Municipalidad De Puerto Montt",
+    "role": "Comitiva Oficial",
+    "cost": 1866000,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía Otras Agencias",
+    "airline": "Vuelo Comercial",
+    "oc": "2324-1333-AG26",
+    "provider": "Otras Agencias",
+    "reason": "ADQ. PASAJES AEREOS IDA Y REGRESO INTERNACIONAL PARA LOS FUNCIONARIOS QUE PARTICIPARAN EN",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0448",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-24",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "PUQ",
+      "city": "Punta Arenas",
+      "country": "Chile",
+      "lon": -70.854,
+      "lat": -53.002,
+      "airport": "Pdte. Carlos Ibáñez del Campo (PUQ)"
+    },
+    "entity": "Servicio Medico Legal",
+    "role": "Comitiva Oficial",
+    "cost": 739436,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía LATAM",
+    "airline": "Vuelo Comercial",
+    "oc": "837-632-CM26",
+    "provider": "LATAM",
+    "reason": "COMPRA DE PASAJES ANGELA MELILLA SANTIAGO-PUNTA ARENAS Orden de Compra: 837-632-CM26",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0449",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-24",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "IQQ",
+      "city": "Iquique",
+      "country": "Chile",
+      "lon": -70.181,
+      "lat": -20.535,
+      "airport": "Diego Aracena (IQQ)"
+    },
+    "entity": "Universidad Arturo Prat",
+    "role": "Comitiva Oficial",
+    "cost": 3299100,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía Otras Agencias",
+    "airline": "Vuelo Comercial",
+    "oc": "2013-1514-TD26",
+    "provider": "Otras Agencias",
+    "reason": "Orden de Compra generada por Trato Directo ID 2013-177-FTD26",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0450",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-25",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "FCO",
+      "city": "Roma",
+      "country": "Italia",
+      "lon": 12.238,
+      "lat": 41.8,
+      "airport": "Leonardo da Vinci Fiumicino (FCO)"
+    },
+    "entity": "Ilustre Municipalidad De Macul",
+    "role": "Comitiva Oficial",
+    "cost": 2826000,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía Otras Agencias",
+    "airline": "Vuelo Comercial",
+    "oc": "2287-748-AG26",
+    "provider": "Otras Agencias",
+    "reason": "DIDECO-519-521-ARRIENDO BUSES TRASLADO DE PERSONAS",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0451",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-24",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "BRU",
+      "city": "Bruselas",
+      "country": "Bélgica",
+      "lon": 4.484,
+      "lat": 50.901,
+      "airport": "Brussels Airport (BRU)"
+    },
+    "entity": "Universidad De Santiago De Chile",
+    "role": "Comitiva Oficial",
+    "cost": 1630000,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía Otras Agencias",
+    "airline": "Vuelo Comercial",
+    "oc": "564162-921-AG26",
+    "provider": "Otras Agencias",
+    "reason": "11 - 93437 -PASAJE INTERNACIONAL BRUSELAS (BELGICA) - SANTIAGO (CHILE) - BRUSELAS (BELGICA",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0452",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-28",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "BOG",
+      "city": "Bogotá",
+      "country": "Colombia",
+      "lon": -74.146,
+      "lat": 4.701,
+      "airport": "El Dorado (BOG)"
+    },
+    "entity": "Universidad De Tarapaca",
+    "role": "Comitiva Oficial",
+    "cost": 1578535,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía Otras Agencias",
+    "airline": "Vuelo Comercial",
+    "oc": "5865-180-SE26",
+    "provider": "Otras Agencias",
+    "reason": "PASAJE INTERNACIONAL IDA Y VUELTA, MEDELLIN-BOGOTA-SANTIAGO-ARICA, DRA. ALICIA KRIKORIAN,",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0453",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-28",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "EZE",
+      "city": "Buenos Aires",
+      "country": "Argentina",
+      "lon": -58.535,
+      "lat": -34.822,
+      "airport": "Ezeiza Ministro Pistarini (EZE)"
+    },
+    "entity": "Universidad De Atacama",
+    "role": "Comitiva Oficial",
+    "cost": 2557800,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía Otras Agencias",
+    "airline": "Vuelo Comercial",
+    "oc": "511505-379-AG26",
+    "provider": "Otras Agencias",
+    "reason": "DEPARTAMENTO DE METALURGIA",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0454",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-29",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "EZE",
+      "city": "Buenos Aires",
+      "country": "Argentina",
+      "lon": -58.535,
+      "lat": -34.822,
+      "airport": "Ezeiza Ministro Pistarini (EZE)"
+    },
+    "entity": "Universidad De Atacama",
+    "role": "Comitiva Oficial",
+    "cost": 1497584,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía Otras Agencias",
+    "airline": "Vuelo Comercial",
+    "oc": "511505-381-AG26",
+    "provider": "Otras Agencias",
+    "reason": "DEPARTAMENTO DE METALURGIA",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0455",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-29",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "MAD",
+      "city": "Madrid",
+      "country": "España",
+      "lon": -3.567,
+      "lat": 40.483,
+      "airport": "Adolfo Suárez Madrid-Barajas (MAD)"
+    },
+    "entity": "Universidad De Chile",
+    "role": "Comitiva Oficial",
+    "cost": 2827432,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía LATAM",
+    "airline": "Vuelo Comercial",
+    "oc": "5428-29-SE26",
+    "provider": "LATAM",
+    "reason": "Pasajes Rectora Santiago-Madrid- Santiago",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0456",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-30",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "FCO",
+      "city": "Roma",
+      "country": "Italia",
+      "lon": 12.238,
+      "lat": 41.8,
+      "airport": "Leonardo da Vinci Fiumicino (FCO)"
+    },
+    "entity": "Ilustre Municipalidad De Macul",
+    "role": "Comitiva Oficial",
+    "cost": 760000,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía Sky",
+    "airline": "Vuelo Comercial",
+    "oc": "2287-766-AG26",
+    "provider": "Sky",
+    "reason": "SOL.535-DIDECO-OOCC-BUS IDA Y VUELTA EL TABO",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0457",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-30",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "ARI",
+      "city": "Arica",
+      "country": "Chile",
+      "lon": -70.338,
+      "lat": -18.348,
+      "airport": "Chacalluta (ARI)"
+    },
+    "entity": "Servicio Agricola Y Ganadero",
+    "role": "Comitiva Oficial",
+    "cost": 422778,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía LATAM",
+    "airline": "Vuelo Comercial",
+    "oc": "612-619-CM26",
+    "provider": "LATAM",
+    "reason": "DPP SC PAC 1002-2026 Pasaje Diego Grandon Stgo- Arica-Stgo",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0458",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-30",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "ANF",
+      "city": "Antofagasta",
+      "country": "Chile",
+      "lon": -70.445,
+      "lat": -23.444,
+      "airport": "Andrés Sabella (ANF)"
+    },
+    "entity": "Universidad De Atacama",
+    "role": "Comitiva Oficial",
+    "cost": 925900,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía Otras Agencias",
+    "airline": "Vuelo Comercial",
+    "oc": "2859-1145-AG26",
+    "provider": "Otras Agencias",
+    "reason": "SERVICIO COMPRA PASAJES BUS",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0459",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-30",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "GVA",
+      "city": "Ginebra",
+      "country": "Suiza",
+      "lon": 6.109,
+      "lat": 46.238,
+      "airport": "Aeropuerto de Ginebra (GVA)"
+    },
+    "entity": "Instituto Nacional De Propiedad Industrial",
+    "role": "Comitiva Oficial",
+    "cost": 4499090,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía Otras Agencias",
+    "airline": "Vuelo Comercial",
+    "oc": "519302-135-AG26",
+    "provider": "Otras Agencias",
+    "reason": "COMPRA DE PASAJES A GINEBRA 2 FUNCIONARIOS",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
   }
 ];
 
+    // Pre-asignar estado cinemático para render a 60 FPS
+    FLIGHTS.forEach((f, idx) => {
+      f.t = (idx * 0.08) % 1.0;
+    });
+
     /* =====================================================================
-       SILUETAS CONTINENTALES VECTORIALES DE ALTA FIDELIDAD (~700 VÉRTICES)
+       SILUETAS CONTINENTALES VECTORIALES DE ALTA FIDELIDAD (216 VÉRTICES)
        ===================================================================== */
     const CONTINENTS_GEO = [
       // Sudamérica (Costas completas de Chile, Cabo de Hornos, Argentina, Brasil, etc.)
@@ -16731,10 +18380,11 @@
        ===================================================================== */
     let selectedFlight = FLIGHTS[0];
     let currentSort = 'cost'; // 'cost' | 'date' | 'entity'
-    let currentMonthIndex = 235; // Agosto 2026 (FL-001 emitido)
+    let currentMonthIndex = 236; // Septiembre 2026
     let selectedProvider = 'Todas'; // 'Todas' | 'Cocha' | 'Turavion' | 'LATAM' | 'Sky'
     let filterBusinessOnly = false;
     let selectedEntityGroup = 'Todas';
+    let searchFilterText = '';
 
     function matchesEntityGroup(entity, group) {
       if (!group || group.toLowerCase() === 'todas') return true;
@@ -16758,6 +18408,7 @@
       }
       return true;
     }
+
     let isPlaying = false;
     let playInterval = null;
 
@@ -16774,6 +18425,9 @@
     // Sidebar
     const flightListContainer = document.getElementById('flightListContainer');
     const listBadgeCount = document.getElementById('listBadgeCount');
+    const mobileCountBadge = document.getElementById('mobileCountBadge');
+    const flightSearchInput = document.getElementById('flightSearchInput');
+    const btnClearSearch = document.getElementById('btnClearSearch');
     const btnSortCost = document.getElementById('btnSortCost');
     const btnSortDate = document.getElementById('btnSortDate');
     const btnSortEntity = document.getElementById('btnSortEntity');
@@ -16786,6 +18440,7 @@
     const destCode = document.getElementById('destCode');
     const destCity = document.getElementById('destCity');
     const destAirport = document.getElementById('destAirport');
+    const routeDistance = document.getElementById('routeDistance');
     const entityName = document.getElementById('entityName');
     const passengerRole = document.getElementById('passengerRole');
     const ticketCost = document.getElementById('ticketCost');
@@ -16793,7 +18448,9 @@
     const metaAirline = document.getElementById('metaAirline');
     const metaProvider = document.getElementById('metaProvider');
     const metaOc = document.getElementById('metaOc');
+    const btnCopyOc = document.getElementById('btnCopyOc');
     const officialReason = document.getElementById('officialReason');
+    const mpLink = document.getElementById('mpLink');
 
     // Tribunal
     const btnApprove = document.getElementById('btnApprove');
@@ -16808,16 +18465,23 @@
     const timelineSlider = document.getElementById('timelineSlider');
     const currentMonthLabel = document.getElementById('currentMonthLabel');
     const fiscalOdometer = document.getElementById('fiscalOdometer');
+    const scrubberSparkline = document.getElementById('scrubberSparkline');
     const btnPrevMonth = document.getElementById('btnPrevMonth');
     const btnPlayPause = document.getElementById('btnPlayPause');
     const btnNextMonth = document.getElementById('btnNextMonth');
     const filterProviderContainer = document.getElementById('filterProvider');
     const filterProviderSelect = document.getElementById('filterProviderSelect');
+    const filterEntitySelect = document.getElementById('filterEntitySelect');
+    const btnToggleBusiness = document.getElementById('btnToggleBusiness');
+    const btnShareExpediente = document.getElementById('btnShareExpediente');
+    const shareToast = document.getElementById('shareToast');
 
     // Header stats
     const statFlightsCount = document.getElementById('statFlightsCount');
     const statTotalSpend = document.getElementById('statTotalSpend');
     const statBusinessCount = document.getElementById('statBusinessCount');
+    const statTopEntity = document.getElementById('statTopEntity');
+    const statTopDest = document.getElementById('statTopDest');
 
     // Map & Canvas
     const canvas = document.getElementById('radarCanvas');
@@ -16833,6 +18497,33 @@
     const btnOpenHelp = document.getElementById('btnOpenHelp');
     const btnCloseHelp = document.getElementById('btnCloseHelp');
     const btnModalUnderstood = document.getElementById('btnModalUnderstood');
+
+    // Mobile Tabs
+    const mobileViewTabs = document.getElementById('mobileViewTabs');
+    const sidebarColumn = document.getElementById('sidebarColumn');
+    const mapColumn = document.getElementById('mapColumn');
+    const dossierColumn = document.getElementById('dossierColumn');
+
+    /* =====================================================================
+       CÁLCULO GEODÉSICO DE DISTANCIA (FÓRMULA DE HAVERSINE)
+       ===================================================================== */
+    function calculateDistanceKm(lat1, lon1, lat2, lon2) {
+      const R = 6371; // Radio de la Tierra en km
+      const dLat = (lat2 - lat1) * Math.PI / 180;
+      const dLon = (lon2 - lon1) * Math.PI / 180;
+      const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                Math.sin(dLon / 2) * Math.sin(dLon / 2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      return Math.round(R * c);
+    }
+
+    function estimateFlightTime(km) {
+      const hours = km / 850; // velocidad de crucero promedio en jet comercial
+      const h = Math.floor(hours);
+      const m = Math.round((hours - h) * 60);
+      return `${h}h ${m < 10 ? '0' : ''}${m}m`;
+    }
 
     /* =====================================================================
        PERSISTENCIA LOCAL DE VOTOS (LOCALSTORAGE)
@@ -16869,12 +18560,11 @@
     }
 
     function castVote(flightId, voteType) {
-      if (getUserVote(flightId)) return false; // Anti-duplicados estricto
+      if (getUserVote(flightId)) return false;
 
       const flight = FLIGHTS.find(f => f.id === flightId);
       if (!flight) return false;
 
-      // 1. Guardar voto individual de usuario
       let userVotes = {};
       try {
         const raw = localStorage.getItem(STORAGE_KEY_VOTES) || localStorage.getItem(LEGACY_KEY_VOTES);
@@ -16886,7 +18576,6 @@
         localStorage.setItem(LEGACY_KEY_VOTES, JSON.stringify(userVotes));
       } catch (e) {}
 
-      // 2. Incrementar contadores persistidos
       const tallies = getFlightTallies(flight);
       if (voteType === 'approve') {
         tallies.approve += 1;
@@ -16921,7 +18610,7 @@
       let pReject = 50;
       if (total > 0) {
         pApprove = Math.round((A / total) * 100);
-        pReject = 100 - pApprove; // Garantiza matemáticamente P_A + P_R === 100%
+        pReject = 100 - pApprove;
       }
 
       barApprove.style.width = `${pApprove}%`;
@@ -16948,19 +18637,15 @@
       }
     }
 
-    btnApprove.addEventListener('click', () => {
-      castVote(selectedFlight.id, 'approve');
-    });
-
-    btnReject.addEventListener('click', () => {
-      castVote(selectedFlight.id, 'reject');
-    });
+    btnApprove.addEventListener('click', () => castVote(selectedFlight.id, 'approve'));
+    btnReject.addEventListener('click', () => castVote(selectedFlight.id, 'reject'));
 
     /* =====================================================================
-       ORDENAMIENTO Y RENDER DEL PANEL LATERAL
+       ORDENAMIENTO, BÚSQUEDA Y RENDER DEL PANEL LATERAL
        ===================================================================== */
     function getSortedFlights() {
-      // Filtrar por proveedor, clase y organismo si aplica
+      const query = (searchFilterText || '').trim().toLowerCase();
+
       const filtered = FLIGHTS.filter(flight => {
         if (selectedProvider !== 'Todas' && flight.provider !== selectedProvider) {
           return false;
@@ -16971,17 +18656,20 @@
         if (selectedEntityGroup !== 'Todas' && !matchesEntityGroup(flight.entity, selectedEntityGroup)) {
           return false;
         }
+        if (query) {
+          const matchTarget = `${flight.entity} ${flight.role} ${flight.dest.city} ${flight.dest.code} ${flight.dest.country} ${flight.oc} ${flight.reason}`.toLowerCase();
+          if (!matchTarget.includes(query)) return false;
+        }
         return true;
       });
 
-      // Ordenar según criterio
       return [...filtered].sort((a, b) => {
         if (currentSort === 'cost') {
-          return b.cost - a.cost; // Monto descendente
+          return b.cost - a.cost;
         } else if (currentSort === 'date') {
-          return a.date.localeCompare(b.date); // Fecha cronológica
+          return a.date.localeCompare(b.date);
         } else if (currentSort === 'entity') {
-          return a.entity.localeCompare(b.entity); // Organismo alfabético
+          return a.entity.localeCompare(b.entity);
         }
         return 0;
       });
@@ -16990,44 +18678,49 @@
     function renderFlightList() {
       const sorted = getSortedFlights();
       flightListContainer.innerHTML = '';
-      listBadgeCount.textContent = sorted.length;
+      listBadgeCount.textContent = `${sorted.length} de ${FLIGHTS.length}`;
+      if (mobileCountBadge) mobileCountBadge.textContent = sorted.length;
 
       if (sorted.length === 0) {
         const emptyMsg = document.createElement('div');
         emptyMsg.className = 'flight-card';
         emptyMsg.style.textAlign = 'center';
         emptyMsg.style.color = 'var(--text-muted)';
-        emptyMsg.textContent = 'Sin comitivas para el proveedor seleccionado';
+        emptyMsg.style.padding = '20px 10px';
+        emptyMsg.textContent = 'Sin comitivas para los filtros y búsqueda aplicados';
         flightListContainer.appendChild(emptyMsg);
         return;
       }
 
       sorted.forEach(flight => {
+        const isSelected = (selectedFlight && selectedFlight.id === flight.id);
+        const isIssued = flight.monthIndex <= currentMonthIndex;
+
         const card = document.createElement('div');
-        card.className = `flight-list-item flight-card ${flight.id === selectedFlight.id ? 'active' : ''}`;
+        card.className = `flight-card ${isSelected ? 'active' : ''} ${isIssued ? '' : 'dimmed'}`;
         card.id = `flight-item-${flight.id}`;
         card.dataset.id = flight.id;
-        card.dataset.flightId = flight.id;
-        card.setAttribute('role', 'button');
-        card.setAttribute('tabindex', '0');
 
-        // Atenuar si su fecha es posterior al mes activo del scrubber
-        if (flight.monthIndex > currentMonthIndex) {
-          card.classList.add('dimmed');
-        }
-
-        const isBusiness = flight.cabin === 'Business';
-        const badgeClass = isBusiness ? 'badge-business' : 'badge-economy';
+        const badgeClass = flight.cabin === 'Business' ? 'badge-business' : 'badge-turista';
+        const formattedCost = `$${flight.cost.toLocaleString('es-CL')} CLP`;
 
         card.innerHTML = `
           <div class="flight-card-header">
-            <span class="flight-card-route">SCL ➔ ${flight.dest.code}</span>
+            <div class="flight-card-route">
+              <span>SCL</span>
+              <span>➔</span>
+              <span>${flight.dest.code}</span>
+              <span style="font-weight: 500; font-size: 0.72rem; color: var(--text-secondary); margin-left: 2px;">(${flight.dest.city})</span>
+            </div>
             <span class="flight-card-badge ${badgeClass}">${flight.cabin}</span>
           </div>
-          <div class="flight-card-entity">${flight.entity}</div>
+          <div class="flight-card-body">
+            <div class="flight-card-entity" title="${flight.entity}">${flight.entity}</div>
+            <div class="flight-card-passenger" title="${flight.role}">${flight.role}</div>
+          </div>
           <div class="flight-card-footer">
-            <span class="flight-card-date">${flight.date}</span>
-            <span class="flight-card-cost">$${flight.cost.toLocaleString('es-CL')} CLP</span>
+            <span>${flight.date} • ${flight.provider}</span>
+            <span class="flight-card-cost">${formattedCost}</span>
           </div>
         `;
 
@@ -17039,50 +18732,41 @@
       });
     }
 
-    btnSortCost.addEventListener('click', () => {
-      currentSort = 'cost';
-      updateSortButtons();
-      renderFlightList();
-    });
-
-    btnSortDate.addEventListener('click', () => {
-      currentSort = 'date';
-      updateSortButtons();
-      renderFlightList();
-    });
-
-    btnSortEntity.addEventListener('click', () => {
-      currentSort = 'entity';
-      updateSortButtons();
-      renderFlightList();
-    });
-
-    function updateSortButtons() {
-      btnSortCost.classList.toggle('active', currentSort === 'cost');
-      btnSortDate.classList.toggle('active', currentSort === 'date');
-      btnSortEntity.classList.toggle('active', currentSort === 'entity');
+    // Listener del buscador en vivo
+    if (flightSearchInput) {
+      flightSearchInput.addEventListener('input', (e) => {
+        searchFilterText = e.target.value;
+        if (btnClearSearch) btnClearSearch.style.display = searchFilterText ? 'block' : 'none';
+        renderFlightList();
+      });
     }
 
+    if (btnClearSearch) {
+      btnClearSearch.addEventListener('click', () => {
+        searchFilterText = '';
+        flightSearchInput.value = '';
+        btnClearSearch.style.display = 'none';
+        renderFlightList();
+      });
+    }
+
+    // Listeners de ordenamiento
+    [btnSortCost, btnSortDate, btnSortEntity].forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        [btnSortCost, btnSortDate, btnSortEntity].forEach(b => b.classList.remove('active'));
+        e.currentTarget.classList.add('active');
+        currentSort = e.currentTarget.dataset.sort;
+        renderFlightList();
+      });
+    });
+
     /* =====================================================================
-       SELECCIÓN DE VIAJE Y ACTUALIZACIÓN DEL EXPEDIENTE
+       DETALLE DEL EXPEDIENTE FISCAL
        ===================================================================== */
     function selectFlight(flight) {
       selectedFlight = flight;
 
-      // Actualizar tarjeta seleccionada en el DOM
-      document.querySelectorAll('.flight-card').forEach(el => {
-        el.classList.toggle('active', el.dataset.id === flight.id);
-      });
-
-      // Actualizar campos del expediente
-      if (flight.cabin === 'Business') {
-        badgeCabin.className = 'flight-card-badge badge-business';
-        badgeCabin.textContent = 'CLASE BUSINESS';
-      } else {
-        badgeCabin.className = 'flight-card-badge badge-economy';
-        badgeCabin.textContent = 'CLASE TURISTA';
-      }
-
+      // Actualizar tarjeta
       origCode.textContent = flight.origin.code;
       origCity.textContent = flight.origin.city;
       origAirport.textContent = flight.origin.airport;
@@ -17091,46 +18775,55 @@
       destCity.textContent = `${flight.dest.city}, ${flight.dest.country}`;
       destAirport.textContent = flight.dest.airport;
 
+      // Distancia y tiempo de vuelo
+      const km = calculateDistanceKm(flight.origin.lat, flight.origin.lon, flight.dest.lat, flight.dest.lon);
+      const estTime = estimateFlightTime(km);
+      if (routeDistance) {
+        routeDistance.textContent = `${km.toLocaleString('es-CL')} km • ${estTime}`;
+      }
+
       entityName.textContent = flight.entity;
       passengerRole.textContent = flight.role;
       ticketCost.textContent = `$${flight.cost.toLocaleString('es-CL')} CLP`;
 
-      metaCabinDesc.textContent = flight.cabinDesc;
-      metaAirline.textContent = flight.airline;
+      metaCabinDesc.textContent = `${flight.cabin} • ${flight.cabinDesc}`;
+      metaAirline.textContent = flight.airline || 'Vuelo Comercial Regular';
       metaProvider.textContent = flight.provider;
       metaOc.textContent = flight.oc;
-
       officialReason.textContent = `"${flight.reason}"`;
 
-      // Sincronizar tribunal
-      updateVoteDisplay();
+      if (mpLink) {
+        mpLink.href = `https://www.mercadopublico.cl/PurchaseOrder/Modules/PO/DetailsPurchaseOrder.aspx?qs=${encodeURIComponent(flight.oc)}`;
+      }
 
-      // Centrar y resaltar ruta en el mapa suavemente
-      centerMapOnFlight(flight);
+      // Badge de cabina
+      badgeCabin.textContent = `CLASE ${flight.cabin.toUpperCase()}`;
+      badgeCabin.className = `flight-card-badge ${flight.cabin === 'Business' ? 'badge-business' : 'badge-turista'}`;
+
+      // Resaltar tarjeta activa en la lista
+      document.querySelectorAll('.flight-card').forEach(el => el.classList.remove('active'));
+      const activeCard = document.getElementById(`flight-item-${flight.id}`);
+      if (activeCard) activeCard.classList.add('active');
+
+      updateVoteDisplay();
     }
 
-    function centerMapOnFlight(flight) {
-      // Punto medio geográfico entre SCL y destino
-      const midLon = (SCL.lon + flight.dest.lon) * 0.5;
-      const midLat = (SCL.lat + flight.dest.lat) * 0.5;
-      
-      // Ajuste de paneo para centrar el vuelo en el viewport del canvas
-      const w = canvas.width / window.devicePixelRatio;
-      const h = canvas.height / window.devicePixelRatio;
-      
-      const targetNormX = (midLon + 180) / 360;
-      const targetNormY = (90 - midLat) / 180;
-      
-      const targetRawX = (targetNormX - 0.5) * w;
-      const targetRawY = (targetNormY - 0.5) * h;
-      
-      // Ajustar panOffset suavemente
-      panOffset.x = -targetRawX;
-      panOffset.y = -targetRawY;
+    // Copiar código OC
+    if (btnCopyOc) {
+      btnCopyOc.addEventListener('click', () => {
+        if (!selectedFlight) return;
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(selectedFlight.oc).then(() => {
+            const prevText = btnCopyOc.textContent;
+            btnCopyOc.textContent = '✓ Copiado';
+            setTimeout(() => { btnCopyOc.textContent = prevText; }, 1800);
+          });
+        }
+      });
     }
 
     /* =====================================================================
-       LÍNEA DE TIEMPO, ODÓMETRO FISCAL Y FILTROS
+       LÍNEA DE TIEMPO, ODÓMETRO FISCAL Y MÉTRICAS GLOBALES
        ===================================================================== */
     const MONTH_NAMES = [
       'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
@@ -17156,17 +18849,91 @@
       }, 0);
     }
 
+    function updateGlobalStats() {
+      const activeFlights = FLIGHTS.filter(flight => {
+        if (selectedProvider !== 'Todas' && flight.provider !== selectedProvider) return false;
+        if (filterBusinessOnly && flight.cabin !== 'Business') return false;
+        if (selectedEntityGroup !== 'Todas' && !matchesEntityGroup(flight.entity, selectedEntityGroup)) return false;
+        return true;
+      });
+
+      const totalSpend = activeFlights.reduce((sum, f) => sum + f.cost, 0);
+      const businessCount = activeFlights.filter(f => f.cabin === 'Business').length;
+      const businessPct = activeFlights.length ? Math.round((businessCount / activeFlights.length) * 100) : 0;
+
+      if (statFlightsCount) statFlightsCount.textContent = activeFlights.length.toLocaleString('es-CL');
+      if (statTotalSpend) {
+        statTotalSpend.textContent = totalSpend >= 1000000000
+          ? `$${(totalSpend / 1000000000).toFixed(2)}B CLP`
+          : `$${(totalSpend / 1000000).toFixed(0)}M CLP`;
+        statTotalSpend.title = `$${totalSpend.toLocaleString('es-CL')} CLP`;
+      }
+      if (statBusinessCount) statBusinessCount.textContent = `${businessCount} (${businessPct}%)`;
+
+      // Calcular Top Organismo y Top Destino
+      const entitySpends = {};
+      const destCounts = {};
+      activeFlights.forEach(f => {
+        entitySpends[f.entity] = (entitySpends[f.entity] || 0) + f.cost;
+        const dCity = f.dest.city;
+        destCounts[dCity] = (destCounts[dCity] || 0) + 1;
+      });
+
+      const topEntityEntry = Object.entries(entitySpends).sort((a,b) => b[1] - a[1])[0];
+      const topDestEntry = Object.entries(destCounts).sort((a,b) => b[1] - a[1])[0];
+
+      if (statTopEntity && topEntityEntry) {
+        const shortName = topEntityEntry[0].length > 20 ? topEntityEntry[0].slice(0, 18) + '…' : topEntityEntry[0];
+        statTopEntity.textContent = shortName;
+        statTopEntity.title = `${topEntityEntry[0]}: $${topEntityEntry[1].toLocaleString('es-CL')} CLP`;
+      }
+      if (statTopDest && topDestEntry) {
+        statTopDest.textContent = `${topDestEntry[0]} (${topDestEntry[1]})`;
+        statTopDest.title = `${topDestEntry[0]}: ${topDestEntry[1]} comitivas oficiales registradas`;
+      }
+    }
+
+    // Dibujar Sparkline de densidad mensual sobre el scrubber
+    function drawScrubberSparkline() {
+      if (!scrubberSparkline) return;
+      const sCtx = scrubberSparkline.getContext('2d');
+      const w = scrubberSparkline.width = scrubberSparkline.clientWidth;
+      const h = scrubberSparkline.height = 20;
+
+      sCtx.clearRect(0, 0, w, h);
+
+      // Calcular montos por cada uno de los 240 meses
+      const monthlyCosts = new Array(240).fill(0);
+      FLIGHTS.forEach(f => {
+        if (f.monthIndex >= 0 && f.monthIndex < 240) {
+          monthlyCosts[f.monthIndex] += f.cost;
+        }
+      });
+
+      const maxCost = Math.max(...monthlyCosts, 1);
+      const barWidth = Math.max(1, w / 240);
+
+      monthlyCosts.forEach((cost, idx) => {
+        if (cost === 0) return;
+        const barHeight = Math.max(2, (cost / maxCost) * (h - 2));
+        const x = (idx / 240) * w;
+        const y = h - barHeight;
+
+        sCtx.fillStyle = idx <= currentMonthIndex ? '#38bdf8' : 'rgba(56, 139, 253, 0.25)';
+        sCtx.fillRect(x, y, Math.max(1.5, barWidth - 0.5), barHeight);
+      });
+    }
+
     function updateTimeline() {
-      // 1. Etiqueta de mes
       currentMonthLabel.textContent = getMonthLabel(currentMonthIndex);
       timelineSlider.value = currentMonthIndex;
 
-      // 2. Odómetro fiscal en tiempo real
       const totalAccum = calculateOdometer(currentMonthIndex, selectedProvider);
       fiscalOdometer.textContent = `$${totalAccum.toLocaleString('es-CL')} CLP`;
 
-      // 3. Re-renderizar lista para actualizar dimmed states
       renderFlightList();
+      updateGlobalStats();
+      drawScrubberSparkline();
     }
 
     timelineSlider.addEventListener('input', (e) => {
@@ -17213,7 +18980,7 @@
         } else {
           stopPlayback();
         }
-      }, 1200); // Avance automático cada 1.2 segundos
+      }, 1200);
     }
 
     function stopPlayback() {
@@ -17226,79 +18993,89 @@
       }
     }
 
-    // Chips y select de proveedores
-    function setProvider(provider) {
-      selectedProvider = provider;
-      document.querySelectorAll('.provider-chip').forEach(chip => {
-        chip.classList.toggle('active', chip.dataset.provider === provider);
+    // Filtros de Proveedor
+    document.querySelectorAll('.provider-chip').forEach(chip => {
+      chip.addEventListener('click', (e) => {
+        document.querySelectorAll('.provider-chip').forEach(c => c.classList.remove('active'));
+        e.currentTarget.classList.add('active');
+        selectedProvider = e.currentTarget.dataset.provider;
+        if (filterProviderSelect) filterProviderSelect.value = selectedProvider;
+        updateTimeline();
       });
-      filterProviderSelect.value = provider;
-      updateTimeline();
+    });
+
+    if (filterProviderSelect) {
+      filterProviderSelect.addEventListener('change', (e) => {
+        selectedProvider = e.target.value;
+        document.querySelectorAll('.provider-chip').forEach(c => {
+          c.classList.toggle('active', c.dataset.provider === selectedProvider);
+        });
+        updateTimeline();
+      });
     }
 
-    filterProviderContainer.addEventListener('click', (e) => {
-      const chip = e.target.closest('.provider-chip');
-      if (chip && chip.dataset.provider) {
-        setProvider(chip.dataset.provider);
-      }
-    });
+    // Filtro de Organismo
+    if (filterEntitySelect) {
+      filterEntitySelect.addEventListener('change', (e) => {
+        selectedEntityGroup = e.target.value;
+        updateTimeline();
+      });
+    }
 
-    filterProviderSelect.addEventListener('change', (e) => {
-      setProvider(e.target.value);
-    });
-
-    // Compatibilidad getter/setter y listener en #filterProvider
-    Object.defineProperty(filterProviderContainer, 'value', {
-      get() { return selectedProvider; },
-      set(val) { setProvider(val); }
-    });
+    // Toggle Solo Business
+    if (btnToggleBusiness) {
+      btnToggleBusiness.addEventListener('click', () => {
+        filterBusinessOnly = !filterBusinessOnly;
+        btnToggleBusiness.classList.toggle('active', filterBusinessOnly);
+        updateTimeline();
+      });
+    }
 
     /* =====================================================================
-       PROYECCIÓN CARTOGRÁFICA Y GEOMETRÍA DEL MAPA
+       PROYECCIÓN CARTOGRÁFICA Y CÁLCULOS 2.5D
        ===================================================================== */
     function resizeCanvas() {
+      const dpr = window.devicePixelRatio || 1;
       const rect = mapContainer.getBoundingClientRect();
-      canvas.width = rect.width * window.devicePixelRatio;
-      canvas.height = rect.height * window.devicePixelRatio;
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      drawScrubberSparkline();
     }
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
 
     function geoToCanvas(lon, lat) {
-      const w = canvas.width / window.devicePixelRatio;
-      const h = canvas.height / window.devicePixelRatio;
-      const dpr = window.devicePixelRatio;
-      const cx = (w * 0.5) * dpr;
-      const cy = (h * 0.5) * dpr;
+      const dpr = window.devicePixelRatio || 1;
+      const w = canvas.width / dpr;
+      const h = canvas.height / dpr;
 
-      // Proyección cilíndrica equirrectangular
       const normX = (lon + 180) / 360;
       const normY = (90 - lat) / 180;
 
-      const rawX = (normX - 0.5) * w;
-      const rawY = (normY - 0.5) * h;
+      const baseScale = Math.min(w / 1000, h / 600);
+      const effectiveScale = baseScale * zoomLevel;
 
-      return {
-        x: cx + (rawX * zoomLevel + panOffset.x) * dpr,
-        y: cy + (rawY * zoomLevel + panOffset.y) * dpr
-      };
+      const centerX = w / 2 + panOffset.x * effectiveScale;
+      const centerY = h / 2 + panOffset.y * effectiveScale;
+
+      const x = centerX + (normX - 0.5) * 1000 * effectiveScale;
+      const y = centerY + (normY - 0.5) * 600 * effectiveScale;
+
+      return { x: x * dpr, y: y * dpr };
     }
 
-    function getArcPoint(p1, p2, t, curvature = 0.22) {
-      const midX = (p1.x + p2.x) * 0.5;
-      const midY = (p1.y + p2.y) * 0.5;
+    function getArcPoint(p1, p2, t) {
+      const midX = (p1.x + p2.x) / 2;
+      const midY = (p1.y + p2.y) / 2;
+
       const dx = p2.x - p1.x;
       const dy = p2.y - p1.y;
       const dist = Math.hypot(dx, dy);
 
-      // Normal perpendicular unitaria
+      const lift = Math.min(dist * 0.35, 140 * (window.devicePixelRatio || 1));
       const nx = -dy / (dist || 1);
-      const ny = dx / (dist || 1);
-
-      // Elevación balística: forzar elevación hacia arriba en pantalla (menor y)
-      const lift = Math.abs(curvature) * dist;
       const ctrlX = midX + nx * lift * 0.4;
-      const ctrlY = midY - lift; // Arco balístico hacia arriba
+      const ctrlY = midY - lift;
 
       const omt = 1 - t;
       const x = omt * omt * p1.x + 2 * omt * t * ctrlX + t * t * p2.x;
@@ -17308,27 +19085,29 @@
     }
 
     /* =====================================================================
-       MOTOR DE RENDER (CANVAS 2D CON ANIMACIÓN A 60 FPS Y DELTATIME)
+       MOTOR DE RENDER (CANVAS 2D A 60 FPS)
        ===================================================================== */
     let lastTimestamp = performance.now();
 
     function renderMap(timestamp) {
-      const dt = Math.min((timestamp - lastTimestamp) / 1000, 0.1); // segundos, normalizado
+      const dt = Math.min((timestamp - lastTimestamp) / 1000, 0.1);
       lastTimestamp = timestamp;
 
       const w = canvas.width;
       const h = canvas.height;
-      const dpr = window.devicePixelRatio;
+      const dpr = window.devicePixelRatio || 1;
 
-      // 1. Fondo marino pizarra de alto contraste (sin fondos negros vacíos)
-      ctx.fillStyle = '#08131d';
+      // 1. Fondo oceánico con profundidad radial
+      const grad = ctx.createRadialGradient(w/2, h/2, 20 * dpr, w/2, h/2, Math.max(w, h)/1.2);
+      grad.addColorStop(0, '#0a1624');
+      grad.addColorStop(1, '#050b12');
+      ctx.fillStyle = grad;
       ctx.fillRect(0, 0, w, h);
 
-      // 2. Grilla de coordenadas sutil (Paralelos y Meridianos)
-      ctx.strokeStyle = 'rgba(56, 139, 253, 0.08)';
+      // 2. Grilla de coordenadas sutil (Meridianos y Paralelos)
+      ctx.strokeStyle = 'rgba(56, 139, 253, 0.06)';
       ctx.lineWidth = 1 * dpr;
 
-      // Meridianos cada 30°
       for (let lon = -180; lon <= 180; lon += 30) {
         ctx.beginPath();
         const pTop = geoToCanvas(lon, 85);
@@ -17338,7 +19117,6 @@
         ctx.stroke();
       }
 
-      // Paralelos cada 30°
       for (let lat = -60; lat <= 60; lat += 30) {
         ctx.beginPath();
         const pLeft = geoToCanvas(-180, lat);
@@ -17349,7 +19127,7 @@
       }
 
       // Línea del Ecuador destacada
-      ctx.strokeStyle = 'rgba(0, 212, 255, 0.15)';
+      ctx.strokeStyle = 'rgba(0, 212, 255, 0.14)';
       ctx.beginPath();
       const eqLeft = geoToCanvas(-180, 0);
       const eqRight = geoToCanvas(180, 0);
@@ -17357,9 +19135,9 @@
       ctx.lineTo(eqRight.x, eqRight.y);
       ctx.stroke();
 
-      // 3. Continentes Vectoriales Nítidos
-      ctx.fillStyle = '#112333';
-      ctx.strokeStyle = '#1d3b56';
+      // 3. Continentes Vectoriales
+      ctx.fillStyle = '#102234';
+      ctx.strokeStyle = '#1b3854';
       ctx.lineWidth = 1.2 * dpr;
 
       CONTINENTS_GEO.forEach(poly => {
@@ -17376,34 +19154,30 @@
         ctx.stroke();
       });
 
-      // 4. Rutas Aéreas y Aviones Animados
+      // 4. Rutas Aéreas y Aviones
       const originCanvas = geoToCanvas(SCL.lon, SCL.lat);
 
       FLIGHTS.forEach(flight => {
-        // Filtrar si el proveedor no coincide
-        if (selectedProvider !== 'Todas' && flight.provider !== selectedProvider) {
-          return;
-        }
+        if (selectedProvider !== 'Todas' && flight.provider !== selectedProvider) return;
+        if (filterBusinessOnly && flight.cabin !== 'Business') return;
+        if (selectedEntityGroup !== 'Todas' && !matchesEntityGroup(flight.entity, selectedEntityGroup)) return;
 
         const isSelected = (selectedFlight && selectedFlight.id === flight.id);
         const isIssued = flight.monthIndex <= currentMonthIndex;
-        const isExactCurrentMonth = flight.monthIndex === currentMonthIndex;
         const isBusiness = flight.cabin === 'Business';
 
         const destCanvas = geoToCanvas(flight.dest.lon, flight.dest.lat);
         const arc = getArcPoint(originCanvas, destCanvas, 0.5);
 
-        // Estilos de trazo según clase y estado temporal
         let strokeColor;
-        let lineWidth = (isSelected ? 2.8 : 1.4) * dpr;
+        let lineWidth = (isSelected ? 2.8 : 1.3) * dpr;
 
         if (isBusiness) {
-          strokeColor = isSelected ? '#ff4d5a' : (isIssued ? 'rgba(255, 77, 90, 0.65)' : 'rgba(255, 77, 90, 0.15)');
+          strokeColor = isSelected ? '#ff4d5a' : (isIssued ? 'rgba(255, 77, 90, 0.65)' : 'rgba(255, 77, 90, 0.12)');
         } else {
-          strokeColor = isSelected ? '#00e5a3' : (isIssued ? 'rgba(0, 229, 163, 0.55)' : 'rgba(0, 229, 163, 0.12)');
+          strokeColor = isSelected ? '#00e5a3' : (isIssued ? 'rgba(0, 229, 163, 0.55)' : 'rgba(0, 229, 163, 0.1)');
         }
 
-        // Trazar arco balístico luminoso
         ctx.beginPath();
         ctx.moveTo(originCanvas.x, originCanvas.y);
         ctx.quadraticCurveTo(arc.ctrlX, arc.ctrlY, destCanvas.x, destCanvas.y);
@@ -17411,16 +19185,15 @@
         ctx.lineWidth = lineWidth;
         if (isSelected) {
           ctx.shadowColor = isBusiness ? '#ff4d5a' : '#00e5a3';
-          ctx.shadowBlur = 12 * dpr;
+          ctx.shadowBlur = 14 * dpr;
         }
         ctx.stroke();
         ctx.shadowBlur = 0;
 
-        // Animar avión a 60 FPS normalizado con deltaTime
-        const speed = 0.08; // Ciclo cada ~12.5 segundos
+        // Avión animado si fue emitido hasta este período
+        const speed = 0.08;
         flight.t = (flight.t + speed * dt) % 1.0;
 
-        // Solo dibujar avión si la compra ya fue emitida hasta este mes
         if (isIssued) {
           const planePos = getArcPoint(originCanvas, destCanvas, flight.t);
           const nextPos = getArcPoint(originCanvas, destCanvas, Math.min(flight.t + 0.015, 1.0));
@@ -17433,13 +19206,12 @@
           const planeColor = isBusiness ? '#ff4d5a' : '#00e5a3';
           ctx.fillStyle = planeColor;
 
-          if (isBusiness) {
-            ctx.shadowColor = '#ffaa00';
-            ctx.shadowBlur = (isSelected ? 14 : 8) * dpr;
+          if (isBusiness || isSelected) {
+            ctx.shadowColor = isBusiness ? '#ff4d5a' : '#00e5a3';
+            ctx.shadowBlur = (isSelected ? 14 : 7) * dpr;
           }
 
-          // Silueta de aeronave
-          const size = (isSelected ? 8.5 : 6.0) * dpr;
+          const size = (isSelected ? 8.5 : 5.8) * dpr;
           ctx.beginPath();
           ctx.moveTo(size * 1.3, 0);
           ctx.lineTo(-size * 0.8, -size * 0.7);
@@ -17453,15 +19225,15 @@
         // Nodo de destino
         ctx.fillStyle = isSelected ? '#ffffff' : (isBusiness ? '#ff4d5a' : '#00e5a3');
         ctx.beginPath();
-        ctx.arc(destCanvas.x, destCanvas.y, (isSelected ? 5 : 3.2) * dpr, 0, Math.PI * 2);
+        ctx.arc(destCanvas.x, destCanvas.y, (isSelected ? 5.2 : 3.2) * dpr, 0, Math.PI * 2);
         ctx.fill();
 
-        // Pulso luminoso si es el mes exacto seleccionado
-        if (isExactCurrentMonth) {
+        // Ondas de pulso en destino seleccionado
+        if (isSelected) {
+          const pulseR = (5 + (timestamp % 1000) * 0.015) * dpr;
           ctx.strokeStyle = isBusiness ? '#ff4d5a' : '#00e5a3';
-          ctx.lineWidth = 1.5 * dpr;
+          ctx.lineWidth = 1.6 * dpr;
           ctx.beginPath();
-          const pulseR = (4 + (timestamp % 1000) * 0.01) * dpr;
           ctx.arc(destCanvas.x, destCanvas.y, pulseR, 0, Math.PI * 2);
           ctx.stroke();
         }
@@ -17475,13 +19247,12 @@
       // 5. Nodo Base Santiago (SCL) pulsante
       ctx.fillStyle = '#00d4ff';
       ctx.beginPath();
-      ctx.arc(originCanvas.x, originCanvas.y, 6 * dpr, 0, Math.PI * 2);
+      ctx.arc(originCanvas.x, originCanvas.y, 6.5 * dpr, 0, Math.PI * 2);
       ctx.fill();
 
-      // Halo pulsante SCL
-      const sclPulse = (7 + (timestamp % 1200) * 0.008) * dpr;
-      ctx.strokeStyle = 'rgba(0, 212, 255, 0.4)';
-      ctx.lineWidth = 1.5 * dpr;
+      const sclPulse = (7 + (timestamp % 1200) * 0.009) * dpr;
+      ctx.strokeStyle = 'rgba(0, 212, 255, 0.45)';
+      ctx.lineWidth = 1.6 * dpr;
       ctx.beginPath();
       ctx.arc(originCanvas.x, originCanvas.y, sclPulse, 0, Math.PI * 2);
       ctx.stroke();
@@ -17495,9 +19266,8 @@
     requestAnimationFrame(renderMap);
 
     /* =====================================================================
-       NAVEGACIÓN UNIVERSAL DE MAPA (ARRASTRE, RUEDA Y BOTONES)
+       NAVEGACIÓN UNIVERSAL DE MAPA (ZOOM Y PAN)
        ===================================================================== */
-    // Botones de Zoom
     btnZoomIn.addEventListener('click', () => {
       zoomLevel = Math.min(3.5, zoomLevel * 1.25);
     });
@@ -17511,14 +19281,12 @@
       panOffset = { x: 0, y: 0 };
     });
 
-    // Zoom con rueda de mouse
     canvas.addEventListener('wheel', (e) => {
       e.preventDefault();
       const factor = e.deltaY < 0 ? 1.15 : 0.87;
       zoomLevel = Math.max(0.8, Math.min(3.5, zoomLevel * factor));
     }, { passive: false });
 
-    // Paneo por arrastre directo (Pointer Events)
     canvas.addEventListener('pointerdown', (e) => {
       isDragging = true;
       hasDragged = false;
@@ -17530,9 +19298,7 @@
       if (isDragging) {
         const dx = e.clientX - startPointer.x;
         const dy = e.clientY - startPointer.y;
-        if (Math.hypot(dx, dy) > 3) {
-          hasDragged = true;
-        }
+        if (Math.hypot(dx, dy) > 3) hasDragged = true;
         panOffset.x += dx / zoomLevel;
         panOffset.y += dy / zoomLevel;
         startPointer = { x: e.clientX, y: e.clientY };
@@ -17545,68 +19311,43 @@
       if (isDragging) {
         isDragging = false;
         try { canvas.releasePointerCapture(e.pointerId); } catch (err) {}
-        if (!hasDragged) {
-          handleCanvasClick(e);
-        }
+        if (!hasDragged) handleCanvasClick(e);
       }
     });
 
-    canvas.addEventListener('pointercancel', () => {
-      isDragging = false;
-    });
+    canvas.addEventListener('pointercancel', () => { isDragging = false; });
+    canvas.addEventListener('pointerleave', () => { mapTooltip.style.display = 'none'; });
 
-    canvas.addEventListener('pointerleave', () => {
-      mapTooltip.style.display = 'none';
-    });
-
-    /* =====================================================================
-       DETECCIÓN DE CLIC Y TOOLTIP FLOTANTE SOBRE EL MAPA
-       ===================================================================== */
     function handlePointerHover(e) {
       const rect = canvas.getBoundingClientRect();
-      const mouseX = (e.clientX - rect.left) * window.devicePixelRatio;
-      const mouseY = (e.clientY - rect.top) * window.devicePixelRatio;
+      const clientX = e.clientX - rect.left;
+      const clientY = e.clientY - rect.top;
+      const dpr = window.devicePixelRatio || 1;
 
-      let hoveredFlight = null;
-      let minDistance = 18 * window.devicePixelRatio;
+      let hovered = null;
+      for (const flight of FLIGHTS) {
+        if (selectedProvider !== 'Todas' && flight.provider !== selectedProvider) continue;
+        if (filterBusinessOnly && flight.cabin !== 'Business') continue;
+        if (selectedEntityGroup !== 'Todas' && !matchesEntityGroup(flight.entity, selectedEntityGroup)) continue;
 
-      // Buscar proximidad a nodos de destino de vuelos activos
-      FLIGHTS.forEach(flight => {
-        if (selectedProvider !== 'Todas' && flight.provider !== selectedProvider) return;
-        if (filterBusinessOnly && flight.cabin !== 'Business') return;
-        if (!matchesEntityGroup(flight.entity, selectedEntityGroup)) return;
-        const destPos = geoToCanvas(flight.dest.lon, flight.dest.lat);
-        const dist = Math.hypot(mouseX - destPos.x, mouseY - destPos.y);
-        if (dist < minDistance) {
-          minDistance = dist;
-          hoveredFlight = flight;
+        const pt = geoToCanvas(flight.dest.lon, flight.dest.lat);
+        const dist = Math.hypot((pt.x / dpr) - clientX, (pt.y / dpr) - clientY);
+        if (dist < 14) {
+          hovered = flight;
+          break;
         }
-      });
-
-      // Proximidad a SCL Base
-      const sclPos = geoToCanvas(SCL.lon, SCL.lat);
-      const distSCL = Math.hypot(mouseX - sclPos.x, mouseY - sclPos.y);
-
-      if (distSCL < minDistance) {
-        mapTooltip.innerHTML = `
-          <strong>SCL • Santiago de Chile</strong>
-          <div class="tooltip-meta">Aeropuerto Arturo Merino Benítez (Base de Operaciones)</div>
-        `;
-        mapTooltip.style.left = `${e.clientX - rect.left}px`;
-        mapTooltip.style.top = `${e.clientY - rect.top}px`;
-        mapTooltip.style.display = 'block';
-        return;
       }
 
-      if (hoveredFlight) {
+      if (hovered) {
+        const km = calculateDistanceKm(SCL.lat, SCL.lon, hovered.dest.lat, hovered.dest.lon);
+        const estTime = estimateFlightTime(km);
         mapTooltip.innerHTML = `
-          <strong>${hoveredFlight.dest.code} • ${hoveredFlight.dest.city}, ${hoveredFlight.dest.country}</strong>
-          <div>${hoveredFlight.entity}</div>
-          <div class="tooltip-meta">Costo: $${hoveredFlight.cost.toLocaleString('es-CL')} CLP • <em>${hoveredFlight.cabin}</em></div>
-          <div class="tooltip-meta">Agencia: ${hoveredFlight.provider} • OC: ${hoveredFlight.oc}</div>
+          <strong>✈️ ${hovered.dest.city} (${hovered.dest.code})</strong>
+          <div class="tooltip-meta">${hovered.dest.country} • ${km.toLocaleString('es-CL')} km (≈${estTime})</div>
+          <div class="tooltip-meta" style="color: #38bdf8; font-weight: 700; margin-top: 2px;">$${hovered.cost.toLocaleString('es-CL')} CLP • ${hovered.cabin}</div>
         `;
-        mapTooltip.style.left = `${e.clientX - rect.left}px`;
-        mapTooltip.style.top = `${e.clientY - rect.top}px`;
+        mapTooltip.style.left = `${clientX}px`;
+        mapTooltip.style.top = `${clientY}px`;
         mapTooltip.style.display = 'block';
       } else {
         mapTooltip.style.display = 'none';
@@ -17615,43 +19356,101 @@
 
     function handleCanvasClick(e) {
       const rect = canvas.getBoundingClientRect();
-      const clickX = (e.clientX - rect.left) * window.devicePixelRatio;
-      const clickY = (e.clientY - rect.top) * window.devicePixelRatio;
+      const clientX = e.clientX - rect.left;
+      const clientY = e.clientY - rect.top;
+      const dpr = window.devicePixelRatio || 1;
 
       let nearestFlight = null;
-      let minDist = 35 * window.devicePixelRatio;
-      const originCanvas = geoToCanvas(SCL.lon, SCL.lat);
+      let minDist = 22;
 
       FLIGHTS.forEach(flight => {
         if (selectedProvider !== 'Todas' && flight.provider !== selectedProvider) return;
         if (filterBusinessOnly && flight.cabin !== 'Business') return;
-        if (!matchesEntityGroup(flight.entity, selectedEntityGroup)) return;
-        const destCanvas = geoToCanvas(flight.dest.lon, flight.dest.lat);
+        if (selectedEntityGroup !== 'Todas' && !matchesEntityGroup(flight.entity, selectedEntityGroup)) return;
 
-        // Proximidad al nodo de destino
-        const dDest = Math.hypot(clickX - destCanvas.x, clickY - destCanvas.y);
-        if (dDest < minDist) {
-          minDist = dDest;
-          nearestFlight = flight;
-        }
-
-        // Proximidad al arco balístico
-        const midPoint = getArcPoint(originCanvas, destCanvas, 0.5);
-        const dMid = Math.hypot(clickX - midPoint.x, clickY - midPoint.y);
-        if (dMid < minDist) {
-          minDist = dMid;
+        const pt = geoToCanvas(flight.dest.lon, flight.dest.lat);
+        const d = Math.hypot((pt.x / dpr) - clientX, (pt.y / dpr) - clientY);
+        if (d < minDist) {
+          minDist = d;
           nearestFlight = flight;
         }
       });
 
       if (nearestFlight) {
         selectFlight(nearestFlight);
-        // Desplazar la lista lateral hacia la tarjeta seleccionada
         const cardEl = document.getElementById(`flight-item-${nearestFlight.id}`);
-        if (cardEl) {
+        if (cardEl && typeof cardEl.scrollIntoView === 'function') {
           cardEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
       }
+    }
+
+    /* =====================================================================
+       COMPARTIR EXPEDIENTE Y DEEP LINKING POR HASH
+       ===================================================================== */
+    if (btnShareExpediente) {
+      btnShareExpediente.addEventListener('click', () => {
+        if (!selectedFlight) return;
+        const url = `${window.location.origin}${window.location.pathname}#${selectedFlight.id}`;
+        const texto = `🇨🇱 [VuelosPúblicos] El Estado gastó $${selectedFlight.cost.toLocaleString('es-CL')} CLP en viaje a ${selectedFlight.dest.city} (${selectedFlight.cabin}) para ${selectedFlight.entity}. OC: ${selectedFlight.oc}. ¿Se justifica o es derroche? Vota aquí: ${url}`;
+
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(texto).then(() => {
+            if (shareToast) {
+              shareToast.style.display = 'block';
+              setTimeout(() => { shareToast.style.display = 'none'; }, 2500);
+            }
+          });
+        }
+        if (navigator.share) {
+          navigator.share({
+            title: `VuelosPúblicos — ${selectedFlight.dest.city}`,
+            text: texto,
+            url: url
+          }).catch(() => {});
+        }
+      });
+    }
+
+    function handleHashNavigation() {
+      const hash = window.location.hash.replace('#', '').trim();
+      if (!hash) return;
+      const target = FLIGHTS.find(f => f.id === hash || f.oc === hash);
+      if (target) {
+        selectFlight(target);
+        const card = document.getElementById(`flight-item-${target.id}`);
+        if (card && typeof card.scrollIntoView === 'function') card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+    window.addEventListener('hashchange', handleHashNavigation);
+
+    /* =====================================================================
+       NAVEGACIÓN MÓVIL POR PESTAÑAS (TABS RESPONSIVE)
+       ===================================================================== */
+    if (mobileViewTabs) {
+      mobileViewTabs.addEventListener('click', (e) => {
+        const btn = e.target.closest('.mobile-tab-btn');
+        if (!btn) return;
+        const view = btn.dataset.view;
+
+        document.querySelectorAll('.mobile-tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        if (view === 'map') {
+          sidebarColumn.classList.add('mobile-hidden');
+          mapColumn.classList.remove('mobile-hidden');
+          dossierColumn.classList.add('mobile-hidden');
+          resizeCanvas();
+        } else if (view === 'list') {
+          sidebarColumn.classList.remove('mobile-hidden');
+          mapColumn.classList.add('mobile-hidden');
+          dossierColumn.classList.add('mobile-hidden');
+        } else if (view === 'dossier') {
+          sidebarColumn.classList.add('mobile-hidden');
+          mapColumn.classList.add('mobile-hidden');
+          dossierColumn.classList.remove('mobile-hidden');
+        }
+      });
     }
 
     /* =====================================================================
@@ -17667,66 +19466,6 @@
     /* =====================================================================
        INICIALIZACIÓN DEL SISTEMA
        ===================================================================== */
-    // Controles de filtro secundario
-    const filterEntitySelect = document.getElementById('filterEntitySelect');
-    const btnToggleBusiness = document.getElementById('btnToggleBusiness');
-    const btnShareExpediente = document.getElementById('btnShareExpediente');
-    const shareToast = document.getElementById('shareToast');
-
-    if (filterEntitySelect) {
-      filterEntitySelect.addEventListener('change', (e) => {
-        selectedEntityGroup = e.target.value;
-        updateTimeline();
-      });
-    }
-
-    if (btnToggleBusiness) {
-      btnToggleBusiness.addEventListener('click', () => {
-        filterBusinessOnly = !filterBusinessOnly;
-        btnToggleBusiness.classList.toggle('active', filterBusinessOnly);
-        updateTimeline();
-      });
-    }
-
-    // Compartir Expediente en WhatsApp / X / Portapapeles
-    if (btnShareExpediente) {
-      btnShareExpediente.addEventListener('click', () => {
-        if (!selectedFlight) return;
-        const url = `${window.location.origin}${window.location.pathname}#${selectedFlight.id}`;
-        const texto = `🇨🇱 [VuelosPúblicos] El Estado gastó $${selectedFlight.cost.toLocaleString('es-CL')} CLP en viaje a ${selectedFlight.dest.city} (${selectedFlight.cabin}) para ${selectedFlight.entity}. OC: ${selectedFlight.oc}. ¿Se justifica o es derroche? Vota aquí: ${url}`;
-        
-        if (navigator.clipboard) {
-          navigator.clipboard.writeText(texto).then(() => {
-            if (shareToast) {
-              shareToast.style.display = 'block';
-              setTimeout(() => { shareToast.style.display = 'none'; }, 2500);
-            }
-          });
-        }
-        // Abrir diálogo de compartir si está disponible
-        if (navigator.share) {
-          navigator.share({
-            title: `VuelosPúblicos — ${selectedFlight.dest.city}`,
-            text: texto,
-            url: url
-          }).catch(() => {});
-        }
-      });
-    }
-
-    // Deep Linking por hash URL
-    function handleHashNavigation() {
-      const hash = window.location.hash.replace('#', '').trim();
-      if (!hash) return;
-      const target = FLIGHTS.find(f => f.id === hash || f.oc === hash);
-      if (target) {
-        selectFlight(target);
-        const card = document.getElementById(`flight-item-${target.id}`);
-        if (card && typeof card.scrollIntoView === 'function') card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }
-    }
-    window.addEventListener('hashchange', handleHashNavigation);
-
     function init() {
       renderFlightList();
       selectFlight(FLIGHTS[0]);
