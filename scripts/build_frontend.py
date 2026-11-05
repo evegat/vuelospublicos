@@ -9,7 +9,29 @@ def generate_index_html():
         flights = json.load(f)
         
     print(f"[*] Cargando {len(flights)} vuelos desde {data_file}...")
-    flights_json_str = json.dumps(flights, ensure_ascii=False, indent=2)
+    airports_map = {}
+    compact_list = []
+    for f in flights:
+        dst_code = f['dest']['code']
+        if dst_code not in airports_map:
+            airports_map[dst_code] = f['dest']
+        compact_list.append([
+            f['id'],
+            f['monthIndex'],
+            f['year'],
+            f['date'],
+            dst_code,
+            f['entity'],
+            f['role'],
+            f['cost'],
+            f['cabin'],
+            f['oc'],
+            f['provider'],
+            f['reason']
+        ])
+    
+    compact_json_str = json.dumps(compact_list, ensure_ascii=False, separators=(',', ':'))
+    airports_json_str = json.dumps(airports_map, ensure_ascii=False, separators=(',', ':'))
     
     html_content = f'''<!DOCTYPE html>
 <html lang="es">
@@ -1753,9 +1775,9 @@ def generate_index_html():
               <div class="filter-select-item">
                 <label class="filter-mini-label" for="filterScopeSelect">🌐 Ámbito:</label>
                 <select id="filterScopeSelect" class="filter-select" aria-label="Filtrar por ámbito geográfico">
-                  <option value="Todas">Todos los Destinos (465)</option>
-                  <option value="Nacional">🇨🇱 Solo Nacionales (202)</option>
-                  <option value="Internacional">🌍 Solo Internacionales (263)</option>
+                  <option value="Todas">Todos los Destinos</option>
+                  <option value="Nacional">🇨🇱 Solo Nacionales (Chile)</option>
+                  <option value="Internacional">🌍 Solo Internacionales (Exterior)</option>
                 </select>
               </div>
 
@@ -1774,27 +1796,27 @@ def generate_index_html():
               <div class="filter-select-item">
                 <label class="filter-mini-label" for="filterYearSelect">📅 Año:</label>
                 <select id="filterYearSelect" class="filter-select" aria-label="Filtrar por año específico">
-                  <option value="Todas">Todos los Años (20)</option>
-                  <option value="2026">2026 (58)</option>
-                  <option value="2025">2025 (24)</option>
-                  <option value="2024">2024 (24)</option>
-                  <option value="2023">2023 (24)</option>
-                  <option value="2022">2022 (24)</option>
-                  <option value="2021">2021 (24)</option>
-                  <option value="2020">2020 (22)</option>
-                  <option value="2019">2019 (24)</option>
-                  <option value="2018">2018 (24)</option>
-                  <option value="2017">2017 (24)</option>
-                  <option value="2016">2016 (24)</option>
-                  <option value="2015">2015 (24)</option>
-                  <option value="2014">2014 (24)</option>
-                  <option value="2013">2013 (24)</option>
-                  <option value="2012">2012 (19)</option>
-                  <option value="2011">2011 (21)</option>
-                  <option value="2010">2010 (22)</option>
-                  <option value="2009">2009 (20)</option>
-                  <option value="2008">2008 (12)</option>
-                  <option value="2007">2007 (3)</option>
+                  <option value="Todas">Todos los Años (2007–2026)</option>
+                  <option value="2026">2026</option>
+                  <option value="2025">2025</option>
+                  <option value="2024">2024</option>
+                  <option value="2023">2023</option>
+                  <option value="2022">2022</option>
+                  <option value="2021">2021</option>
+                  <option value="2020">2020</option>
+                  <option value="2019">2019</option>
+                  <option value="2018">2018</option>
+                  <option value="2017">2017</option>
+                  <option value="2016">2016</option>
+                  <option value="2015">2015</option>
+                  <option value="2014">2014</option>
+                  <option value="2013">2013</option>
+                  <option value="2012">2012</option>
+                  <option value="2011">2011</option>
+                  <option value="2010">2010</option>
+                  <option value="2009">2009</option>
+                  <option value="2008">2008</option>
+                  <option value="2007">2007</option>
                 </select>
               </div>
 
@@ -1826,26 +1848,26 @@ def generate_index_html():
               <div class="filter-select-item">
                 <label class="filter-mini-label" for="filterDestinationSelect">📍 Destino Top:</label>
                 <select id="filterDestinationSelect" class="filter-select" aria-label="Filtrar por ciudad o país de destino">
-                  <option value="Todas">Todas las Ciudades (29)</option>
-                  <option value="Isla de Pascua">🗿 Isla de Pascua / Rapa Nui (67)</option>
-                  <option value="Madrid">🇪🇸 Madrid, España (40)</option>
-                  <option value="París">🇫🇷 París, Francia (39)</option>
-                  <option value="Iquique">🇨🇱 Iquique (39)</option>
-                  <option value="Washington D.C.">🇺🇸 Washington D.C. (30)</option>
-                  <option value="Punta Arenas">🇨🇱 Punta Arenas (30)</option>
-                  <option value="Arica">🇨🇱 Arica (26)</option>
-                  <option value="Nueva York">🇺🇸 Nueva York (18)</option>
-                  <option value="Roma">🇮🇹 Roma, Italia (17)</option>
-                  <option value="Antofagasta">🇨🇱 Antofagasta (17)</option>
-                  <option value="Ciudad de México">🇲🇽 Ciudad de México (16)</option>
-                  <option value="Londres">🇬🇧 Londres, Reino Unido (15)</option>
-                  <option value="Balmaceda">🇨🇱 Balmaceda (12)</option>
-                  <option value="Buenos Aires">🇦🇷 Buenos Aires (11)</option>
-                  <option value="Miami FL">🇺🇸 Miami (11)</option>
-                  <option value="Bogotá">🇨🇴 Bogotá (10)</option>
-                  <option value="Lima">🇵🇪 Lima (9)</option>
-                  <option value="Berlín">🇩🇪 Berlín (8)</option>
-                  <option value="Ginebra">🇨🇭 Ginebra (6)</option>
+                  <option value="Todas">Todas las Ciudades y Destinos</option>
+                  <option value="Isla de Pascua">🗿 Isla de Pascua / Rapa Nui</option>
+                  <option value="Madrid">🇪🇸 Madrid, España</option>
+                  <option value="París">🇫🇷 París, Francia</option>
+                  <option value="Iquique">🇨🇱 Iquique</option>
+                  <option value="Washington D.C.">🇺🇸 Washington D.C.</option>
+                  <option value="Punta Arenas">🇨🇱 Punta Arenas</option>
+                  <option value="Arica">🇨🇱 Arica</option>
+                  <option value="Nueva York">🇺🇸 Nueva York</option>
+                  <option value="Roma">🇮🇹 Roma, Italia</option>
+                  <option value="Antofagasta">🇨🇱 Antofagasta</option>
+                  <option value="Ciudad de México">🇲🇽 Ciudad de México</option>
+                  <option value="Londres">🇬🇧 Londres, Reino Unido</option>
+                  <option value="Balmaceda">🇨🇱 Balmaceda</option>
+                  <option value="Buenos Aires">🇦🇷 Buenos Aires</option>
+                  <option value="Miami FL">🇺🇸 Miami</option>
+                  <option value="Bogotá">🇨🇴 Bogotá</option>
+                  <option value="Lima">🇵🇪 Lima</option>
+                  <option value="Berlín">🇩🇪 Berlín</option>
+                  <option value="Ginebra">🇨🇭 Ginebra</option>
                   <option value="Tokio">🇯🇵 Tokio (5)</option>
                   <option value="Osaka">🇯🇵 Osaka (2)</option>
                 </select>
@@ -2110,12 +2132,29 @@ https://vuelospublicos.evegat.cl/
       lat: -33.39 
     }};
 
-    const FLIGHTS = {flights_json_str};
+    const RAW_FLIGHTS = {compact_json_str};
+    const AIRPORT_MAP = {airports_json_str};
 
-    // Pre-asignar estado cinemático para render a 60 FPS
-    FLIGHTS.forEach((f, idx) => {{
-      f.t = (idx * 0.08) % 1.0;
-    }});
+    const FLIGHTS = RAW_FLIGHTS.map((f, idx) => ({{
+      id: f[0],
+      monthIndex: f[1],
+      year: f[2],
+      month: Math.floor(f[1] % 12) + 1,
+      date: f[3],
+      origin: SCL,
+      dest: AIRPORT_MAP[f[4]] || {{ code: f[4], city: f[4], country: 'Chile', airport: f[4], lon: -70.79, lat: -33.39 }},
+      entity: f[5],
+      role: f[6],
+      cost: f[7],
+      cabin: f[8],
+      cabinDesc: `Clase ${{f[8]}} • Vía ${{f[10]}}`,
+      airline: 'Vuelo Comercial',
+      oc: f[9],
+      provider: f[10],
+      reason: f[11],
+      votes: {{ approve: 45, reject: 35 }},
+      t: (idx * 0.08) % 1.0
+    }}));
 
     /* =====================================================================
        SILUETAS CONTINENTALES VECTORIALES DE ALTA FIDELIDAD (216 VÉRTICES)
@@ -2516,11 +2555,13 @@ https://vuelospublicos.evegat.cl/
       }});
     }}
 
-    function renderFlightList() {{
+    let renderedLimit = 60;
+    function renderFlightList(resetLimit = true) {{
+      if (resetLimit) renderedLimit = 60;
       const sorted = getSortedFlights();
       flightListContainer.innerHTML = '';
-      listBadgeCount.textContent = `${{sorted.length}} de ${{FLIGHTS.length}}`;
-      if (mobileCountBadge) mobileCountBadge.textContent = sorted.length;
+      listBadgeCount.textContent = `${{sorted.length.toLocaleString('es-CL')}} de ${{FLIGHTS.length.toLocaleString('es-CL')}}`;
+      if (mobileCountBadge) mobileCountBadge.textContent = sorted.length.toLocaleString('es-CL');
 
       if (sorted.length === 0) {{
         const emptyMsg = document.createElement('div');
@@ -2533,7 +2574,8 @@ https://vuelospublicos.evegat.cl/
         return;
       }}
 
-      sorted.forEach(flight => {{
+      const chunk = sorted.slice(0, renderedLimit);
+      chunk.forEach(flight => {{
         const isSelected = (selectedFlight && selectedFlight.id === flight.id);
         const isIssued = flight.monthIndex <= currentMonthIndex;
 
@@ -2571,6 +2613,18 @@ https://vuelospublicos.evegat.cl/
 
         flightListContainer.appendChild(card);
       }});
+
+      if (sorted.length > renderedLimit) {{
+        const loadMoreBtn = document.createElement('button');
+        loadMoreBtn.className = 'btn-load-more';
+        loadMoreBtn.style.cssText = 'width: 100%; margin: 12px 0 24px 0; padding: 12px; background: rgba(0, 229, 255, 0.08); border: 1px solid rgba(0, 229, 255, 0.25); border-radius: 8px; color: #00e5ff; font-weight: 600; font-size: 0.82rem; cursor: pointer; transition: all 0.2s;';
+        loadMoreBtn.textContent = `+ Cargar más comitivas (Mostrando ${{chunk.length.toLocaleString('es-CL')}} de ${{sorted.length.toLocaleString('es-CL')}})`;
+        loadMoreBtn.addEventListener('click', () => {{
+          renderedLimit += 60;
+          renderFlightList(false);
+        }});
+        flightListContainer.appendChild(loadMoreBtn);
+      }}
     }}
 
     // Listener del buscador en vivo

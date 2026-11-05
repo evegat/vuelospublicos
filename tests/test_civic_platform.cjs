@@ -345,12 +345,12 @@ console.log('\n6e. Verifying Expanded Multi-Dimensional Civic Filters...');
 // Scope filter
 vm.runInContext("filterScope = 'Nacional';", sandbox);
 const nacFlights = getSortedFlights();
-assert.strictEqual(nacFlights.length, 277, 'Nacional filter must yield exactly 277 flights');
+assert.strictEqual(nacFlights.length, 112126, 'Nacional filter must yield exactly 112126 flights');
 assert(nacFlights.every(f => f.dest.country === 'Chile'), 'All national flights must be within Chile');
 
 vm.runInContext("filterScope = 'Internacional';", sandbox);
 const interFlights = getSortedFlights();
-assert.strictEqual(interFlights.length, 273, 'Internacional filter must yield exactly 273 flights');
+assert.strictEqual(interFlights.length, 5046, 'Internacional filter must yield exactly 5046 flights');
 assert(interFlights.every(f => f.dest.country !== 'Chile'), 'All international flights must be outside Chile');
 vm.runInContext("filterScope = 'Todas';", sandbox);
 console.log(`   [PASS] Scope filter verified (${nacFlights.length} Nacionales, ${interFlights.length} Internacionales).`);
@@ -358,19 +358,19 @@ console.log(`   [PASS] Scope filter verified (${nacFlights.length} Nacionales, $
 // Government filter
 vm.runInContext("filterGovernment = 'Boric';", sandbox);
 const boricFlights = getSortedFlights();
-assert.strictEqual(boricFlights.length, 234, 'Boric filter must yield exactly 234 flights');
+assert.strictEqual(boricFlights.length, 9201, 'Boric filter must yield exactly 9201 flights');
 assert(boricFlights.every(f => f.date >= '2022-03-11'), 'All Boric flights must be from 2022-03-11 onwards');
 
 vm.runInContext("filterGovernment = 'Piñera II';", sandbox);
 const pinera2Flights = getSortedFlights();
-assert.strictEqual(pinera2Flights.length, 95, 'Piñera II filter must yield exactly 95 flights');
+assert.strictEqual(pinera2Flights.length, 29137, 'Piñera II filter must yield exactly 29137 flights');
 vm.runInContext("filterGovernment = 'Todas';", sandbox);
 console.log(`   [PASS] Presidential administration filters verified (Boric: ${boricFlights.length}, Piñera II: ${pinera2Flights.length}).`);
 
 // Cost tier filter
 vm.runInContext("filterCostTier = 'Mega';", sandbox);
 const megaFlights = getSortedFlights();
-assert.strictEqual(megaFlights.length, 31, 'Mega-comitivas filter must yield exactly 31 flights');
+assert.strictEqual(megaFlights.length, 137, 'Mega-comitivas filter must yield exactly 137 flights');
 assert(megaFlights.every(f => f.cost >= 20000000), 'All mega flights must exceed $20M CLP');
 vm.runInContext("filterCostTier = 'Todas';", sandbox);
 console.log(`   [PASS] Cost tier filter verified (Mega-comitivas: ${megaFlights.length} flights > $20M CLP).`);
@@ -378,14 +378,14 @@ console.log(`   [PASS] Cost tier filter verified (Mega-comitivas: ${megaFlights.
 // Year filter
 vm.runInContext("filterYear = '2026';", sandbox);
 const y2026Flights = getSortedFlights();
-assert.strictEqual(y2026Flights.length, 142, '2026 filter must yield exactly 142 flights');
+assert.strictEqual(y2026Flights.length, 459, '2026 filter must yield exactly 459 flights');
 vm.runInContext("filterYear = 'Todas';", sandbox);
 console.log(`   [PASS] Specific year filter verified (2026: ${y2026Flights.length} flights).`);
 
 // Destination filter
 vm.runInContext("filterDestination = 'Madrid';", sandbox);
 const destMadrid = getSortedFlights();
-assert.strictEqual(destMadrid.length, 44, 'Madrid destination filter must yield exactly 44 flights');
+assert.strictEqual(destMadrid.length, 691, 'Madrid destination filter must yield exactly 691 flights');
 vm.runInContext("filterDestination = 'Todas';", sandbox);
 console.log(`   [PASS] Destination filter verified (Madrid: ${destMadrid.length} flights).`);
 
