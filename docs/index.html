@@ -820,14 +820,211 @@
       padding: 0 2px;
     }
 
-    .filter-provider-row {
+    /* Barra de Filtros Cívicos Integral */
+    .filter-deck {
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .filter-select-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 6px;
+    }
+
+    .filter-select-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .filter-mini-label {
+      font-size: 0.64rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      letter-spacing: 0.03em;
+    }
+
+    .filter-select {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 4px 6px;
+      border-radius: var(--radius-sm);
+      outline: none;
+      cursor: pointer;
+      transition: border-color 0.15s ease, background 0.15s ease;
+    }
+
+    .filter-select:hover {
+      border-color: rgba(56, 189, 248, 0.4);
+      background: var(--bg-card-hover);
+    }
+
+    .filter-select:focus {
+      border-color: var(--border-focus);
+    }
+
+    .filter-select.has-filter {
+      border-color: #38bdf8;
+      background: rgba(56, 189, 248, 0.1);
+      color: #38bdf8;
+    }
+
+    .filter-actions-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
       gap: 8px;
-      border-top: 1px solid var(--border-subtle);
-      padding-top: 8px;
+    }
+
+    .filter-action-buttons {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-reset-filters {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      color: #f87171;
+      font-size: 0.70rem;
+      font-weight: 700;
+      padding: 4px 9px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: none;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .btn-reset-filters:hover {
+      background: rgba(239, 68, 68, 0.2);
+      border-color: #ef4444;
+      color: #ffffff;
+    }
+
+    .btn-reset-filters.visible {
+      display: inline-flex;
+    }
+
+    /* Barra de Chips Activos */
+    .active-filters-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      padding-top: 4px;
+      font-size: 0.70rem;
+    }
+
+    .active-filters-label {
+      font-size: 0.64rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .active-chips-container {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+
+    .active-filter-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      color: #e2e8f0;
+      font-size: 0.68rem;
+      font-weight: 600;
+      padding: 2px 7px;
+      border-radius: 10px;
+    }
+
+    .active-filter-chip .chip-remove {
+      cursor: pointer;
+      opacity: 0.75;
+      font-weight: bold;
+      margin-left: 2px;
+    }
+
+    .active-filter-chip .chip-remove:hover {
+      opacity: 1;
+      color: #f87171;
+    }
+
+    .active-filters-summary {
+      color: #38bdf8;
+      font-weight: 700;
+      font-size: 0.68rem;
+      margin-left: auto;
+    }
+
+    /* Quick filters en Sidebar */
+    .btn-sidebar-reset {
+      background: transparent;
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #f87171;
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 1px 6px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .btn-sidebar-reset:hover {
+      background: rgba(239, 68, 68, 0.2);
+    }
+
+    .quick-filter-scroll {
+      display: flex;
+      gap: 4px;
+      overflow-x: auto;
+      padding: 3px 0 6px;
+      scrollbar-width: none;
+    }
+
+    .quick-filter-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    .quick-chip {
+      white-space: nowrap;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      font-size: 0.68rem;
+      font-weight: 600;
+      padding: 2px 7px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      flex-shrink: 0;
+    }
+
+    .quick-chip:hover {
+      background: var(--bg-card-hover);
+      color: #ffffff;
+      border-color: var(--border-focus);
+    }
+
+    .quick-chip.active {
+      background: rgba(56, 189, 248, 0.2);
+      color: #38bdf8;
+      border-color: #38bdf8;
     }
 
     .filter-provider-group, .filter-secondary-group {
@@ -1577,9 +1774,20 @@
           <!-- Barra de Ordenamiento -->
           <div class="sort-toolbar">
             <span class="sort-label">Orden:</span>
-            <button class="sort-btn active" id="btnSortCost" data-sort="cost">💰 Monto ↓</button>
-            <button class="sort-btn" id="btnSortDate" data-sort="date">📅 Fecha</button>
+            <button class="sort-btn active" id="btnSortDate" data-sort="date">📅 Fecha ▾</button>
+            <button class="sort-btn" id="btnSortCost" data-sort="cost">💰 Monto</button>
             <button class="sort-btn" id="btnSortEntity" data-sort="entity">🏛️ Organismo</button>
+          </div>
+
+          <!-- Filtros Rápidos en Sidebar -->
+          <div class="quick-filter-scroll" id="sidebarQuickFilters">
+            <button class="quick-chip active" data-filter-type="scope" data-value="Todas">Todos (465)</button>
+            <button class="quick-chip" data-filter-type="scope" data-value="Nacional">🇨🇱 Chile (202)</button>
+            <button class="quick-chip" data-filter-type="scope" data-value="Internacional">🌍 Exterior (263)</button>
+            <button class="quick-chip" data-filter-type="cabin" data-value="Business">⭐ Business (5)</button>
+            <button class="quick-chip" data-filter-type="costTier" data-value="Mega">🔥 >$20M (30)</button>
+            <button class="quick-chip" data-filter-type="government" data-value="Boric">🇨🇱 Boric (149)</button>
+            <button class="quick-chip" data-filter-type="government" data-value="Piñera II">🇨🇱 Piñera II (95)</button>
           </div>
         </div>
 
@@ -1658,37 +1866,156 @@
             </div>
           </div>
 
-          <!-- Barra de Filtros -->
-          <div class="filter-provider-row">
-            <div class="filter-provider-group" id="filterProvider">
-              <span class="filter-label">Agencia:</span>
-              <button class="provider-chip active" data-provider="Todas" id="filterProviderTodas">Todas</button>
-              <button class="provider-chip" data-provider="Cocha" id="filterProviderCocha">Cocha</button>
-              <button class="provider-chip" data-provider="Turavion" id="filterProviderTuravion">Turavion</button>
-              <button class="provider-chip" data-provider="LATAM" id="filterProviderLATAM">LATAM</button>
-              <button class="provider-chip" data-provider="Sky" id="filterProviderSky">Sky</button>
+          <!-- Barra de Filtros Cívicos Integral -->
+          <div class="filter-deck" id="filterDeck">
+            <!-- Fila 1: Selectores Semánticos Principales -->
+            <div class="filter-select-grid">
+              <div class="filter-select-item">
+                <label class="filter-mini-label" for="filterScopeSelect">🌐 Ámbito:</label>
+                <select id="filterScopeSelect" class="filter-select" aria-label="Filtrar por ámbito geográfico">
+                  <option value="Todas">Todos los Destinos (465)</option>
+                  <option value="Nacional">🇨🇱 Solo Nacionales (202)</option>
+                  <option value="Internacional">🌍 Solo Internacionales (263)</option>
+                </select>
+              </div>
+
+              <div class="filter-select-item">
+                <label class="filter-mini-label" for="filterGovernmentSelect">🇨🇱 Gobierno:</label>
+                <select id="filterGovernmentSelect" class="filter-select" aria-label="Filtrar por administración presidencial">
+                  <option value="Todas">Todos los Gobiernos (2007–2026)</option>
+                  <option value="Boric">🇨🇱 Gabriel Boric (2022–2026)</option>
+                  <option value="Piñera II">🇨🇱 Sebastián Piñera II (2018–2022)</option>
+                  <option value="Bachelet II">🇨🇱 Michelle Bachelet II (2014–2018)</option>
+                  <option value="Piñera I">🇨🇱 Sebastián Piñera I (2010–2014)</option>
+                  <option value="Bachelet I">🇨🇱 Michelle Bachelet I (2007–2010)</option>
+                </select>
+              </div>
+
+              <div class="filter-select-item">
+                <label class="filter-mini-label" for="filterYearSelect">📅 Año:</label>
+                <select id="filterYearSelect" class="filter-select" aria-label="Filtrar por año específico">
+                  <option value="Todas">Todos los Años (20)</option>
+                  <option value="2026">2026 (58)</option>
+                  <option value="2025">2025 (24)</option>
+                  <option value="2024">2024 (24)</option>
+                  <option value="2023">2023 (24)</option>
+                  <option value="2022">2022 (24)</option>
+                  <option value="2021">2021 (24)</option>
+                  <option value="2020">2020 (22)</option>
+                  <option value="2019">2019 (24)</option>
+                  <option value="2018">2018 (24)</option>
+                  <option value="2017">2017 (24)</option>
+                  <option value="2016">2016 (24)</option>
+                  <option value="2015">2015 (24)</option>
+                  <option value="2014">2014 (24)</option>
+                  <option value="2013">2013 (24)</option>
+                  <option value="2012">2012 (19)</option>
+                  <option value="2011">2011 (21)</option>
+                  <option value="2010">2010 (22)</option>
+                  <option value="2009">2009 (20)</option>
+                  <option value="2008">2008 (12)</option>
+                  <option value="2007">2007 (3)</option>
+                </select>
+              </div>
+
+              <div class="filter-select-item">
+                <label class="filter-mini-label" for="filterEntitySelect">🏛️ Organismo:</label>
+                <select id="filterEntitySelect" class="filter-select" aria-label="Filtrar por organismo">
+                  <option value="Todas">Todos los Organismos</option>
+                  <option value="Presidencia">Presidencia y Gobierno Central</option>
+                  <option value="Defensa">Defensa y Fuerzas Armadas</option>
+                  <option value="Cancillería">Cancillería y Minrel</option>
+                  <option value="Sectoriales">Ministerios Sectoriales</option>
+                  <option value="Universidades">Universidades Estatales</option>
+                  <option value="Municipalidades">Municipalidades y Gob. Locales</option>
+                  <option value="Otros">Otras Instituciones</option>
+                </select>
+              </div>
+
+              <div class="filter-select-item">
+                <label class="filter-mini-label" for="filterCostTierSelect">💰 Tramo Monto:</label>
+                <select id="filterCostTierSelect" class="filter-select" aria-label="Filtrar por monto de pasaje">
+                  <option value="Todas">Cualquier Monto</option>
+                  <option value="Mega">🔥 Mega-Comitivas (> $20M)</option>
+                  <option value="Alta">⚡ Comitivas Altas ($5M - $20M)</option>
+                  <option value="Media">🔹 Comitivas Medias ($1M - $5M)</option>
+                  <option value="Menor">🟢 Pasajes Menores (< $1M)</option>
+                </select>
+              </div>
+
+              <div class="filter-select-item">
+                <label class="filter-mini-label" for="filterDestinationSelect">📍 Destino Top:</label>
+                <select id="filterDestinationSelect" class="filter-select" aria-label="Filtrar por ciudad o país de destino">
+                  <option value="Todas">Todas las Ciudades (29)</option>
+                  <option value="Isla de Pascua">🗿 Isla de Pascua / Rapa Nui (67)</option>
+                  <option value="Madrid">🇪🇸 Madrid, España (40)</option>
+                  <option value="París">🇫🇷 París, Francia (39)</option>
+                  <option value="Iquique">🇨🇱 Iquique (39)</option>
+                  <option value="Washington D.C.">🇺🇸 Washington D.C. (30)</option>
+                  <option value="Punta Arenas">🇨🇱 Punta Arenas (30)</option>
+                  <option value="Arica">🇨🇱 Arica (26)</option>
+                  <option value="Nueva York">🇺🇸 Nueva York (18)</option>
+                  <option value="Roma">🇮🇹 Roma, Italia (17)</option>
+                  <option value="Antofagasta">🇨🇱 Antofagasta (17)</option>
+                  <option value="Ciudad de México">🇲🇽 Ciudad de México (16)</option>
+                  <option value="Londres">🇬🇧 Londres, Reino Unido (15)</option>
+                  <option value="Balmaceda">🇨🇱 Balmaceda (12)</option>
+                  <option value="Buenos Aires">🇦🇷 Buenos Aires (11)</option>
+                  <option value="Miami FL">🇺🇸 Miami (11)</option>
+                  <option value="Bogotá">🇨🇴 Bogotá (10)</option>
+                  <option value="Lima">🇵🇪 Lima (9)</option>
+                  <option value="Berlín">🇩🇪 Berlín (8)</option>
+                  <option value="Ginebra">🇨🇭 Ginebra (6)</option>
+                  <option value="Tokio">🇯🇵 Tokio (5)</option>
+                  <option value="Osaka">🇯🇵 Osaka (2)</option>
+                </select>
+              </div>
+
+              <div class="filter-select-item">
+                <label class="filter-mini-label" for="filterVerdictSelect">⚖️ Tribunal:</label>
+                <select id="filterVerdictSelect" class="filter-select" aria-label="Filtrar por juicio ciudadano">
+                  <option value="Todas">Todos los Juicios (465)</option>
+                  <option value="Derroche">⚠️ Mayoría Derroche (>50% rechazo)</option>
+                  <option value="Justificado">✅ Mayoría Justificado (>=50% aprobación)</option>
+                </select>
+              </div>
             </div>
-            <select id="filterProviderSelect" class="provider-select-hidden" aria-label="Filtrar por proveedor">
-              <option value="Todas">Todas</option>
-              <option value="Cocha">Cocha</option>
-              <option value="Turavion">Turavion</option>
-              <option value="LATAM">LATAM</option>
-              <option value="Sky">Sky</option>
-            </select>
-            <div class="filter-secondary-group">
-              <span class="filter-label">Organismo:</span>
-              <select id="filterEntitySelect" class="filter-entity-select" aria-label="Filtrar por organismo">
-                <option value="Todas">Todos los Organismos</option>
-                <option value="Presidencia">Presidencia y Gobierno Central</option>
-                <option value="Defensa">Defensa y Fuerzas Armadas</option>
-                <option value="Cancillería">Cancillería y Minrel</option>
-                <option value="Sectoriales">Ministerios Sectoriales</option>
-                <option value="Otros">Otras Instituciones</option>
+
+            <!-- Fila 2: Chips de Agencia, Botón Business y Botón Restablecer -->
+            <div class="filter-actions-row">
+              <div class="filter-provider-group" id="filterProvider">
+                <span class="filter-label">Agencia:</span>
+                <button class="provider-chip active" data-provider="Todas" id="filterProviderTodas">Todas</button>
+                <button class="provider-chip" data-provider="Cocha" id="filterProviderCocha">Cocha</button>
+                <button class="provider-chip" data-provider="Turavion" id="filterProviderTuravion">Turavion</button>
+                <button class="provider-chip" data-provider="LATAM" id="filterProviderLATAM">LATAM</button>
+                <button class="provider-chip" data-provider="Sky" id="filterProviderSky">Sky</button>
+              </div>
+
+              <select id="filterProviderSelect" class="provider-select-hidden" aria-label="Filtrar por proveedor">
+                <option value="Todas">Todas</option>
+                <option value="Cocha">Cocha</option>
+                <option value="Turavion">Turavion</option>
+                <option value="LATAM">LATAM</option>
+                <option value="Sky">Sky</option>
               </select>
-              <button class="btn-toggle-business" id="btnToggleBusiness" title="Aislar pasajes de clase ejecutiva">
-                <span class="business-dot"></span>
-                <span>Solo Clase Business</span>
-              </button>
+
+              <div class="filter-action-buttons">
+                <button class="btn-toggle-business" id="btnToggleBusiness" title="Aislar pasajes de clase ejecutiva">
+                  <span class="business-dot"></span>
+                  <span>Solo Clase Business</span>
+                </button>
+                <button class="btn-reset-filters" id="btnResetAllFilters" title="Restablecer todos los filtros a valores por defecto">
+                  <span>↺ Limpiar Filtros</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Fila 3: Píldoras de Filtros Activos y Contador Dinámico -->
+            <div class="active-filters-bar" id="activeFiltersBar" style="display: none;">
+              <span class="active-filters-label">Filtros Activos:</span>
+              <div class="active-chips-container" id="activeChipsContainer"></div>
+              <span class="active-filters-summary" id="activeFiltersSummary"></span>
             </div>
           </div>
         </div>
@@ -18776,6 +19103,34 @@ https://vuelospublicos.evegat.cl/
     let selectedEntityGroup = 'Todas';
     let searchFilterText = '';
 
+    // Filtros ampliados
+    let filterScope = 'Todas'; // 'Todas' | 'Nacional' | 'Internacional'
+    let filterGovernment = 'Todas'; // 'Todas' | 'Boric' | 'Piñera II' | 'Bachelet II' | 'Piñera I' | 'Bachelet I'
+    let filterYear = 'Todas'; // 'Todas' | '2026' ... '2007'
+    let filterCostTier = 'Todas'; // 'Todas' | 'Mega' | 'Alta' | 'Media' | 'Menor'
+    let filterDestination = 'Todas'; // 'Todas' | ciudad o país
+    let filterVerdict = 'Todas'; // 'Todas' | 'Derroche' | 'Justificado'
+    let filterCabin = 'Todas'; // 'Todas' | 'Business' | 'Turista'
+
+    function matchesGovernment(dateStr, gov) {
+      if (!gov || gov === 'Todas') return true;
+      if (gov === 'Boric') return dateStr >= '2022-03-11';
+      if (gov === 'Piñera II') return dateStr >= '2018-03-11' && dateStr < '2022-03-11';
+      if (gov === 'Bachelet II') return dateStr >= '2014-03-11' && dateStr < '2018-03-11';
+      if (gov === 'Piñera I') return dateStr >= '2010-03-11' && dateStr < '2014-03-10';
+      if (gov === 'Bachelet I') return dateStr < '2010-03-11';
+      return true;
+    }
+
+    function matchesCostTier(cost, tier) {
+      if (!tier || tier === 'Todas') return true;
+      if (tier === 'Mega') return cost >= 20000000;
+      if (tier === 'Alta') return cost >= 5000000 && cost < 20000000;
+      if (tier === 'Media') return cost >= 1000000 && cost < 5000000;
+      if (tier === 'Menor') return cost < 1000000;
+      return true;
+    }
+
     function matchesEntityGroup(entity, group) {
       if (!group || group.toLowerCase() === 'todas') return true;
       const entityStr = typeof entity === 'object' && entity !== null ? (entity.entity || '') : String(entity || '');
@@ -18785,17 +19140,74 @@ https://vuelospublicos.evegat.cl/
         return up.includes('PRESIDENCIA') || up.includes('SECRETARÍA GENERAL') || up.includes('SECRETARIA GENERAL') || up.includes('INTERIOR');
       }
       if (gNorm === 'defensa') {
-        return up.includes('FUERZA AÉREA') || up.includes('FUERZA AEREA') || up.includes('EJÉRCITO') || up.includes('EJERCITO') || up.includes('ARMADA') || up.includes('DEFENSA') || up.includes('LOGÍSTICO') || up.includes('LOGISTICO') || up.includes('COMANDO');
+        return up.includes('FUERZA AÉREA') || up.includes('FUERZA AEREA') || up.includes('EJÉRCITO') || up.includes('EJERCITO') || up.includes('ARMADA') || up.includes('DEFENSA') || up.includes('LOGÍSTICO') || up.includes('LOGISTICO') || up.includes('COMANDO') || up.includes('CARABINEROS') || up.includes('AERONAUTICA');
       }
       if (gNorm.includes('cancil') || gNorm.includes('exteriores')) {
         return up.includes('RELACIONES EXTERIORES') || up.includes('CANCIL') || up.includes('MINREL') || up.includes('PROCHILE') || up.includes('CONSUL');
       }
+      if (gNorm === 'universidades') {
+        return up.includes('UNIVERSIDAD');
+      }
+      if (gNorm === 'municipalidades') {
+        return up.includes('MUNICIPALIDAD') || up.includes('MUNICIPAL');
+      }
       if (gNorm === 'sectoriales') {
-        return up.includes('MINISTERIO') || up.includes('SUBSECRETARÍA') || up.includes('SUBSECRETARIA') || up.includes('MINERÍA') || up.includes('HACIENDA') || up.includes('SALUD') || up.includes('EDUCACIÓN') || up.includes('OBRAS PÚBLICAS');
+        return (up.includes('MINISTERIO') || up.includes('SUBSECRETARÍA') || up.includes('SUBSECRETARIA') || up.includes('MINERÍA') || up.includes('HACIENDA') || up.includes('SALUD') || up.includes('EDUCACIÓN') || up.includes('OBRAS PÚBLICAS') || up.includes('AGRICULTURA')) && !up.includes('UNIVERSIDAD') && !up.includes('MUNICIPAL');
       }
       if (gNorm === 'otros') {
-        return !matchesEntityGroup(entityStr, 'presidencia') && !matchesEntityGroup(entityStr, 'defensa') && !matchesEntityGroup(entityStr, 'cancillería') && !matchesEntityGroup(entityStr, 'sectoriales');
+        return !matchesEntityGroup(entityStr, 'presidencia') && !matchesEntityGroup(entityStr, 'defensa') && !matchesEntityGroup(entityStr, 'cancillería') && !matchesEntityGroup(entityStr, 'sectoriales') && !matchesEntityGroup(entityStr, 'universidades') && !matchesEntityGroup(entityStr, 'municipalidades');
       }
+      return true;
+    }
+
+    function flightMatchesAllFilters(flight, checkMonth = false, maxMonthIndex = 239) {
+      if (checkMonth && flight.monthIndex > maxMonthIndex) return false;
+
+      // 1. Proveedor / Agencia
+      if (selectedProvider !== 'Todas' && flight.provider !== selectedProvider) return false;
+
+      // 2. Cabina
+      if (filterBusinessOnly && flight.cabin !== 'Business') return false;
+      if (filterCabin !== 'Todas' && flight.cabin !== filterCabin) return false;
+
+      // 3. Organismo
+      if (selectedEntityGroup !== 'Todas' && !matchesEntityGroup(flight.entity, selectedEntityGroup)) return false;
+
+      // 4. Ámbito
+      if (filterScope === 'Nacional' && flight.dest.country !== 'Chile') return false;
+      if (filterScope === 'Internacional' && flight.dest.country === 'Chile') return false;
+
+      // 5. Destino
+      if (filterDestination !== 'Todas') {
+        if (flight.dest.city !== filterDestination && flight.dest.country !== filterDestination && flight.dest.code !== filterDestination) {
+          return false;
+        }
+      }
+
+      // 6. Gobierno
+      if (filterGovernment !== 'Todas' && !matchesGovernment(flight.date, filterGovernment)) return false;
+
+      // 7. Año
+      if (filterYear !== 'Todas' && String(flight.year) !== String(filterYear)) return false;
+
+      // 8. Tramo de Monto
+      if (filterCostTier !== 'Todas' && !matchesCostTier(flight.cost, filterCostTier)) return false;
+
+      // 9. Tribunal Ciudadano
+      if (filterVerdict !== 'Todas') {
+        const tallies = getFlightTallies(flight);
+        const isReject = tallies.reject > tallies.approve;
+        if (filterVerdict === 'Derroche' && !isReject) return false;
+        if (filterVerdict === 'Justificado' && isReject) return false;
+      }
+
+      // 10. Búsqueda de texto
+      if (searchFilterText) {
+        const q = searchFilterText.trim().toLowerCase();
+        const matchTarget = `${flight.entity} ${flight.role} ${flight.dest.city} ${flight.dest.code} ${flight.dest.country} ${flight.oc} ${flight.reason}`.toLowerCase();
+        if (!matchTarget.includes(q)) return false;
+      }
+
       return true;
     }
 
@@ -19034,24 +19446,7 @@ https://vuelospublicos.evegat.cl/
        ORDENAMIENTO, BÚSQUEDA Y RENDER DEL PANEL LATERAL
        ===================================================================== */
     function getSortedFlights() {
-      const query = (searchFilterText || '').trim().toLowerCase();
-
-      const filtered = FLIGHTS.filter(flight => {
-        if (selectedProvider !== 'Todas' && flight.provider !== selectedProvider) {
-          return false;
-        }
-        if (filterBusinessOnly && flight.cabin !== 'Business') {
-          return false;
-        }
-        if (selectedEntityGroup !== 'Todas' && !matchesEntityGroup(flight.entity, selectedEntityGroup)) {
-          return false;
-        }
-        if (query) {
-          const matchTarget = `${flight.entity} ${flight.role} ${flight.dest.city} ${flight.dest.code} ${flight.dest.country} ${flight.oc} ${flight.reason}`.toLowerCase();
-          if (!matchTarget.includes(query)) return false;
-        }
-        return true;
-      });
+      const filtered = FLIGHTS.filter(flight => flightMatchesAllFilters(flight, false));
 
       return [...filtered].sort((a, b) => {
         if (currentSort === 'date') {
@@ -19231,11 +19626,7 @@ https://vuelospublicos.evegat.cl/
 
     function calculateOdometer(maxMonthIndex, provider) {
       return FLIGHTS.reduce((sum, flight) => {
-        const matchesProvider = (provider === 'Todas' || flight.provider === provider);
-        const matchesMonth = flight.monthIndex <= maxMonthIndex;
-        const matchesBusiness = !filterBusinessOnly || flight.cabin === 'Business';
-        const matchesEntity = matchesEntityGroup(flight.entity, selectedEntityGroup);
-        if (matchesProvider && matchesMonth && matchesBusiness && matchesEntity) {
+        if (flightMatchesAllFilters(flight, true, maxMonthIndex)) {
           return sum + flight.cost;
         }
         return sum;
@@ -19243,12 +19634,7 @@ https://vuelospublicos.evegat.cl/
     }
 
     function updateGlobalStats() {
-      const activeFlights = FLIGHTS.filter(flight => {
-        if (selectedProvider !== 'Todas' && flight.provider !== selectedProvider) return false;
-        if (filterBusinessOnly && flight.cabin !== 'Business') return false;
-        if (selectedEntityGroup !== 'Todas' && !matchesEntityGroup(flight.entity, selectedEntityGroup)) return false;
-        return true;
-      });
+      const activeFlights = FLIGHTS.filter(flight => flightMatchesAllFilters(flight, false));
 
       const totalSpend = activeFlights.reduce((sum, f) => sum + f.cost, 0);
       const businessCount = activeFlights.filter(f => f.cabin === 'Business').length;
@@ -19324,9 +19710,18 @@ https://vuelospublicos.evegat.cl/
       const totalAccum = calculateOdometer(currentMonthIndex, selectedProvider);
       fiscalOdometer.textContent = `$${totalAccum.toLocaleString('es-CL')} CLP`;
 
+      const sorted = getSortedFlights();
+      // Si el vuelo activo quedó excluido por los filtros, enfocar el primer resultado disponible
+      if (selectedFlight && !flightMatchesAllFilters(selectedFlight, false)) {
+        if (sorted.length > 0) {
+          selectFlight(sorted[0]);
+        }
+      }
+
       renderFlightList();
       updateGlobalStats();
       drawScrubberSparkline();
+      updateActiveChipsBar();
     }
 
     timelineSlider.addEventListener('input', (e) => {
@@ -19419,10 +19814,220 @@ https://vuelospublicos.evegat.cl/
     if (btnToggleBusiness) {
       btnToggleBusiness.addEventListener('click', () => {
         filterBusinessOnly = !filterBusinessOnly;
+        filterCabin = filterBusinessOnly ? 'Business' : 'Todas';
         btnToggleBusiness.classList.toggle('active', filterBusinessOnly);
+        syncQuickChips();
         updateTimeline();
       });
     }
+
+    // Referencias a los nuevos controles
+    const filterScopeSelect = document.getElementById('filterScopeSelect');
+    const filterGovernmentSelect = document.getElementById('filterGovernmentSelect');
+    const filterYearSelect = document.getElementById('filterYearSelect');
+    const filterCostTierSelect = document.getElementById('filterCostTierSelect');
+    const filterDestinationSelect = document.getElementById('filterDestinationSelect');
+    const filterVerdictSelect = document.getElementById('filterVerdictSelect');
+    const btnResetAllFilters = document.getElementById('btnResetAllFilters');
+    const btnSidebarReset = document.getElementById('btnSidebarReset');
+    const activeFiltersBar = document.getElementById('activeFiltersBar');
+    const activeChipsContainer = document.getElementById('activeChipsContainer');
+    const activeFiltersSummary = document.getElementById('activeFiltersSummary');
+
+    function syncSelectVisuals() {
+      const selects = [
+        { el: filterScopeSelect, val: filterScope },
+        { el: filterGovernmentSelect, val: filterGovernment },
+        { el: filterYearSelect, val: filterYear },
+        { el: filterEntitySelect, val: selectedEntityGroup },
+        { el: filterCostTierSelect, val: filterCostTier },
+        { el: filterDestinationSelect, val: filterDestination },
+        { el: filterVerdictSelect, val: filterVerdict },
+        { el: filterProviderSelect, val: selectedProvider }
+      ];
+
+      selects.forEach((item) => {
+        if (item.el) {
+          item.el.value = item.val;
+          item.el.classList.toggle('has-filter', item.val !== 'Todas');
+        }
+      });
+    }
+
+    function syncQuickChips() {
+      document.querySelectorAll('.quick-chip').forEach(chip => {
+        const type = chip.dataset.filterType;
+        const val = chip.dataset.value;
+        let isActive = false;
+        if (type === 'scope') isActive = (filterScope === val);
+        else if (type === 'cabin') isActive = (filterCabin === val);
+        else if (type === 'costTier') isActive = (filterCostTier === val);
+        else if (type === 'government') isActive = (filterGovernment === val);
+        chip.classList.toggle('active', isActive);
+      });
+    }
+
+    function updateActiveChipsBar() {
+      if (!activeChipsContainer || !activeFiltersBar) return;
+
+      const activeFilters = [];
+      if (filterScope !== 'Todas') {
+        activeFilters.push({ label: `Ámbito: ${filterScope}`, clear: () => { filterScope = 'Todas'; } });
+      }
+      if (filterGovernment !== 'Todas') {
+        activeFilters.push({ label: `Gobierno: ${filterGovernment}`, clear: () => { filterGovernment = 'Todas'; } });
+      }
+      if (filterYear !== 'Todas') {
+        activeFilters.push({ label: `Año: ${filterYear}`, clear: () => { filterYear = 'Todas'; } });
+      }
+      if (selectedEntityGroup !== 'Todas') {
+        activeFilters.push({ label: `Organismo: ${selectedEntityGroup}`, clear: () => { selectedEntityGroup = 'Todas'; } });
+      }
+      if (filterCostTier !== 'Todas') {
+        activeFilters.push({ label: `Monto: ${filterCostTier}`, clear: () => { filterCostTier = 'Todas'; } });
+      }
+      if (filterDestination !== 'Todas') {
+        activeFilters.push({ label: `Destino: ${filterDestination}`, clear: () => { filterDestination = 'Todas'; } });
+      }
+      if (filterVerdict !== 'Todas') {
+        activeFilters.push({ label: `Tribunal: ${filterVerdict}`, clear: () => { filterVerdict = 'Todas'; } });
+      }
+      if (selectedProvider !== 'Todas') {
+        activeFilters.push({ label: `Agencia: ${selectedProvider}`, clear: () => { selectedProvider = 'Todas'; } });
+      }
+      if (filterBusinessOnly) {
+        activeFilters.push({ label: `Clase: Business`, clear: () => { filterBusinessOnly = false; filterCabin = 'Todas'; } });
+      }
+      if (searchFilterText) {
+        activeFilters.push({ label: `Búsqueda: "${searchFilterText}"`, clear: () => { searchFilterText = ''; if (flightSearchInput) flightSearchInput.value = ''; if (btnClearSearch) btnClearSearch.style.display = 'none'; } });
+      }
+
+      activeChipsContainer.innerHTML = '';
+
+      const hasAnyFilter = activeFilters.length > 0;
+      activeFiltersBar.style.display = hasAnyFilter ? 'flex' : 'none';
+      if (btnResetAllFilters) btnResetAllFilters.classList.toggle('visible', hasAnyFilter);
+      if (btnSidebarReset) btnSidebarReset.style.display = hasAnyFilter ? 'inline-block' : 'none';
+
+      if (hasAnyFilter) {
+        const sorted = getSortedFlights();
+        const totalCLP = sorted.reduce((acc, f) => acc + f.cost, 0);
+        if (activeFiltersSummary) {
+          activeFiltersSummary.textContent = `${sorted.length} de ${FLIGHTS.length} comitivas ($${Math.round(totalCLP / 1e6).toLocaleString('es-CL')}M CLP)`;
+        }
+
+        activeFilters.forEach(item => {
+          const chip = document.createElement('span');
+          chip.className = 'active-filter-chip';
+          chip.innerHTML = `${item.label} <span class="chip-remove" title="Quitar este filtro">&times;</span>`;
+          chip.querySelector('.chip-remove').addEventListener('click', () => {
+            item.clear();
+            syncSelectVisuals();
+            syncQuickChips();
+            updateTimeline();
+          });
+          activeChipsContainer.appendChild(chip);
+        });
+      }
+    }
+
+    function resetAllFilters() {
+      filterScope = 'Todas';
+      filterGovernment = 'Todas';
+      filterYear = 'Todas';
+      selectedEntityGroup = 'Todas';
+      filterCostTier = 'Todas';
+      filterDestination = 'Todas';
+      filterVerdict = 'Todas';
+      selectedProvider = 'Todas';
+      filterBusinessOnly = false;
+      filterCabin = 'Todas';
+      searchFilterText = '';
+
+      if (flightSearchInput) flightSearchInput.value = '';
+      if (btnClearSearch) btnClearSearch.style.display = 'none';
+      if (btnToggleBusiness) btnToggleBusiness.classList.remove('active');
+
+      document.querySelectorAll('.provider-chip').forEach(c => {
+        c.classList.toggle('active', c.dataset.provider === 'Todas');
+      });
+
+      syncSelectVisuals();
+      syncQuickChips();
+      updateTimeline();
+    }
+
+    if (btnResetAllFilters) btnResetAllFilters.addEventListener('click', resetAllFilters);
+    if (btnSidebarReset) btnSidebarReset.addEventListener('click', resetAllFilters);
+
+    if (filterScopeSelect) {
+      filterScopeSelect.addEventListener('change', (e) => {
+        filterScope = e.target.value;
+        syncQuickChips();
+        updateTimeline();
+      });
+    }
+
+    if (filterGovernmentSelect) {
+      filterGovernmentSelect.addEventListener('change', (e) => {
+        filterGovernment = e.target.value;
+        syncQuickChips();
+        updateTimeline();
+      });
+    }
+
+    if (filterYearSelect) {
+      filterYearSelect.addEventListener('change', (e) => {
+        filterYear = e.target.value;
+        updateTimeline();
+      });
+    }
+
+    if (filterCostTierSelect) {
+      filterCostTierSelect.addEventListener('change', (e) => {
+        filterCostTier = e.target.value;
+        syncQuickChips();
+        updateTimeline();
+      });
+    }
+
+    if (filterDestinationSelect) {
+      filterDestinationSelect.addEventListener('change', (e) => {
+        filterDestination = e.target.value;
+        updateTimeline();
+      });
+    }
+
+    if (filterVerdictSelect) {
+      filterVerdictSelect.addEventListener('change', (e) => {
+        filterVerdict = e.target.value;
+        updateTimeline();
+      });
+    }
+
+    // Quick chips en sidebar
+    document.querySelectorAll('.quick-chip').forEach(chip => {
+      chip.addEventListener('click', (e) => {
+        const type = e.currentTarget.dataset.filterType;
+        const val = e.currentTarget.dataset.value;
+
+        if (type === 'scope') {
+          filterScope = (filterScope === val && val !== 'Todas') ? 'Todas' : val;
+        } else if (type === 'cabin') {
+          filterCabin = (filterCabin === val) ? 'Todas' : val;
+          filterBusinessOnly = (filterCabin === 'Business');
+          if (btnToggleBusiness) btnToggleBusiness.classList.toggle('active', filterBusinessOnly);
+        } else if (type === 'costTier') {
+          filterCostTier = (filterCostTier === val) ? 'Todas' : val;
+        } else if (type === 'government') {
+          filterGovernment = (filterGovernment === val) ? 'Todas' : val;
+        }
+
+        syncSelectVisuals();
+        syncQuickChips();
+        updateTimeline();
+      });
+    });
 
     /* =====================================================================
        PROYECCIÓN CARTOGRÁFICA Y CÁLCULOS 2.5D
@@ -19592,9 +20197,7 @@ https://vuelospublicos.evegat.cl/
       // 4. Red Aérea Pasiva (Rutas globales agrupadas por destino, sin saturar)
       const uniqueDestinations = new Map();
       FLIGHTS.forEach(f => {
-        if (selectedProvider !== 'Todas' && f.provider !== selectedProvider) return;
-        if (filterBusinessOnly && f.cabin !== 'Business') return;
-        if (selectedEntityGroup !== 'Todas' && !matchesEntityGroup(f.entity, selectedEntityGroup)) return;
+        if (!flightMatchesAllFilters(f, false)) return;
         
         const code = f.dest.code;
         if (!uniqueDestinations.has(code)) {
