@@ -863,6 +863,82 @@ def generate_index_html():
       padding: 0 2px;
     }}
 
+    .transport-btn.btn-speed {{
+      font-family: var(--font-mono);
+      background: rgba(56, 189, 248, 0.12);
+      border-color: rgba(56, 189, 248, 0.35);
+      color: #38bdf8;
+      min-width: 48px;
+      justify-content: center;
+    }}
+
+    .transport-btn.btn-speed:hover {{
+      background: rgba(56, 189, 248, 0.25);
+      border-color: #38bdf8;
+      color: #ffffff;
+    }}
+
+    /* Letrero de Contexto Histórico y Actividad Mensual */
+    .timeline-context-banner {{
+      background: rgba(13, 22, 34, 0.92);
+      border: 1px solid rgba(56, 189, 248, 0.22);
+      border-radius: var(--radius-md);
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.78rem;
+      line-height: 1.35;
+      box-shadow: inset 0 0 12px rgba(56, 189, 248, 0.04);
+      margin-top: 4px;
+    }}
+
+    .context-banner-icon {{
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }}
+
+    .context-banner-body {{
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }}
+
+    .context-banner-title {{
+      font-weight: 700;
+      color: #38bdf8;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }}
+
+    .context-banner-badge {{
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 1px 7px;
+      border-radius: 10px;
+      background: rgba(56, 189, 248, 0.15);
+      color: #7dd3fc;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }}
+
+    .context-banner-badge.zero {{
+      background: rgba(245, 158, 11, 0.15);
+      color: #fcd34d;
+      border-color: rgba(245, 158, 11, 0.35);
+    }}
+
+    .context-banner-desc {{
+      color: var(--text-secondary);
+      font-size: 0.73rem;
+    }}
+
     /* Barra de Filtros Cívicos Integral */
     .filter-deck {{
       border-top: 1px solid var(--border-subtle);
@@ -1188,6 +1264,35 @@ def generate_index_html():
       letter-spacing: 0.8px;
       text-transform: uppercase;
       color: #58a6ff;
+    }}
+
+    .dossier-sub {{
+      font-size: 0.70rem;
+      color: var(--text-secondary);
+      margin-top: 2px;
+      line-height: 1.25;
+      font-weight: 400;
+    }}
+
+    .mobile-back-btn {{
+      display: none;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+      font-size: 0.74rem;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      margin: 8px 12px 0 12px;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }}
+
+    .mobile-back-btn:hover {{
+      background: var(--bg-card-hover);
+      border-color: var(--border-focus);
     }}
 
     .dossier-content {{
@@ -1579,6 +1684,9 @@ def generate_index_html():
       .mobile-view-tabs {{
         display: flex;
       }}
+      .mobile-back-btn {{
+        display: flex;
+      }}
       .main-workspace {{
         display: flex;
         flex-direction: column;
@@ -1658,8 +1766,8 @@ def generate_index_html():
     <!-- Pestañas de Vista Móvil -->
     <nav class="mobile-view-tabs" id="mobileViewTabs">
       <button class="mobile-tab-btn active" data-view="map">🗺️ Mapa</button>
-      <button class="mobile-tab-btn" data-view="list">📋 Viajes (<span id="mobileCountBadge">{len(flights)}</span>)</button>
-      <button class="mobile-tab-btn" data-view="dossier">📄 Expediente</button>
+      <button class="mobile-tab-btn" data-view="list">📋 Viajes (<span id="mobileCountBadge">{flights_count_formatted}</span>)</button>
+      <button class="mobile-tab-btn" data-view="dossier">🎫 Detalle Vuelo</button>
     </nav>
 
     <!-- Área de Trabajo Principal (3 Columnas) -->
@@ -1671,7 +1779,7 @@ def generate_index_html():
           <div class="sidebar-title-row">
             <div class="sidebar-title">
               <span>✈️ Viajes Oficiales</span>
-              <span class="sidebar-count-badge" id="listBadgeCount">{len(flights)}</span>
+              <span class="sidebar-count-badge" id="listBadgeCount">{flights_count_formatted}</span>
             </div>
           </div>
 
@@ -1691,13 +1799,14 @@ def generate_index_html():
 
           <!-- Filtros Rápidos en Sidebar -->
           <div class="quick-filter-scroll" id="sidebarQuickFilters">
-            <button class="quick-chip active" data-filter-type="scope" data-value="Todas">Todos (465)</button>
-            <button class="quick-chip" data-filter-type="scope" data-value="Nacional">🇨🇱 Chile (202)</button>
-            <button class="quick-chip" data-filter-type="scope" data-value="Internacional">🌍 Exterior (263)</button>
-            <button class="quick-chip" data-filter-type="cabin" data-value="Business">⭐ Business (5)</button>
-            <button class="quick-chip" data-filter-type="costTier" data-value="Mega">🔥 >$20M (30)</button>
-            <button class="quick-chip" data-filter-type="government" data-value="Boric">🇨🇱 Boric (149)</button>
-            <button class="quick-chip" data-filter-type="government" data-value="Piñera II">🇨🇱 Piñera II (95)</button>
+            <button class="quick-chip active" data-filter-type="scope" data-value="Todas">Todos</button>
+            <button class="quick-chip" data-filter-type="scope" data-value="Nacional">🇨🇱 Chile</button>
+            <button class="quick-chip" data-filter-type="scope" data-value="Internacional">🌍 Exterior</button>
+            <button class="quick-chip" data-filter-type="cabin" data-value="Business">⭐ Business</button>
+            <button class="quick-chip" data-filter-type="costTier" data-value="Mega">🔥 >$20M</button>
+            <button class="quick-chip" data-filter-type="government" data-value="Boric">🇨🇱 Boric</button>
+            <button class="quick-chip" data-filter-type="government" data-value="Piñera II">🇨🇱 Piñera II</button>
+            <button class="quick-chip" data-filter-type="monthScope" data-value="CurrentMonth" id="chipCurrentMonth" title="Ver solo las comitivas del mes seleccionado en la línea de tiempo">📅 Solo Mes Scrubber</button>
           </div>
         </div>
 
@@ -1751,6 +1860,7 @@ def generate_index_html():
             <div class="transport-controls">
               <button class="transport-btn" id="btnPrevMonth" title="Mes anterior">⏪ Anterior</button>
               <button class="transport-btn btn-play" id="btnPlayPause" title="Reproducir línea de tiempo">⏯ Reproducir</button>
+              <button class="transport-btn btn-speed" id="btnPlaySpeed" title="Cambiar velocidad de reproducción (1x, 2x, 4x)">⚡ 1x</button>
               <button class="transport-btn" id="btnNextMonth" title="Mes siguiente">⏩ Siguiente</button>
             </div>
 
@@ -1758,7 +1868,7 @@ def generate_index_html():
 
             <div class="odometer-box">
               <span class="odometer-label">Odómetro Fiscal:</span>
-              <span class="odometer-value" id="fiscalOdometer">$3.176.541.160 CLP</span>
+              <span class="odometer-value" id="fiscalOdometer">{total_spend_formatted}</span>
             </div>
           </div>
 
@@ -1773,6 +1883,20 @@ def generate_index_html():
               <span>2019</span>
               <span>2023</span>
               <span>2026</span>
+            </div>
+          </div>
+
+          <!-- Letrero de Contexto Histórico y Actividad Mensual -->
+          <div class="timeline-context-banner" id="timelineContextBanner">
+            <span class="context-banner-icon" id="contextBannerIcon">📡</span>
+            <div class="context-banner-body">
+              <div class="context-banner-title">
+                <span id="contextBannerTitle">Periodo Reciente y Sincronización en Vivo (2025–2026)</span>
+                <span class="context-banner-badge" id="contextBannerBadge">✈️ Comitivas registradas</span>
+              </div>
+              <div class="context-banner-desc" id="contextBannerDesc">
+                Universo consolidado del Data Lakehouse histórico más auditoría y extracción en vivo vía API abierta de Mercado Público (ChileCompra).
+              </div>
             </div>
           </div>
 
@@ -1924,10 +2048,16 @@ def generate_index_html():
         </div>
       </section>
 
-      <!-- Columna 3: Expediente Fiscal y Tribunal Ciudadano -->
+      <!-- Columna 3: Detalle del Pasaje / Pase de Abordo -->
       <aside class="dossier-housing" id="dossierColumn">
+        <button class="mobile-back-btn" id="btnBackToList" aria-label="Volver a la lista de comitivas">
+          <span>← Volver al Listado</span>
+        </button>
         <div class="dossier-header">
-          <span class="dossier-tag">EXPEDIENTE FISCAL</span>
+          <div>
+            <span class="dossier-tag">🎫 DETALLE DEL PASAJE (PASE DE ABORDO)</span>
+            <div class="dossier-sub">Ficha oficial de la comitiva seleccionada en la lista o mapa con respaldo en Mercado Público.</div>
+          </div>
           <span class="flight-card-badge badge-business" id="badgeCabin">CLASE BUSINESS</span>
         </div>
 
@@ -2268,6 +2398,7 @@ https://vuelospublicos.evegat.cl/
     let filterDestination = 'Todas'; // 'Todas' | ciudad o país
 
     let filterCabin = 'Todas'; // 'Todas' | 'Business' | 'Turista'
+    let filterCurrentMonthOnly = false;
 
     function matchesGovernment(dateStr, gov) {{
       if (!gov || gov === 'Todas') return true;
@@ -2349,6 +2480,9 @@ https://vuelospublicos.evegat.cl/
 
       // 8. Tramo de Monto
       if (filterCostTier !== 'Todas' && !matchesCostTier(flight.cost, filterCostTier)) return false;
+
+      // 9. Filtro de mes del scrubber
+      if (filterCurrentMonthOnly && flight.monthIndex !== currentMonthIndex) return false;
 
 
 
@@ -2580,7 +2714,17 @@ https://vuelospublicos.evegat.cl/
         emptyMsg.style.textAlign = 'center';
         emptyMsg.style.color = 'var(--text-muted)';
         emptyMsg.style.padding = '20px 10px';
-        emptyMsg.textContent = 'Sin comitivas para los filtros y búsqueda aplicados';
+        if (filterCurrentMonthOnly) {{
+          emptyMsg.innerHTML = `
+            <div style="font-size: 1.1rem; margin-bottom: 4px;">📅</div>
+            <strong style="color: #38bdf8;">Sin comitivas en ${{getMonthLabel(currentMonthIndex)}}</strong>
+            <p style="font-size: 0.73rem; margin-top: 5px; color: var(--text-secondary);">
+              No se registran compras digitalizadas bajo los filtros actuales en este mes específico.
+            </p>
+          `;
+        }} else {{
+          emptyMsg.textContent = 'Sin comitivas para los filtros y búsqueda aplicados';
+        }}
         flightListContainer.appendChild(emptyMsg);
         return;
       }}
@@ -2619,7 +2763,7 @@ https://vuelospublicos.evegat.cl/
         `;
 
         card.addEventListener('click', () => {{
-          selectFlight(flight);
+          selectFlight(flight, true);
         }});
 
         flightListContainer.appendChild(card);
@@ -2669,7 +2813,7 @@ https://vuelospublicos.evegat.cl/
     /* =====================================================================
        DETALLE DEL EXPEDIENTE FISCAL
        ===================================================================== */
-    function selectFlight(flight) {{
+    function selectFlight(flight, isUserClick = false) {{
       selectedFlight = flight;
       if (typeof centerOnFlight === 'function') {{
         centerOnFlight(flight);
@@ -2714,7 +2858,9 @@ https://vuelospublicos.evegat.cl/
       const activeCard = document.getElementById(`flight-item-${{flight.id}}`);
       if (activeCard) activeCard.classList.add('active');
 
-      
+      if (isUserClick && typeof switchMobileView === 'function' && window.innerWidth <= 860) {{
+        switchMobileView('dossier');
+      }}
     }}
 
     // Copiar código OC
@@ -2824,18 +2970,89 @@ https://vuelospublicos.evegat.cl/
       }});
     }}
 
-    function updateTimeline() {{
+    const HISTORICAL_PERIODS = [
+      {{
+        minMonth: 0,
+        maxMonth: 89,
+        icon: '🏛️',
+        title: 'Periodo Pre-Convenio Marco Centralizado (2007–2014)',
+        desc: 'Las compras de pasajes se gestionaban por cotizaciones directas o descentralizadas en cada ministerio, con menor registro estandarizado en ChileCompra antes de la licitación transversal obligatoria.'
+      }},
+      {{
+        minMonth: 90,
+        maxMonth: 155,
+        icon: '📈',
+        title: 'Masificación del Convenio Marco de Pasajes (2014–2019)',
+        desc: 'ChileCompra centraliza la licitación de pasajes aéreos para todo el Estado. La emisión se dispara hasta superar las 22.000 comitivas oficiales anuales.'
+      }},
+      {{
+        minMonth: 156,
+        maxMonth: 179,
+        icon: '🦠',
+        title: 'Pandemia COVID-19 y Cierre de Fronteras (2020–2021)',
+        desc: 'Cuarentenas globales y restricciones de movilidad redujeron los vuelos del Estado a mínimos históricos (ej. solo 4 pasajes en todo abril de 2020).'
+      }},
+      {{
+        minMonth: 180,
+        maxMonth: 215,
+        icon: '🔄',
+        title: 'Reactivación y Normalización Institucional (2022–2024)',
+        desc: 'Retorno progresivo de delegaciones y comitivas oficiales nacionales e internacionales, bajo directrices de austeridad en el gasto público.'
+      }},
+      {{
+        minMonth: 216,
+        maxMonth: 239,
+        icon: '📡',
+        title: 'Periodo Reciente y Sincronización en Vivo (2025–2026)',
+        desc: 'Universo consolidado del Data Lakehouse histórico más auditoría y extracción en vivo vía API abierta de Mercado Público (ChileCompra).'
+      }}
+    ];
+
+    function updateContextBanner(mIdx, count, spend) {{
+      const banner = document.getElementById('timelineContextBanner');
+      if (!banner) return;
+      const period = HISTORICAL_PERIODS.find(p => mIdx >= p.minMonth && mIdx <= p.maxMonth) || HISTORICAL_PERIODS[0];
+
+      const spendFormatted = spend >= 1000000000 
+        ? `$${{(spend / 1000000000).toFixed(1)}}B CLP` 
+        : `$${{Math.round(spend / 1000000).toLocaleString('es-CL')}}M CLP`;
+
+      const badgeHtml = count > 0 
+        ? `<span class="context-banner-badge">✈️ ${{count.toLocaleString('es-CL')}} comitivas este mes (${{spendFormatted}})</span>`
+        : `<span class="context-banner-badge zero">⚠️ 0 comitivas registradas en este mes</span>`;
+
+      banner.innerHTML = `
+        <span class="context-banner-icon">${{period.icon}}</span>
+        <div class="context-banner-body">
+          <div class="context-banner-title">
+            <span>${{period.title}}</span>
+            ${{badgeHtml}}
+          </div>
+          <div class="context-banner-desc">${{period.desc}}</div>
+        </div>
+      `;
+    }}
+
+    function updateTimeline(forceSyncFlight = true) {{
       currentMonthLabel.textContent = getMonthLabel(currentMonthIndex);
       timelineSlider.value = currentMonthIndex;
 
       const totalAccum = calculateOdometer(currentMonthIndex, selectedProvider);
       fiscalOdometer.textContent = `$${{totalAccum.toLocaleString('es-CL')}} CLP`;
 
-      const sorted = getSortedFlights();
-      // Si el vuelo activo quedó excluido por los filtros, enfocar el primer resultado disponible
-      if (selectedFlight && !flightMatchesAllFilters(selectedFlight, false)) {{
+      const monthFlights = FLIGHTS.filter(f => f.monthIndex === currentMonthIndex && flightMatchesAllFilters(f, false));
+      const monthCount = monthFlights.length;
+      const monthSpend = monthFlights.reduce((sum, f) => sum + f.cost, 0);
+
+      updateContextBanner(currentMonthIndex, monthCount, monthSpend);
+
+      // Si está reproduciendo o el usuario mueve el slider, sincronizar con un vuelo del mes
+      if (forceSyncFlight && monthFlights.length > 0) {{
+        selectFlight(monthFlights[0], false);
+      }} else if (selectedFlight && !flightMatchesAllFilters(selectedFlight, false)) {{
+        const sorted = getSortedFlights();
         if (sorted.length > 0) {{
-          selectFlight(sorted[0]);
+          selectFlight(sorted[0], false);
         }}
       }}
 
@@ -2847,22 +3064,48 @@ https://vuelospublicos.evegat.cl/
 
     timelineSlider.addEventListener('input', (e) => {{
       currentMonthIndex = parseInt(e.target.value, 10);
-      updateTimeline();
+      updateTimeline(true);
     }});
 
     btnPrevMonth.addEventListener('click', () => {{
       if (currentMonthIndex > 0) {{
         currentMonthIndex--;
-        updateTimeline();
+        updateTimeline(true);
       }}
     }});
 
     btnNextMonth.addEventListener('click', () => {{
       if (currentMonthIndex < 239) {{
         currentMonthIndex++;
-        updateTimeline();
+        updateTimeline(true);
       }}
     }});
+
+    let playSpeedMultiplier = 1;
+    const speedLabels = {{ 1: '⚡ 1x', 2: '⚡ 2x', 4: '⚡ 4x' }};
+
+    const btnPlaySpeed = document.getElementById('btnPlaySpeed');
+    if (btnPlaySpeed) {{
+      btnPlaySpeed.addEventListener('click', () => {{
+        if (playSpeedMultiplier === 1) playSpeedMultiplier = 2;
+        else if (playSpeedMultiplier === 2) playSpeedMultiplier = 4;
+        else playSpeedMultiplier = 1;
+        btnPlaySpeed.textContent = speedLabels[playSpeedMultiplier];
+
+        if (isPlaying) {{
+          clearInterval(playInterval);
+          const intervalMs = Math.round(200 / playSpeedMultiplier);
+          playInterval = setInterval(() => {{
+            if (currentMonthIndex < 239) {{
+              currentMonthIndex++;
+              updateTimeline(true);
+            }} else {{
+              stopPlayback();
+            }}
+          }}, intervalMs);
+        }}
+      }});
+    }}
 
     btnPlayPause.addEventListener('click', () => {{
       if (isPlaying) {{
@@ -2879,17 +3122,18 @@ https://vuelospublicos.evegat.cl/
 
       if (currentMonthIndex >= 239) {{
         currentMonthIndex = 0;
-        updateTimeline();
+        updateTimeline(true);
       }}
 
+      const intervalMs = Math.round(200 / playSpeedMultiplier);
       playInterval = setInterval(() => {{
         if (currentMonthIndex < 239) {{
           currentMonthIndex++;
-          updateTimeline();
+          updateTimeline(true);
         }} else {{
           stopPlayback();
         }}
-      }}, 1200);
+      }}, intervalMs);
     }}
 
     function stopPlayback() {{
@@ -2984,6 +3228,7 @@ https://vuelospublicos.evegat.cl/
         else if (type === 'cabin') isActive = (filterCabin === val);
         else if (type === 'costTier') isActive = (filterCostTier === val);
         else if (type === 'government') isActive = (filterGovernment === val);
+        else if (type === 'monthScope') isActive = filterCurrentMonthOnly;
         chip.classList.toggle('active', isActive);
       }});
     }}
@@ -3016,6 +3261,9 @@ https://vuelospublicos.evegat.cl/
       }}
       if (filterBusinessOnly) {{
         activeFilters.push({{ label: `Clase: Business`, clear: () => {{ filterBusinessOnly = false; filterCabin = 'Todas'; }} }});
+      }}
+      if (filterCurrentMonthOnly) {{
+        activeFilters.push({{ label: `Mes: ${{getMonthLabel(currentMonthIndex)}}`, clear: () => {{ filterCurrentMonthOnly = false; }} }});
       }}
       if (searchFilterText) {{
         activeFilters.push({{ label: `Búsqueda: "${{searchFilterText}}"`, clear: () => {{ searchFilterText = ''; if (flightSearchInput) flightSearchInput.value = ''; if (btnClearSearch) btnClearSearch.style.display = 'none'; }} }});
@@ -3061,6 +3309,7 @@ https://vuelospublicos.evegat.cl/
       selectedProvider = 'Todas';
       filterBusinessOnly = false;
       filterCabin = 'Todas';
+      filterCurrentMonthOnly = false;
       searchFilterText = '';
 
       if (flightSearchInput) flightSearchInput.value = '';
@@ -3124,6 +3373,14 @@ https://vuelospublicos.evegat.cl/
       chip.addEventListener('click', (e) => {{
         const type = e.currentTarget.dataset.filterType;
         const val = e.currentTarget.dataset.value;
+
+        if (type === 'monthScope') {{
+          filterCurrentMonthOnly = !filterCurrentMonthOnly;
+          e.currentTarget.classList.toggle('active', filterCurrentMonthOnly);
+          syncQuickChips();
+          updateTimeline(false);
+          return;
+        }}
 
         if (type === 'scope') {{
           filterScope = (filterScope === val && val !== 'Todas') ? 'Todas' : val;
@@ -3719,14 +3976,12 @@ ${{url}}`;
     /* =====================================================================
        NAVEGACIÓN MÓVIL POR PESTAÑAS (TABS RESPONSIVE)
        ===================================================================== */
-    if (mobileViewTabs) {{
-      mobileViewTabs.addEventListener('click', (e) => {{
-        const btn = e.target.closest('.mobile-tab-btn');
-        if (!btn) return;
-        const view = btn.dataset.view;
-
+    function switchMobileView(view) {{
+      if (!mobileViewTabs) return;
+      const targetBtn = mobileViewTabs.querySelector(`[data-view="${{view}}"]`);
+      if (targetBtn) {{
         document.querySelectorAll('.mobile-tab-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
+        targetBtn.classList.add('active');
 
         if (view === 'map') {{
           sidebarColumn.classList.add('mobile-hidden');
@@ -3742,6 +3997,21 @@ ${{url}}`;
           mapColumn.classList.add('mobile-hidden');
           dossierColumn.classList.remove('mobile-hidden');
         }}
+      }}
+    }}
+
+    if (mobileViewTabs) {{
+      mobileViewTabs.addEventListener('click', (e) => {{
+        const btn = e.target.closest('.mobile-tab-btn');
+        if (!btn) return;
+        switchMobileView(btn.dataset.view);
+      }});
+    }}
+
+    const btnBackToList = document.getElementById('btnBackToList');
+    if (btnBackToList) {{
+      btnBackToList.addEventListener('click', () => {{
+        switchMobileView('list');
       }});
     }}
 
