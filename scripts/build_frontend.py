@@ -1984,14 +1984,7 @@ def generate_index_html():
                 </select>
               </div>
 
-              <div class="filter-select-item">
-                <label class="filter-mini-label" for="filterVerdictSelect">⚖️ Tribunal:</label>
-                <select id="filterVerdictSelect" class="filter-select" aria-label="Filtrar por juicio ciudadano">
-                  <option value="Todas">Todos los Juicios (465)</option>
-                  <option value="Derroche">⚠️ Mayoría Derroche (>50% rechazo)</option>
-                  <option value="Justificado">✅ Mayoría Justificado (>=50% aprobación)</option>
-                </select>
-              </div>
+
             </div>
 
             <!-- Fila 2: Chips de Agencia, Botón Business y Botón Restablecer -->
@@ -2109,32 +2102,7 @@ def generate_index_html():
           </div>
         </div>
 
-        <!-- Módulo Tribunal Ciudadano Reactivo -->
-        <div class="tribunal-box">
-          <div class="tribunal-title">TRIBUNAL CIUDADANO • ¿SE JUSTIFICA ESTE GASTO?</div>
-          <div class="action-buttons">
-            <button class="civic-btn btn-approve" id="btnApprove">
-              <span>👍 Se justifica</span>
-              <small>Gasto Pertinente</small>
-            </button>
-            <button class="civic-btn btn-reject" id="btnReject">
-              <span>🛑 Es derroche</span>
-              <small>Gasto Injustificado</small>
-            </button>
-          </div>
-
-          <!-- Barra de porcentaje simétrica -->
-          <div class="voting-bar-container">
-            <div class="bar-approve" id="barApprove"></div>
-            <div class="bar-reject" id="barReject"></div>
-          </div>
-
-          <div class="voting-stats-row">
-            <span class="txt-approve" id="txtApprove">Justificado: 50%</span>
-            <span class="txt-reject" id="txtReject">Derroche: 50%</span>
-          </div>
-          <div class="vote-status-msg" id="voteStatus">Tu voto es anónimo y ciudadano</div>
-        </div>
+        <!-- Tribunal ciudadano pausado temporalmente -->
 
         <!-- Compartir Expediente -->
         <div class="share-box">
@@ -2381,7 +2349,7 @@ https://vuelospublicos.evegat.cl/
     let filterYear = 'Todas'; // 'Todas' | '2026' ... '2007'
     let filterCostTier = 'Todas'; // 'Todas' | 'Mega' | 'Alta' | 'Media' | 'Menor'
     let filterDestination = 'Todas'; // 'Todas' | ciudad o país
-    let filterVerdict = 'Todas'; // 'Todas' | 'Derroche' | 'Justificado'
+
     let filterCabin = 'Todas'; // 'Todas' | 'Business' | 'Turista'
 
     function matchesGovernment(dateStr, gov) {{
@@ -2465,13 +2433,7 @@ https://vuelospublicos.evegat.cl/
       // 8. Tramo de Monto
       if (filterCostTier !== 'Todas' && !matchesCostTier(flight.cost, filterCostTier)) return false;
 
-      // 9. Tribunal Ciudadano
-      if (filterVerdict !== 'Todas') {{
-        const tallies = getFlightTallies(flight);
-        const isReject = tallies.reject > tallies.approve;
-        if (filterVerdict === 'Derroche' && !isReject) return false;
-        if (filterVerdict === 'Justificado' && isReject) return false;
-      }}
+
 
       // 10. Búsqueda de texto
       if (searchFilterText) {{
@@ -2675,6 +2637,7 @@ https://vuelospublicos.evegat.cl/
     }}
 
     function updateVoteDisplay() {{
+      if (!barApprove || !barReject || !txtApprove || !txtReject) return;
       const tallies = getFlightTallies(selectedFlight);
       const A = tallies.approve;
       const R = tallies.reject;
@@ -2711,8 +2674,8 @@ https://vuelospublicos.evegat.cl/
       }}
     }}
 
-    btnApprove.addEventListener('click', () => castVote(selectedFlight.id, 'approve'));
-    btnReject.addEventListener('click', () => castVote(selectedFlight.id, 'reject'));
+    if (btnApprove) btnApprove.addEventListener('click', () => castVote(selectedFlight.id, 'approve'));
+    if (btnReject) btnReject.addEventListener('click', () => castVote(selectedFlight.id, 'reject'));
 
     /* =====================================================================
        ORDENAMIENTO, BÚSQUEDA Y RENDER DEL PANEL LATERAL
@@ -3099,7 +3062,7 @@ https://vuelospublicos.evegat.cl/
     const filterYearSelect = document.getElementById('filterYearSelect');
     const filterCostTierSelect = document.getElementById('filterCostTierSelect');
     const filterDestinationSelect = document.getElementById('filterDestinationSelect');
-    const filterVerdictSelect = document.getElementById('filterVerdictSelect');
+
     const btnResetAllFilters = document.getElementById('btnResetAllFilters');
     const btnSidebarReset = document.getElementById('btnSidebarReset');
     const activeFiltersBar = document.getElementById('activeFiltersBar');
@@ -3114,7 +3077,7 @@ https://vuelospublicos.evegat.cl/
         {{ el: filterEntitySelect, val: selectedEntityGroup }},
         {{ el: filterCostTierSelect, val: filterCostTier }},
         {{ el: filterDestinationSelect, val: filterDestination }},
-        {{ el: filterVerdictSelect, val: filterVerdict }},
+
         {{ el: filterProviderSelect, val: selectedProvider }}
       ];
 
@@ -3161,9 +3124,7 @@ https://vuelospublicos.evegat.cl/
       if (filterDestination !== 'Todas') {{
         activeFilters.push({{ label: `Destino: ${{filterDestination}}`, clear: () => {{ filterDestination = 'Todas'; }} }});
       }}
-      if (filterVerdict !== 'Todas') {{
-        activeFilters.push({{ label: `Tribunal: ${{filterVerdict}}`, clear: () => {{ filterVerdict = 'Todas'; }} }});
-      }}
+
       if (selectedProvider !== 'Todas') {{
         activeFilters.push({{ label: `Agencia: ${{selectedProvider}}`, clear: () => {{ selectedProvider = 'Todas'; }} }});
       }}
@@ -3210,7 +3171,7 @@ https://vuelospublicos.evegat.cl/
       selectedEntityGroup = 'Todas';
       filterCostTier = 'Todas';
       filterDestination = 'Todas';
-      filterVerdict = 'Todas';
+
       selectedProvider = 'Todas';
       filterBusinessOnly = false;
       filterCabin = 'Todas';
@@ -3270,12 +3231,7 @@ https://vuelospublicos.evegat.cl/
       }});
     }}
 
-    if (filterVerdictSelect) {{
-      filterVerdictSelect.addEventListener('change', (e) => {{
-        filterVerdict = e.target.value;
-        updateTimeline();
-      }});
-    }}
+
 
     // Quick chips en sidebar
     document.querySelectorAll('.quick-chip').forEach(chip => {{

@@ -52,24 +52,22 @@ console.log('   [PASS] Zero war-room jargon or analog knobs found.');
 const requiredCivicElements = [
   'Observatorio Cívico',
   'VuelosPúblicos',
-  'Tribunal Ciudadano',
   'Ley 19.886',
   'Odómetro Fiscal',
-  'Se justifica',
-  'Es derroche',
   'timelineSlider',
   'fiscalOdometer',
   'radarCanvas',
   'flightListContainer',
   'dossier-housing',
-  'btnApprove',
-  'btnReject'
+  'filterDeck',
+  'btnShareLinkedIn',
+  'btnShareWhatsApp'
 ];
 
 for (const req of requiredCivicElements) {
   assert(indexHtml.includes(req), `Required civic UI element missing: "${req}"`);
 }
-console.log('   [PASS] All civic governance, tribunal, and odometer components present in markup.');
+console.log('   [PASS] All civic governance, expedited sharing, and odometer components present in markup.');
 
 // 3. Execution of Frontend Script in Sandboxed VM
 console.log('\n3. Extracting and executing frontend logic in isolated environment...');
