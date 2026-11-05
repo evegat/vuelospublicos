@@ -1302,140 +1302,7 @@
       text-decoration: underline;
     }
 
-    /* Tribunal Ciudadano */
-    .tribunal-box {
-      border-top: 1px solid var(--border-subtle);
-      padding: 12px 14px;
-      background: rgba(0, 0, 0, 0.2);
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
 
-    .tribunal-title {
-      font-size: 0.72rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      text-align: center;
-      color: #f0f6fc;
-    }
-
-    .action-buttons {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-    }
-
-    .civic-btn {
-      padding: 8px;
-      border-radius: var(--radius-md);
-      border: 1px solid transparent;
-      cursor: pointer;
-      font-weight: 700;
-      font-size: 0.78rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2px;
-      transition: all 0.18s ease;
-    }
-
-    .civic-btn small {
-      font-size: 0.65rem;
-      font-weight: 400;
-      opacity: 0.8;
-    }
-
-    .btn-approve {
-      background: rgba(0, 229, 163, 0.1);
-      border-color: rgba(0, 229, 163, 0.3);
-      color: var(--c-turista);
-    }
-
-    .btn-approve:hover:not(:disabled) {
-      background: rgba(0, 229, 163, 0.2);
-      border-color: var(--c-turista);
-      transform: translateY(-1px);
-    }
-
-    .btn-approve.active-voted {
-      background: var(--c-turista);
-      color: #000000;
-      font-weight: 800;
-    }
-
-    .btn-reject {
-      background: rgba(255, 77, 90, 0.1);
-      border-color: rgba(255, 77, 90, 0.3);
-      color: var(--c-business);
-    }
-
-    .btn-reject:hover:not(:disabled) {
-      background: rgba(255, 77, 90, 0.2);
-      border-color: var(--c-business);
-      transform: translateY(-1px);
-    }
-
-    .btn-reject.active-voted {
-      background: var(--c-business);
-      color: #ffffff;
-      font-weight: 800;
-    }
-
-    .civic-btn:disabled {
-      cursor: not-allowed;
-      opacity: 0.8;
-    }
-
-    .voting-bar-container {
-      height: 8px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 4px;
-      overflow: hidden;
-      display: flex;
-    }
-
-    .bar-approve {
-      background: var(--c-turista);
-      height: 100%;
-      width: 50%;
-      transition: width 0.3s ease;
-    }
-
-    .bar-reject {
-      background: var(--c-business);
-      height: 100%;
-      width: 50%;
-      transition: width 0.3s ease;
-    }
-
-    .voting-stats-row {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.7rem;
-      font-family: var(--font-mono);
-      font-weight: 600;
-    }
-
-    .txt-approve {
-      color: var(--c-turista);
-    }
-
-    .txt-reject {
-      color: var(--c-business);
-    }
-
-    .vote-status-msg {
-      font-size: 0.68rem;
-      text-align: center;
-      color: var(--text-muted);
-    }
-
-    .vote-status-msg.voted {
-      color: #58a6ff;
-      font-weight: 600;
-    }
 
     /* Compartir Expediente y Redes */
     .share-box {
@@ -2142,8 +2009,8 @@
         <div class="modal-section-title">2. CLASE BUSINESS VS. TURISTA</div>
         <p>Por instructivos de austeridad y prudencia en el gasto público dictados por la Presidencia y el Ministerio de Hacienda, el uso de cabina ejecutiva (Business) está severamente restringido a comitivas de alta jerarquía ministerial en vuelos de más de 8 horas de duración. El costo en Business promedia entre 3 y 5 veces el de la tarifa económica regular.</p>
 
-        <div class="modal-section-title">3. TRIBUNAL CIUDADANO</div>
-        <p>La ciudadanía tiene derecho a evaluar el mérito y pertinencia del gasto público. El voto es reactivo, anónimo y se almacena en tu dispositivo para promover la reflexión cívica informada.</p>
+        <div class="modal-section-title">3. CONTROL CÍVICO Y FILTROS MULTIDIMENSIONALES</div>
+        <p>La plataforma permite cruzar compras por administración de gobierno (Boric, Piñera II, Bachelet II, Piñera I, Bachelet I), tramos de monto (mega-comitivas superiores a $20M CLP), instituciones compradoras y destinos nacionales o internacionales, facilitando una fiscalización ciudadana informada.</p>
       </div>
 
       <div class="modal-footer">
@@ -2189,7 +2056,7 @@ Para responder a esta pregunta con evidencia y sin sesgos partidistas, construí
 1. Cartografía 2.5D interactiva a 60 FPS con curvas geodésicas balísticas desde Santiago (SCL).
 2. Odómetro fiscal mensual y scrubber temporal con sparkline de densidad de gasto.
 3. Expediente fiscal por vuelo con ID oficial de Orden de Compra (OC), distancia geodésica y tiempo estimado de vuelo.
-4. Tribunal Ciudadano reactivo: la ciudadanía puede evaluar si cada viaje se justifica por razones de servicio o constituye un derroche fiscal.
+4. Búsqueda y filtros multidimensionales en tiempo real por gobierno, organismo, destino, agencia y tramo de gasto.
 
 Los datos abiertos solo tienen valor cuando se convierten en información accesible, comprensible y auditable para cualquier persona.
 
@@ -19216,14 +19083,7 @@ https://vuelospublicos.evegat.cl/
     const officialReason = document.getElementById('officialReason');
     const mpLink = document.getElementById('mpLink');
 
-    // Tribunal
-    const btnApprove = document.getElementById('btnApprove');
-    const btnReject = document.getElementById('btnReject');
-    const barApprove = document.getElementById('barApprove');
-    const barReject = document.getElementById('barReject');
-    const txtApprove = document.getElementById('txtApprove');
-    const txtReject = document.getElementById('txtReject');
-    const voteStatus = document.getElementById('voteStatus');
+
 
     // Scrubber & Odometer
     const timelineSlider = document.getElementById('timelineSlider');
@@ -19360,50 +19220,11 @@ https://vuelospublicos.evegat.cl/
         localStorage.setItem(LEGACY_KEY_TALLIES, JSON.stringify(allTallies));
       } catch (e) {}
 
-      updateVoteDisplay();
+      
       return true;
     }
 
-    function updateVoteDisplay() {
-      if (!barApprove || !barReject || !txtApprove || !txtReject) return;
-      const tallies = getFlightTallies(selectedFlight);
-      const A = tallies.approve;
-      const R = tallies.reject;
-      const total = A + R;
 
-      let pApprove = 50;
-      let pReject = 50;
-      if (total > 0) {
-        pApprove = Math.round((A / total) * 100);
-        pReject = 100 - pApprove;
-      }
-
-      barApprove.style.width = `${pApprove}%`;
-      barReject.style.width = `${pReject}%`;
-
-      txtApprove.textContent = `Justificado: ${pApprove}% (${A})`;
-      txtReject.textContent = `Derroche: ${pReject}% (${R})`;
-
-      const userVote = getUserVote(selectedFlight.id);
-      if (userVote) {
-        btnApprove.disabled = true;
-        btnReject.disabled = true;
-        btnApprove.classList.toggle('active-voted', userVote === 'approve');
-        btnReject.classList.toggle('active-voted', userVote === 'reject');
-        voteStatus.textContent = '✓ Ya emitiste tu voto en este expediente';
-        voteStatus.className = 'vote-status-msg voted';
-      } else {
-        btnApprove.disabled = false;
-        btnReject.disabled = false;
-        btnApprove.classList.remove('active-voted');
-        btnReject.classList.remove('active-voted');
-        voteStatus.textContent = 'Tu voto es anónimo y ciudadano';
-        voteStatus.className = 'vote-status-msg';
-      }
-    }
-
-    if (btnApprove) btnApprove.addEventListener('click', () => castVote(selectedFlight.id, 'approve'));
-    if (btnReject) btnReject.addEventListener('click', () => castVote(selectedFlight.id, 'reject'));
 
     /* =====================================================================
        ORDENAMIENTO, BÚSQUEDA Y RENDER DEL PANEL LATERAL
@@ -19556,7 +19377,7 @@ https://vuelospublicos.evegat.cl/
       const activeCard = document.getElementById(`flight-item-${flight.id}`);
       if (activeCard) activeCard.classList.add('active');
 
-      updateVoteDisplay();
+      
     }
 
     // Copiar código OC
