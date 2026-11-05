@@ -276,11 +276,11 @@ const sortedCost = getSortedFlights();
 assert(sortedCost[0].cost >= sortedCost[1].cost, 'Flights must be sorted by cost desc');
 assert(sortedCost[sortedCost.length - 1].cost <= sortedCost[0].cost, 'Cheapest flight must be at the end');
 
-// Sort by date
+// Sort by date (más reciente primero)
 vm.runInContext("currentSort = 'date';", sandbox);
 const sortedDate = getSortedFlights();
-assert(sortedDate[0].date <= sortedDate[1].date, 'Earliest flight must be first');
-assert(sortedDate[sortedDate.length - 1].date >= sortedDate[0].date, 'Latest flight must be at the end');
+assert(sortedDate[0].date >= sortedDate[1].date, 'Latest flight must be first');
+assert(sortedDate[sortedDate.length - 1].date <= sortedDate[0].date, 'Earliest flight must be at the end');
 
 // Filter by Provider
 vm.runInContext("selectedProvider = 'Turavion';", sandbox);

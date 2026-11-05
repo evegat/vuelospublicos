@@ -1924,6 +1924,7 @@ https://vuelospublicos.evegat.cl/
     /* =====================================================================
        DATASET OFICIAL DE COMITIVAS PÚBLICAS (2007-2026)
        ===================================================================== */
+    const FONT_SANS = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif";
     const SCL = { 
       code: 'SCL', 
       name: 'Aerop. Arturo Merino Benítez',
@@ -18685,88 +18686,91 @@ https://vuelospublicos.evegat.cl/
     /* =====================================================================
        SILUETAS CONTINENTALES VECTORIALES DE ALTA FIDELIDAD (216 VÉRTICES)
        ===================================================================== */
-    const CONTINENTS_GEO = [
-      // Sudamérica (Costas completas de Chile, Cabo de Hornos, Argentina, Brasil, etc.)
+        const CONTINENTS_GEO = [
+      // 1. Sudamérica (Silueta reconocible: Chile completo desde Arica hasta Cabo de Hornos, Argentina, Brasil, Perú, Colombia)
       [
-        [-70.3, -18.5], [-70.4, -23.6], [-71.6, -33.0], [-73.1, -36.8], [-73.0, -41.5],
-        [-74.5, -45.0], [-75.5, -48.5], [-74.0, -52.5], [-67.2, -55.9], [-65.5, -54.8],
-        [-67.5, -51.5], [-65.8, -47.0], [-64.0, -42.0], [-62.0, -38.5], [-58.4, -34.6],
-        [-53.5, -33.5], [-48.5, -28.0], [-46.3, -24.0], [-43.2, -22.9], [-40.3, -20.3],
+        [-70.3, -18.5], [-70.2, -20.5], [-70.4, -23.6], [-70.8, -27.1], [-71.3, -29.9],
+        [-71.6, -33.0], [-73.1, -36.8], [-73.2, -41.5], [-73.8, -42.5], [-74.5, -45.0],
+        [-75.5, -48.5], [-74.0, -52.5], [-71.0, -53.5], [-67.2, -55.9], [-65.5, -54.8],
+        [-67.5, -51.5], [-65.8, -46.5], [-64.0, -42.0], [-62.0, -38.5], [-58.4, -34.6],
+        [-53.5, -34.5], [-48.5, -27.5], [-46.3, -24.0], [-43.2, -22.9], [-40.3, -20.3],
         [-38.5, -13.0], [-34.9, -8.1], [-35.2, -5.1], [-38.5, -3.7], [-44.3, -2.5],
-        [-50.0, 0.0], [-52.0, 4.5], [-60.0, 8.5], [-66.9, 10.5], [-71.5, 11.5],
-        [-74.5, 11.0], [-75.5, 10.4], [-77.2, 8.0], [-77.5, 5.0], [-79.0, 1.5],
-        [-80.5, -1.0], [-81.2, -4.5], [-79.5, -7.0], [-77.0, -12.0], [-73.0, -16.0]
+        [-48.5, -1.0], [-50.0, 0.0], [-52.0, 4.5], [-54.0, 5.5], [-60.0, 8.5],
+        [-66.9, 10.5], [-71.5, 11.5], [-74.5, 11.0], [-75.5, 10.4], [-77.2, 8.0],
+        [-77.5, 5.0], [-79.0, 1.5], [-80.5, -1.0], [-81.2, -4.5], [-79.5, -7.0],
+        [-77.0, -12.0], [-73.0, -16.0]
       ],
-      // Norteamérica y Centroamérica
+      // 2. Norteamérica y Centroamérica (Alaska, Canadá, EE.UU. Este/Oeste, Florida, México, Caribe)
       [
         [-168.0, 66.0], [-160.0, 58.0], [-152.0, 57.0], [-140.0, 59.5], [-130.0, 55.0],
-        [-124.0, 48.0], [-124.0, 40.0], [-120.0, 34.0], [-117.0, 32.5], [-115.0, 30.0],
-        [-110.0, 24.0], [-105.0, 20.0], [-97.0, 16.0], [-92.0, 14.5], [-85.0, 10.0],
-        [-82.0, 8.5], [-77.0, 8.5], [-80.0, 10.5], [-83.5, 14.0], [-87.0, 16.0],
-        [-90.0, 21.0], [-97.0, 26.0], [-95.0, 29.5], [-88.0, 30.0], [-82.0, 28.0],
-        [-80.5, 25.0], [-80.0, 31.0], [-75.5, 35.5], [-74.0, 40.5], [-70.0, 43.0],
-        [-65.0, 44.0], [-60.0, 47.0], [-55.0, 50.0], [-58.0, 53.0], [-64.0, 60.0],
-        [-75.0, 62.0], [-85.0, 65.0], [-95.0, 70.0], [-115.0, 71.0], [-135.0, 70.0],
-        [-150.0, 71.0], [-165.0, 71.5]
+        [-124.0, 48.0], [-124.0, 40.0], [-122.4, 37.8], [-120.0, 34.0], [-117.0, 32.5],
+        [-115.0, 30.0], [-110.0, 23.0], [-105.0, 20.0], [-99.9, 16.8], [-93.0, 15.5],
+        [-89.0, 13.5], [-84.0, 9.5], [-80.0, 8.5], [-77.5, 8.5], [-80.0, 9.5],
+        [-83.0, 10.5], [-87.0, 13.0], [-89.0, 16.0], [-87.0, 21.0], [-90.0, 19.5],
+        [-97.5, 22.0], [-97.0, 26.0], [-95.0, 29.5], [-89.5, 29.0], [-85.0, 30.0],
+        [-82.5, 27.5], [-80.2, 25.8], [-80.5, 28.5], [-81.0, 31.0], [-79.0, 33.5],
+        [-76.0, 37.0], [-74.0, 39.5], [-73.8, 40.6], [-70.5, 42.0], [-66.0, 44.5],
+        [-63.0, 46.5], [-53.0, 47.0], [-57.0, 51.5], [-60.0, 55.0], [-64.0, 60.0],
+        [-70.0, 62.0], [-80.0, 55.0], [-88.0, 55.0], [-95.0, 60.0], [-95.0, 68.0],
+        [-115.0, 68.0], [-135.0, 69.5], [-150.0, 71.0], [-165.0, 70.0]
       ],
-      // Europa y Escandinavia
+      // 3. Groenlandia
       [
-        [-9.5, 37.0], [-9.0, 43.0], [-2.0, 43.5], [-1.0, 46.0], [-4.5, 48.5],
-        [0.0, 50.0], [3.0, 51.5], [8.0, 54.0], [10.0, 57.5], [12.0, 55.5],
-        [18.0, 59.0], [24.0, 65.0], [28.0, 70.0], [20.0, 70.5], [14.0, 68.0],
-        [5.0, 62.0], [5.0, 58.5], [12.0, 54.0], [14.0, 45.0], [16.0, 41.0],
-        [15.5, 38.0], [12.0, 37.0], [9.0, 41.0], [3.0, 42.0], [3.0, 39.5],
-        [-0.5, 38.0], [-5.5, 36.0]
+        [-44.0, 60.0], [-35.0, 65.5], [-20.0, 70.0], [-18.0, 77.0], [-25.0, 81.0],
+        [-40.0, 83.0], [-55.0, 82.0], [-65.0, 76.0], [-55.0, 70.0], [-50.0, 64.0]
       ],
-      // Islas Británicas
+      // 4. Eurasia (Europa Occidental: España, Francia, Italia, Alemania; y Asia)
       [
-        [-5.5, 50.0], [-1.0, 50.5], [1.5, 52.5], [0.0, 54.5], [-2.0, 57.5],
-        [-4.5, 58.5], [-5.5, 56.5], [-4.5, 53.5], [-5.5, 51.5]
+        [-9.4, 38.7], [-9.2, 43.0], [-2.9, 43.3], [-1.5, 43.5], [-4.5, 48.4],
+        [1.8, 50.9], [4.3, 51.9], [8.0, 54.0], [10.0, 57.5], [12.5, 55.7],
+        [18.0, 59.3], [25.0, 65.0], [30.0, 70.0], [45.0, 68.0], [60.0, 70.0],
+        [80.0, 73.0], [100.0, 76.0], [120.0, 74.0], [140.0, 72.0], [160.0, 70.0],
+        [170.0, 65.0], [162.0, 58.0], [150.0, 59.0], [140.0, 53.0], [132.0, 43.0],
+        [128.0, 36.0], [121.0, 37.0], [118.0, 39.0], [121.5, 31.2], [114.0, 22.3],
+        [108.0, 18.0], [103.8, 1.3], [100.0, 6.0], [98.0, 16.0], [88.3, 22.5],
+        [80.0, 15.0], [77.5, 8.1], [72.8, 19.0], [68.0, 24.0], [60.0, 25.0],
+        [50.0, 30.0], [48.0, 31.0], [35.0, 32.0], [32.0, 36.5], [26.0, 40.0],
+        [23.0, 38.0], [19.0, 40.5], [16.0, 38.2], [14.2, 40.8], [12.5, 41.9],
+        [8.9, 44.4], [5.3, 43.3], [2.1, 41.4], [-0.3, 39.5], [-4.4, 36.7],
+        [-5.3, 36.1], [-8.0, 37.0]
       ],
-      // África
+      // 5. Gran Bretaña e Irlanda
       [
-        [-5.5, 36.0], [2.0, 36.5], [11.0, 37.0], [12.0, 33.0], [15.0, 32.0],
-        [25.0, 32.0], [32.0, 31.0], [35.0, 27.0], [38.0, 22.0], [43.0, 12.5],
-        [51.0, 11.5], [49.0, 6.0], [41.0, -2.0], [39.0, -5.0], [40.0, -10.0],
-        [35.0, -20.0], [33.0, -28.0], [28.0, -32.5], [20.0, -34.8], [18.0, -34.0],
-        [15.0, -28.0], [12.0, -17.0], [9.0, -4.0], [9.0, 4.0], [4.0, 6.0],
-        [-3.0, 5.0], [-13.0, 9.0], [-17.5, 14.5], [-16.0, 21.0], [-13.0, 28.0],
-        [-9.5, 31.5]
+        [-5.5, 50.1], [1.3, 51.1], [1.7, 52.5], [0.0, 54.5], [-3.2, 55.9],
+        [-2.0, 57.5], [-4.0, 58.5], [-6.0, 56.5], [-4.5, 52.0]
       ],
-      // Asia Continental
+      // 6. Japón (Honshu, Hokkaido, Kyushu - Eje Tokio y Osaka)
       [
-        [36.0, 36.0], [42.0, 41.5], [50.0, 40.0], [53.0, 37.0], [60.0, 25.0],
-        [68.0, 24.0], [70.0, 21.0], [73.0, 15.0], [77.5, 8.0], [80.0, 13.0],
-        [88.0, 21.5], [92.0, 20.0], [98.0, 10.0], [103.0, 1.5], [105.0, 10.0],
-        [109.0, 18.0], [118.0, 24.5], [121.0, 31.0], [122.0, 37.0], [126.0, 38.0],
-        [129.0, 35.0], [130.0, 42.0], [136.0, 48.0], [142.0, 53.0], [156.0, 51.0],
-        [162.0, 57.0], [170.0, 65.0], [140.0, 72.0], [100.0, 76.0], [75.0, 72.0],
-        [60.0, 67.0], [50.0, 55.0], [40.0, 45.0], [35.0, 40.0]
+        [130.0, 31.5], [131.0, 34.0], [135.2, 34.4], [140.0, 35.5], [141.5, 38.5],
+        [141.0, 43.0], [145.5, 44.0], [140.5, 41.5], [138.0, 37.5], [133.0, 35.5],
+        [129.5, 33.0]
       ],
-      // Japón
+      // 7. África
       [
-        [130.0, 31.5], [131.5, 33.5], [135.0, 34.5], [140.0, 36.0], [141.5, 41.0],
-        [141.0, 43.5], [145.5, 44.0], [143.0, 42.0], [139.5, 35.5], [133.0, 33.0]
+        [-5.8, 35.8], [-12.0, 28.0], [-17.5, 14.7], [-12.0, 8.0], [-4.0, 5.0],
+        [3.4, 6.4], [9.0, 4.0], [12.0, -5.0], [13.0, -15.0], [18.4, -33.9],
+        [26.0, -33.5], [31.0, -29.9], [35.0, -18.0], [40.0, -10.0], [42.0, -2.0],
+        [51.0, 10.5], [43.0, 12.5], [38.0, 18.0], [33.0, 27.5], [30.0, 31.0],
+        [20.0, 32.0], [13.0, 32.9], [10.0, 36.8], [2.0, 36.0]
       ],
-      // Australia y Oceanía
+      // 8. Australia y Oceanía
       [
-        [114.0, -22.0], [115.0, -34.0], [120.0, -34.0], [128.0, -32.0], [138.0, -35.0],
-        [141.0, -38.5], [148.0, -38.0], [153.5, -28.0], [150.0, -21.0], [143.0, -11.0],
-        [136.0, -12.0], [131.0, -12.0], [125.0, -15.0], [122.0, -18.0]
+        [114.0, -22.0], [115.8, -31.9], [120.0, -34.0], [130.0, -32.0], [138.0, -35.0],
+        [145.0, -37.8], [150.0, -36.0], [151.2, -33.9], [153.0, -27.5], [148.0, -20.0],
+        [142.5, -10.8], [136.0, -12.0], [130.8, -12.4], [124.0, -16.0]
       ],
-      // Nueva Zelanda
+      // 9. Rapa Nui / Isla de Pascua (Polígono distintivo)
       [
-        [173.0, -35.0], [176.0, -38.0], [178.0, -38.0], [175.0, -41.5], [173.0, -41.0],
-        [171.0, -43.0], [169.0, -46.5], [167.0, -45.0], [171.0, -42.0]
+        [-109.5, -27.1], [-109.35, -27.1], [-109.4, -27.25]
       ]
     ];
 
     /* =====================================================================
        ESTADO GLOBAL DE LA PLATAFORMA
        ===================================================================== */
-    let selectedFlight = FLIGHTS[0];
-    let currentSort = 'cost'; // 'cost' | 'date' | 'entity'
-    let currentMonthIndex = 236; // Septiembre 2026
+    let selectedFlight = FLIGHTS[FLIGHTS.length - 1];
+    let currentSort = 'date'; // 'date' (más reciente primero) | 'cost' | 'entity'
+    let currentMonthIndex = 237; // Octubre 2026 (mes más reciente disponible)
     let selectedProvider = 'Todas'; // 'Todas' | 'Cocha' | 'Turavion' | 'LATAM' | 'Sky'
     let filterBusinessOnly = false;
     let selectedEntityGroup = 'Todas';
@@ -19050,10 +19054,10 @@ https://vuelospublicos.evegat.cl/
       });
 
       return [...filtered].sort((a, b) => {
-        if (currentSort === 'cost') {
+        if (currentSort === 'date') {
+          return b.date.localeCompare(a.date); // Lo más reciente primero (Octubre 2026 -> 2007)
+        } else if (currentSort === 'cost') {
           return b.cost - a.cost;
-        } else if (currentSort === 'date') {
-          return a.date.localeCompare(b.date);
         } else if (currentSort === 'entity') {
           return a.entity.localeCompare(b.entity);
         }
@@ -19151,6 +19155,9 @@ https://vuelospublicos.evegat.cl/
        ===================================================================== */
     function selectFlight(flight) {
       selectedFlight = flight;
+      if (typeof centerOnFlight === 'function') {
+        centerOnFlight(flight);
+      }
 
       // Actualizar tarjeta
       origCode.textContent = flight.origin.code;
@@ -19470,10 +19477,47 @@ https://vuelospublicos.evegat.cl/
       return { x, y, ctrlX, ctrlY };
     }
 
-    /* =====================================================================
-       MOTOR DE RENDER (CANVAS 2D A 60 FPS)
+        /* =====================================================================
+       MOTOR DE RENDER (CANVAS 2D A 60 FPS) — MAPA NITIDO Y CIVICO
        ===================================================================== */
     let lastTimestamp = performance.now();
+
+    function drawMapPill(pCtx, x, y, text, accentColor, dpr, centered = false) {
+      pCtx.save();
+      pCtx.font = `bold ${Math.round(11 * dpr)}px ${FONT_SANS}`;
+      const metrics = pCtx.measureText(text);
+      const textW = metrics.width;
+      const padX = 8 * dpr;
+      const padY = 4 * dpr;
+      const pillW = textW + padX * 2;
+      const pillH = 22 * dpr;
+
+      const drawX = centered ? x - pillW / 2 : x;
+      const drawY = y - pillH / 2;
+
+      pCtx.fillStyle = 'rgba(6, 12, 20, 0.92)';
+      pCtx.strokeStyle = accentColor;
+      pCtx.lineWidth = 1.2 * dpr;
+      pCtx.shadowColor = 'rgba(0, 0, 0, 0.6)';
+      pCtx.shadowBlur = 6 * dpr;
+
+      if (typeof pCtx.roundRect === 'function') {
+        pCtx.beginPath();
+        pCtx.roundRect(drawX, drawY, pillW, pillH, 5 * dpr);
+        pCtx.fill();
+        pCtx.stroke();
+      } else {
+        pCtx.fillRect(drawX, drawY, pillW, pillH);
+        pCtx.strokeRect(drawX, drawY, pillW, pillH);
+      }
+
+      pCtx.shadowBlur = 0;
+      pCtx.fillStyle = '#f0f6fc';
+      pCtx.textAlign = 'left';
+      pCtx.textBaseline = 'middle';
+      pCtx.fillText(text, drawX + padX, drawY + pillH / 2);
+      pCtx.restore();
+    }
 
     function renderMap(timestamp) {
       const dt = Math.min((timestamp - lastTimestamp) / 1000, 0.1);
@@ -19483,21 +19527,21 @@ https://vuelospublicos.evegat.cl/
       const h = canvas.height;
       const dpr = window.devicePixelRatio || 1;
 
-      // 1. Fondo oceánico con profundidad radial
-      const grad = ctx.createRadialGradient(w/2, h/2, 20 * dpr, w/2, h/2, Math.max(w, h)/1.2);
-      grad.addColorStop(0, '#0a1624');
-      grad.addColorStop(1, '#050b12');
+      // 1. Fondo oceánico profundo con gradiente radial
+      const grad = ctx.createRadialGradient(w/2, h/2, 40 * dpr, w/2, h/2, Math.max(w, h)/1.1);
+      grad.addColorStop(0, '#0a1626');
+      grad.addColorStop(1, '#04080e');
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, w, h);
 
-      // 2. Grilla de coordenadas sutil (Meridianos y Paralelos)
-      ctx.strokeStyle = 'rgba(56, 139, 253, 0.06)';
+      // 2. Graticule elegante (Meridianos y Paralelos tenues)
+      ctx.strokeStyle = 'rgba(56, 189, 248, 0.05)';
       ctx.lineWidth = 1 * dpr;
 
       for (let lon = -180; lon <= 180; lon += 30) {
         ctx.beginPath();
-        const pTop = geoToCanvas(lon, 85);
-        const pBot = geoToCanvas(lon, -85);
+        const pTop = geoToCanvas(lon, 80);
+        const pBot = geoToCanvas(lon, -80);
         ctx.moveTo(pTop.x, pTop.y);
         ctx.lineTo(pBot.x, pBot.y);
         ctx.stroke();
@@ -19513,7 +19557,7 @@ https://vuelospublicos.evegat.cl/
       }
 
       // Línea del Ecuador destacada
-      ctx.strokeStyle = 'rgba(0, 212, 255, 0.14)';
+      ctx.strokeStyle = 'rgba(0, 212, 255, 0.12)';
       ctx.beginPath();
       const eqLeft = geoToCanvas(-180, 0);
       const eqRight = geoToCanvas(180, 0);
@@ -19521,10 +19565,12 @@ https://vuelospublicos.evegat.cl/
       ctx.lineTo(eqRight.x, eqRight.y);
       ctx.stroke();
 
-      // 3. Continentes Vectoriales
-      ctx.fillStyle = '#102234';
-      ctx.strokeStyle = '#1b3854';
-      ctx.lineWidth = 1.2 * dpr;
+      // 3. Continentes Vectoriales de Alto Contraste
+      ctx.fillStyle = '#0f2236';
+      ctx.strokeStyle = '#1e4468';
+      ctx.lineWidth = 1.3 * dpr;
+      ctx.shadowColor = 'rgba(0, 212, 255, 0.08)';
+      ctx.shadowBlur = 10 * dpr;
 
       CONTINENTS_GEO.forEach(poly => {
         if (poly.length === 0) return;
@@ -19539,113 +19585,156 @@ https://vuelospublicos.evegat.cl/
         ctx.fill();
         ctx.stroke();
       });
+      ctx.shadowBlur = 0;
 
-      // 4. Rutas Aéreas y Aviones
       const originCanvas = geoToCanvas(SCL.lon, SCL.lat);
 
-      FLIGHTS.forEach(flight => {
-        if (selectedProvider !== 'Todas' && flight.provider !== selectedProvider) return;
-        if (filterBusinessOnly && flight.cabin !== 'Business') return;
-        if (selectedEntityGroup !== 'Todas' && !matchesEntityGroup(flight.entity, selectedEntityGroup)) return;
+      // 4. Red Aérea Pasiva (Rutas globales agrupadas por destino, sin saturar)
+      const uniqueDestinations = new Map();
+      FLIGHTS.forEach(f => {
+        if (selectedProvider !== 'Todas' && f.provider !== selectedProvider) return;
+        if (filterBusinessOnly && f.cabin !== 'Business') return;
+        if (selectedEntityGroup !== 'Todas' && !matchesEntityGroup(f.entity, selectedEntityGroup)) return;
+        
+        const code = f.dest.code;
+        if (!uniqueDestinations.has(code)) {
+          uniqueDestinations.set(code, { dest: f.dest, count: 0, hasBusiness: false });
+        }
+        const entry = uniqueDestinations.get(code);
+        entry.count++;
+        if (f.cabin === 'Business') entry.hasBusiness = true;
+      });
 
-        const isSelected = (selectedFlight && selectedFlight.id === flight.id);
-        const isIssued = flight.monthIndex <= currentMonthIndex;
-        const isBusiness = flight.cabin === 'Business';
+      uniqueDestinations.forEach((routeInfo, code) => {
+        // Si es el destino seleccionado, se dibuja como Hero Route más adelante
+        if (selectedFlight && selectedFlight.dest.code === code) return;
 
-        const destCanvas = geoToCanvas(flight.dest.lon, flight.dest.lat);
+        const destPt = geoToCanvas(routeInfo.dest.lon, routeInfo.dest.lat);
+        const arcPt = getArcPoint(originCanvas, destPt, 0.5);
+
+        // Trazo tenue de red
+        ctx.save();
+        ctx.beginPath();
+        ctx.setLineDash([3 * dpr, 4 * dpr]);
+        ctx.moveTo(originCanvas.x, originCanvas.y);
+        ctx.quadraticCurveTo(arcPt.ctrlX, arcPt.ctrlY, destPt.x, destPt.y);
+        ctx.strokeStyle = routeInfo.hasBusiness ? 'rgba(255, 77, 90, 0.22)' : 'rgba(0, 229, 163, 0.18)';
+        ctx.lineWidth = 1.0 * dpr;
+        ctx.stroke();
+        ctx.restore();
+
+        // Nodo de destino tenue
+        ctx.fillStyle = routeInfo.hasBusiness ? 'rgba(255, 77, 90, 0.7)' : 'rgba(0, 229, 163, 0.65)';
+        ctx.beginPath();
+        ctx.arc(destPt.x, destPt.y, 3.2 * dpr, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Etiqueta tenue de ciudad
+        if (zoomLevel >= 0.9) {
+          ctx.font = `600 ${Math.round(9 * dpr)}px ${FONT_SANS}`;
+          ctx.fillStyle = 'rgba(139, 155, 176, 0.65)';
+          ctx.textAlign = 'left';
+          ctx.fillText(routeInfo.dest.city, destPt.x + 5 * dpr, destPt.y + 3 * dpr);
+        }
+      });
+
+      // 5. HERO ROUTE: Vuelo Activo y Seleccionado (Foco Absoluto)
+      if (selectedFlight) {
+        const isBusiness = selectedFlight.cabin === 'Business';
+        const heroColor = isBusiness ? '#ff4d5a' : '#00e5a3';
+        const heroGlow = isBusiness ? 'rgba(255, 77, 90, 0.35)' : 'rgba(0, 229, 163, 0.35)';
+
+        const destCanvas = geoToCanvas(selectedFlight.dest.lon, selectedFlight.dest.lat);
         const arc = getArcPoint(originCanvas, destCanvas, 0.5);
 
-        let strokeColor;
-        let lineWidth = (isSelected ? 2.8 : 1.3) * dpr;
-
-        if (isBusiness) {
-          strokeColor = isSelected ? '#ff4d5a' : (isIssued ? 'rgba(255, 77, 90, 0.65)' : 'rgba(255, 77, 90, 0.12)');
-        } else {
-          strokeColor = isSelected ? '#00e5a3' : (isIssued ? 'rgba(0, 229, 163, 0.55)' : 'rgba(0, 229, 163, 0.1)');
-        }
-
+        // Halo de resplandor exterior
         ctx.beginPath();
         ctx.moveTo(originCanvas.x, originCanvas.y);
         ctx.quadraticCurveTo(arc.ctrlX, arc.ctrlY, destCanvas.x, destCanvas.y);
-        ctx.strokeStyle = strokeColor;
-        ctx.lineWidth = lineWidth;
-        if (isSelected) {
-          ctx.shadowColor = isBusiness ? '#ff4d5a' : '#00e5a3';
-          ctx.shadowBlur = 14 * dpr;
-        }
+        ctx.strokeStyle = heroGlow;
+        ctx.lineWidth = 8 * dpr;
+        ctx.stroke();
+
+        // Línea principal luminosa
+        ctx.beginPath();
+        ctx.moveTo(originCanvas.x, originCanvas.y);
+        ctx.quadraticCurveTo(arc.ctrlX, arc.ctrlY, destCanvas.x, destCanvas.y);
+        ctx.strokeStyle = heroColor;
+        ctx.lineWidth = 3.2 * dpr;
+        ctx.shadowColor = heroColor;
+        ctx.shadowBlur = 14 * dpr;
         ctx.stroke();
         ctx.shadowBlur = 0;
 
-        // Avión animado si fue emitido hasta este período
-        const speed = 0.08;
-        flight.t = (flight.t + speed * dt) % 1.0;
+        // Avión comercial animado en la ruta activa
+        const speed = 0.12;
+        selectedFlight.t = ((selectedFlight.t || 0) + speed * dt) % 1.0;
+        const planePos = getArcPoint(originCanvas, destCanvas, selectedFlight.t);
+        const nextPos = getArcPoint(originCanvas, destCanvas, Math.min(selectedFlight.t + 0.015, 1.0));
+        const angle = Math.atan2(nextPos.y - planePos.y, nextPos.x - planePos.x);
 
-        if (isIssued) {
-          const planePos = getArcPoint(originCanvas, destCanvas, flight.t);
-          const nextPos = getArcPoint(originCanvas, destCanvas, Math.min(flight.t + 0.015, 1.0));
-          const angle = Math.atan2(nextPos.y - planePos.y, nextPos.x - planePos.x);
+        ctx.save();
+        ctx.translate(planePos.x, planePos.y);
+        ctx.rotate(angle);
+        ctx.fillStyle = '#ffffff';
+        ctx.shadowColor = heroColor;
+        ctx.shadowBlur = 14 * dpr;
 
-          ctx.save();
-          ctx.translate(planePos.x, planePos.y);
-          ctx.rotate(angle);
-
-          const planeColor = isBusiness ? '#ff4d5a' : '#00e5a3';
-          ctx.fillStyle = planeColor;
-
-          if (isBusiness || isSelected) {
-            ctx.shadowColor = isBusiness ? '#ff4d5a' : '#00e5a3';
-            ctx.shadowBlur = (isSelected ? 14 : 7) * dpr;
-          }
-
-          const size = (isSelected ? 8.5 : 5.8) * dpr;
-          ctx.beginPath();
-          ctx.moveTo(size * 1.3, 0);
-          ctx.lineTo(-size * 0.8, -size * 0.7);
-          ctx.lineTo(-size * 0.35, 0);
-          ctx.lineTo(-size * 0.8, size * 0.7);
-          ctx.closePath();
-          ctx.fill();
-          ctx.restore();
-        }
-
-        // Nodo de destino
-        ctx.fillStyle = isSelected ? '#ffffff' : (isBusiness ? '#ff4d5a' : '#00e5a3');
+        // Silueta elegante de avión a reacción
+        const s = 11 * dpr;
         ctx.beginPath();
-        ctx.arc(destCanvas.x, destCanvas.y, (isSelected ? 5.2 : 3.2) * dpr, 0, Math.PI * 2);
+        ctx.moveTo(s * 1.4, 0);
+        ctx.lineTo(-s * 0.7, -s * 0.85);
+        ctx.lineTo(-s * 0.35, 0);
+        ctx.lineTo(-s * 0.7, s * 0.85);
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+
+        // Pulso radar en Santiago (SCL)
+        const pulseCycle = (timestamp % 2000) / 2000;
+        const r1 = pulseCycle * 24 * dpr;
+        ctx.strokeStyle = `rgba(0, 212, 255, ${1 - pulseCycle})`;
+        ctx.lineWidth = 1.5 * dpr;
+        ctx.beginPath();
+        ctx.arc(originCanvas.x, originCanvas.y, r1, 0, Math.PI * 2);
+        ctx.stroke();
+
+        // Nodo Santiago SCL
+        ctx.fillStyle = '#00d4ff';
+        ctx.beginPath();
+        ctx.arc(originCanvas.x, originCanvas.y, 5 * dpr, 0, Math.PI * 2);
         ctx.fill();
 
-        // Ondas de pulso en destino seleccionado
-        if (isSelected) {
-          const pulseR = (5 + (timestamp % 1000) * 0.015) * dpr;
-          ctx.strokeStyle = isBusiness ? '#ff4d5a' : '#00e5a3';
-          ctx.lineWidth = 1.6 * dpr;
-          ctx.beginPath();
-          ctx.arc(destCanvas.x, destCanvas.y, pulseR, 0, Math.PI * 2);
-          ctx.stroke();
-        }
+        // Pulso radar en Destino
+        const r2 = pulseCycle * 28 * dpr;
+        ctx.strokeStyle = isBusiness ? `rgba(255, 77, 90, ${1 - pulseCycle})` : `rgba(0, 229, 163, ${1 - pulseCycle})`;
+        ctx.beginPath();
+        ctx.arc(destCanvas.x, destCanvas.y, r2, 0, Math.PI * 2);
+        ctx.stroke();
 
-        // Etiqueta IATA
-        ctx.font = `${isSelected ? 'bold ' : ''}${Math.floor(10 * dpr)}px var(--font-mono)`;
-        ctx.fillStyle = isSelected ? '#ffffff' : (isIssued ? '#cbd5e1' : '#64748b');
-        ctx.fillText(flight.dest.code, destCanvas.x + 7 * dpr, destCanvas.y - 4 * dpr);
-      });
+        // Nodo Destino
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath();
+        ctx.arc(destCanvas.x, destCanvas.y, 6.5 * dpr, 0, Math.PI * 2);
+        ctx.fill();
 
-      // 5. Nodo Base Santiago (SCL) pulsante
-      ctx.fillStyle = '#00d4ff';
-      ctx.beginPath();
-      ctx.arc(originCanvas.x, originCanvas.y, 6.5 * dpr, 0, Math.PI * 2);
-      ctx.fill();
+        // 6. Badges tipográficos legibles en el mapa
+        // Badge Origen SCL
+        drawMapPill(ctx, originCanvas.x - 12 * dpr, originCanvas.y + 18 * dpr, '🛫 SCL • Santiago', '#00d4ff', dpr);
 
-      const sclPulse = (7 + (timestamp % 1200) * 0.009) * dpr;
-      ctx.strokeStyle = 'rgba(0, 212, 255, 0.45)';
-      ctx.lineWidth = 1.6 * dpr;
-      ctx.beginPath();
-      ctx.arc(originCanvas.x, originCanvas.y, sclPulse, 0, Math.PI * 2);
-      ctx.stroke();
+        // Badge Destino
+        const costMillions = (selectedFlight.cost / 1e6).toFixed(1).replace('.', ',');
+        const destLabel = `🛬 ${selectedFlight.dest.code} • ${selectedFlight.dest.city} ($${costMillions}M CLP)`;
+        drawMapPill(ctx, destCanvas.x + 10 * dpr, destCanvas.y - 14 * dpr, destLabel, heroColor, dpr);
 
-      ctx.font = `bold ${Math.floor(11 * dpr)}px var(--font-mono)`;
-      ctx.fillStyle = '#00d4ff';
-      ctx.fillText('SCL • Santiago (Base)', originCanvas.x + 10 * dpr, originCanvas.y + 4 * dpr);
+        // Badge en la cumbre del arco: distancia en km
+        const midArc = getArcPoint(originCanvas, destCanvas, 0.5);
+        const distKm = Math.round(calculateDistanceKm(SCL.lat, SCL.lon, selectedFlight.dest.lat, selectedFlight.dest.lon));
+        const flightHours = Math.round(distKm / 820);
+        const distLabel = `✈️ ~${distKm.toLocaleString('es-CL')} km • ~${flightHours}h`;
+        drawMapPill(ctx, midArc.x, midArc.y - 14 * dpr, distLabel, '#f59e0b', dpr, true);
+      }
 
       requestAnimationFrame(renderMap);
     }
@@ -19661,6 +19750,40 @@ https://vuelospublicos.evegat.cl/
     btnZoomOut.addEventListener('click', () => {
       zoomLevel = Math.max(0.8, zoomLevel * 0.8);
     });
+
+    /* =====================================================================
+       ENFOQUE AUTOMATICO Y NAVEGACION DE CAMARA
+       ===================================================================== */
+    function centerOnFlight(flight) {
+      if (!flight) return;
+      const spanLon = Math.abs(SCL.lon - flight.dest.lon);
+      const spanLat = Math.abs(SCL.lat - flight.dest.lat);
+
+      if (spanLon > 130 || spanLat > 75) {
+        zoomLevel = 1.05;
+      } else if (spanLon > 60 || spanLat > 40) {
+        zoomLevel = 1.25;
+      } else if (spanLon > 25 || spanLat > 20) {
+        zoomLevel = 1.6;
+      } else {
+        zoomLevel = 2.1;
+      }
+
+      const midLon = (SCL.lon + flight.dest.lon) / 2;
+      const midLat = (SCL.lat + flight.dest.lat) / 2 + (spanLat > 30 ? 6 : 0);
+      const normX = (midLon + 180) / 360;
+      const normY = (90 - midLat) / 180;
+
+      panOffset.x = (0.5 - normX) * 1000;
+      panOffset.y = (0.5 - normY) * 600;
+    }
+
+    const btnFocusFlight = document.getElementById('btnFocusFlight');
+    if (btnFocusFlight) {
+      btnFocusFlight.addEventListener('click', () => {
+        if (selectedFlight) centerOnFlight(selectedFlight);
+      });
+    }
 
     btnResetView.addEventListener('click', () => {
       zoomLevel = 1.0;
@@ -19919,10 +20042,13 @@ ${url}`;
        INICIALIZACIÓN DEL SISTEMA
        ===================================================================== */
     function init() {
+      const sorted = getSortedFlights();
+      selectedFlight = sorted[0] || FLIGHTS[FLIGHTS.length - 1];
       renderFlightList();
-      selectFlight(FLIGHTS[0]);
+      selectFlight(selectedFlight);
       updateTimeline();
       handleHashNavigation();
+      if (typeof centerOnFlight === 'function') centerOnFlight(selectedFlight);
     }
     init();
   </script>
