@@ -32,6 +32,14 @@ def generate_index_html():
     
     compact_json_str = json.dumps(compact_list, ensure_ascii=False, separators=(',', ':'))
     airports_json_str = json.dumps(airports_map, ensure_ascii=False, separators=(',', ':'))
+
+    total_spend = sum(f.get('cost', 0) for f in flights)
+    total_spend_str = f"${(total_spend / 1e9):.1f}B CLP" if total_spend >= 1e9 else f"${(total_spend / 1e6):.0f}M CLP"
+    total_spend_formatted = f"${total_spend:,.0f} CLP".replace(",", ".")
+    biz_count = sum(1 for f in flights if f.get('cabin') == 'Business')
+    biz_pct = (biz_count / len(flights) * 100) if flights else 0
+    biz_str = f"{biz_count} (<0.1%)" if biz_pct < 0.1 else f"{biz_count} ({biz_pct:.1f}%)"
+    flights_count_formatted = f"{len(flights):,}".replace(",", ".")
     
     html_content = f'''<!DOCTYPE html>
 <html lang="es">
@@ -1616,23 +1624,23 @@ def generate_index_html():
         <div class="kpi-strip">
           <div class="kpi-card">
             <span class="kpi-label">Viajes Oficiales</span>
-            <span class="kpi-value" id="statFlightsCount">{len(flights)}</span>
+            <span class="kpi-value" id="statFlightsCount">{flights_count_formatted}</span>
           </div>
           <div class="kpi-card">
             <span class="kpi-label">Gasto Consolidado</span>
-            <span class="kpi-value accent-spend" id="statTotalSpend">$3.176M CLP</span>
+            <span class="kpi-value accent-spend" id="statTotalSpend" title="{total_spend_formatted}">{total_spend_str}</span>
           </div>
           <div class="kpi-card">
             <span class="kpi-label">Clase Business</span>
-            <span class="kpi-value accent-business" id="statBusinessCount">33 (7%)</span>
+            <span class="kpi-value accent-business" id="statBusinessCount">{biz_str}</span>
           </div>
           <div class="kpi-card">
             <span class="kpi-label">Top Organismo</span>
-            <span class="kpi-value" id="statTopEntity" title="Organismo líder en gasto">Presidencia</span>
+            <span class="kpi-value" id="statTopEntity" title="Organismo líder en comitivas">Carabineros</span>
           </div>
           <div class="kpi-card">
             <span class="kpi-label">Top Destino</span>
-            <span class="kpi-value" id="statTopDest" title="Destino más concurrido">Rapa Nui</span>
+            <span class="kpi-value" id="statTopDest" title="Destino más concurrido">Punta Arenas</span>
           </div>
         </div>
 
@@ -2065,13 +2073,14 @@ def generate_index_html():
         <p><strong>VuelosPúblicos</strong> transforma miles de órdenes de compra de pasajes en una experiencia cartográfica y de rendición de cuentas. Utiliza esta ficha para citar datos consolidados o compartir el observatorio en redes profesionales:</p>
 
         <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 12px 16px; margin: 12px 0;">
-          <div style="font-size: 0.72rem; font-weight: 700; color: #38bdf8; text-transform: uppercase; margin-bottom: 6px; letter-spacing: 0.5px;">📊 Radiografía Consolidada (2007–Octubre 2026)</div>
+          <div style="font-size: 0.72rem; font-weight: 700; color: #38bdf8; text-transform: uppercase; margin-bottom: 6px; letter-spacing: 0.5px;">📊 Radiografía Consolidada (2007–2026)</div>
           <ul style="padding-left: 18px; display: flex; flex-direction: column; gap: 4px; font-size: 0.8rem; color: var(--text-secondary);">
-            <li><strong>Gasto Auditado Total:</strong> $3.188.672.723 CLP en 465 compras públicas geocodificadas.</li>
-            <li><strong>Línea de Tiempo:</strong> 240 meses cronológicos continuos (Enero 2007 a Octubre 2026).</li>
-            <li><strong>Top Destinos Internacionales:</strong> París (39 vuelos), Madrid (38), Washington D.C. (30), Ginebra (10), Osaka (Gab. Ministerial).</li>
-            <li><strong>Destino Insular Líder:</strong> Rapa Nui / Isla de Pascua (67 delegaciones y comitivas).</li>
-            <li><strong>Concentración de Agencias:</strong> Cocha ($1.167M), LATAM ($1.111M), Turavion ($699M), Sky ($139M).</li>
+            <li><strong>Gasto Auditado Total:</strong> {total_spend_formatted} en {flights_count_formatted} compras públicas geocodificadas.</li>
+            <li><strong>Línea de Tiempo:</strong> 240 meses cronológicos continuos (Enero 2007 a Septiembre 2026).</li>
+            <li><strong>Desglose Territorial:</strong> 112.126 comitivas nacionales y 5.046 misiones al extranjero.</li>
+            <li><strong>Top Destinos Nacionales:</strong> Punta Arenas (25.610 comitivas), Iquique (15.715), Antofagasta (14.434) y Rapa Nui (1.579).</li>
+            <li><strong>Top Destinos Internacionales:</strong> Roma (928 vuelos), Madrid (691), Lima (597), París (449) y Washington D.C. (243).</li>
+            <li><strong>Concentración de Proveedores:</strong> LATAM ($53.883M), Otras Agencias ($15.621M), Turavion ($10.017M), Cocha ($2.441M) y Sky ($1.186M).</li>
             <li><strong>Trazabilidad Legal:</strong> 100% órdenes de compra de ChileCompra (Ley 19.886) y Transparencia Activa (Ley 20.285).</li>
           </ul>
         </div>
@@ -2081,16 +2090,18 @@ def generate_index_html():
 
 Para responder a esta pregunta con evidencia y sin sesgos partidistas, construí VuelosPúblicos: un observatorio cívico interactivo que procesa y visualiza más de 20 años de órdenes de compra oficiales de ChileCompra (2007–2026).
 
-📊 Hallazgos clave del Data Lakehouse:
-• $3.188 millones de pesos (CLP) auditados en 465 compras públicas geocodificadas.
+📊 Hallazgos clave del universo completo (Data Lakehouse):
+• $83.151 millones de pesos (CLP) auditados en 117.172 compras públicas geocodificadas.
 • 240 meses cronológicos continuos a través de 5 administraciones de gobierno.
-• Top destinos: Rapa Nui (67 vuelos), París (39), Madrid (38) y Washington D.C. (30).
-• 4 proveedores concentran la mayor parte de las compras vía Convenio Marco: Cocha, LATAM, Turavion y Sky.
+• Desglose territorial: 112.126 comitivas nacionales y 5.046 misiones al extranjero.
+• Top destinos nacionales: Punta Arenas (25.610 comitivas), Iquique (15.715), Antofagasta (14.434) y Rapa Nui (1.579).
+• Top destinos internacionales: Roma (928 vuelos), Madrid (691), Lima (597), París (449) y Washington D.C. (243).
+• Concentración en Convenio Marco: LATAM ($53.883M), Otras Agencias ($15.621M), Turavion ($10.017M), Cocha ($2.441M) y Sky ($1.186M).
 
 🛠️ Innovación y tecnología cívica:
 1. Cartografía 2.5D interactiva a 60 FPS con curvas geodésicas balísticas desde Santiago (SCL).
-2. Odómetro fiscal mensual y scrubber temporal con sparkline de densidad de gasto.
-3. Expediente fiscal por vuelo con ID oficial de Orden de Compra (OC), distancia geodésica y tiempo estimado de vuelo.
+2. Odómetro fiscal acumulativo y scrubber mensual de 240 meses con sparkline de gasto.
+3. Expediente fiscal por comitiva con ID oficial de Orden de Compra (OC), distancia geodésica y tiempo estimado de vuelo.
 4. Búsqueda y filtros multidimensionales en tiempo real por gobierno, organismo, destino, agencia y tramo de gasto.
 
 Los datos abiertos solo tienen valor cuando se convierten en información accesible, comprensible y auditable para cualquier persona.
