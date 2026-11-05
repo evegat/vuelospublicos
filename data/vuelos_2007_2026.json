@@ -16522,5 +16522,221 @@
       "approve": 40,
       "reject": 38
     }
+  },
+  {
+    "id": "FL-0460",
+    "monthIndex": 237,
+    "year": 2026,
+    "month": 10,
+    "date": "2026-10-02",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "IPC",
+      "city": "Isla de Pascua",
+      "country": "Chile",
+      "lon": -109.421,
+      "lat": -27.164,
+      "airport": "Mataveri (IPC)"
+    },
+    "entity": "Comisión Chilena De Energía Nuclear",
+    "role": "Comitiva Oficial",
+    "cost": 1481836,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía LATAM",
+    "airline": "Vuelo Comercial",
+    "oc": "1077195-90-CM26",
+    "provider": "LATAM",
+    "reason": "Pasaje aéreo Santiago - Rapa Nui | Paola García - Yerka Padilla | IDA-VUELTA 14/10 a 16/10",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0461",
+    "monthIndex": 237,
+    "year": 2026,
+    "month": 10,
+    "date": "2026-10-05",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "ARI",
+      "city": "Arica",
+      "country": "Chile",
+      "lon": -70.338,
+      "lat": -18.348,
+      "airport": "Chacalluta (ARI)"
+    },
+    "entity": "Ministerio De Obras Publicas Direc Cion Gral De Oo Pp Dcyf",
+    "role": "Comitiva Oficial",
+    "cost": 492827,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía LATAM",
+    "airline": "Vuelo Comercial",
+    "oc": "1018-146-CM26",
+    "provider": "LATAM",
+    "reason": "Adquisición pasaje aéreo Santiago-Arica-Brayan Lavandero-06 al 07-10-2026-LBLCUR",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0462",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-30",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "CCP",
+      "city": "Concepción",
+      "country": "Chile",
+      "lon": -73.063,
+      "lat": -36.772,
+      "airport": "Carriel Sur (CCP)"
+    },
+    "entity": "Ministerio Secretaria General De La Presidencia De La Republica",
+    "role": "Comitiva Oficial",
+    "cost": 171850,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía LATAM",
+    "airline": "Vuelo Comercial",
+    "oc": "1051173-166-CM26",
+    "provider": "LATAM",
+    "reason": "Pasajes aéreos Concepción-Santiago",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0463",
+    "monthIndex": 236,
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09-25",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "KIX",
+      "city": "Osaka",
+      "country": "Japón",
+      "lon": 135.244,
+      "lat": 34.434,
+      "airport": "Kansai International (KIX)"
+    },
+    "entity": "Subsecretaria De Ciencia, Tecnologia, Conocimiento E Innovacion",
+    "role": "Comitiva Oficial",
+    "cost": 7171000,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía Otras Agencias",
+    "airline": "Vuelo Comercial",
+    "oc": "1098710-332-AG26",
+    "provider": "Otras Agencias",
+    "reason": "Pasaje internacional Gab Ministerial SCL-KIX-SCL",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0464",
+    "monthIndex": 237,
+    "year": 2026,
+    "month": 10,
+    "date": "2026-10-02",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "CPO",
+      "city": "Copiapó",
+      "country": "Chile",
+      "lon": -70.785,
+      "lat": -27.261,
+      "airport": "Desierto de Atacama (CPO)"
+    },
+    "entity": "Universidad Metropolitana De Ciencias De La Educacion",
+    "role": "Comitiva Oficial",
+    "cost": 2413250,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía LATAM",
+    "airline": "Vuelo Comercial",
+    "oc": "1493149-68-CM26",
+    "provider": "LATAM",
+    "reason": "PASAJE AEREO SANTIAGO - COPIAPO - SANTIAGO 07-10-2026 7 FUNCIONARIOS PROYECTO CENEPU ATACA",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
+  },
+  {
+    "id": "FL-0465",
+    "monthIndex": 237,
+    "year": 2026,
+    "month": 10,
+    "date": "2026-10-02",
+    "origin": {
+      "code": "SCL",
+      "city": "Santiago",
+      "country": "Chile",
+      "airport": "Arturo Merino Benítez (SCL)",
+      "lon": -70.7858,
+      "lat": -33.393
+    },
+    "dest": {
+      "code": "CPO",
+      "city": "Copiapó",
+      "country": "Chile",
+      "lon": -70.785,
+      "lat": -27.261,
+      "airport": "Desierto de Atacama (CPO)"
+    },
+    "entity": "Universidad Metropolitana De Ciencias De La Educacion",
+    "role": "Comitiva Oficial",
+    "cost": 400800,
+    "cabin": "Turista",
+    "cabinDesc": "Clase Turista • Vía LATAM",
+    "airline": "Vuelo Comercial",
+    "oc": "1493149-69-CM26",
+    "provider": "LATAM",
+    "reason": "PASAJE AEREO SANTIAGO - COPIAPO - SANTIAGO 07-10-2026 7 PROF. MIGUEL CARO PROYECTO ATACAMA",
+    "votes": {
+      "approve": 40,
+      "reject": 38
+    }
   }
 ]
