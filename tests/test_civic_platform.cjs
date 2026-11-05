@@ -345,20 +345,20 @@ console.log('\n6e. Verifying Expanded Multi-Dimensional Civic Filters...');
 // Scope filter
 vm.runInContext("filterScope = 'Nacional';", sandbox);
 const nacFlights = getSortedFlights();
-assert.strictEqual(nacFlights.length, 202, 'Nacional filter must yield exactly 202 flights');
+assert.strictEqual(nacFlights.length, 277, 'Nacional filter must yield exactly 277 flights');
 assert(nacFlights.every(f => f.dest.country === 'Chile'), 'All national flights must be within Chile');
 
 vm.runInContext("filterScope = 'Internacional';", sandbox);
 const interFlights = getSortedFlights();
-assert.strictEqual(interFlights.length, 263, 'Internacional filter must yield exactly 263 flights');
+assert.strictEqual(interFlights.length, 273, 'Internacional filter must yield exactly 273 flights');
 assert(interFlights.every(f => f.dest.country !== 'Chile'), 'All international flights must be outside Chile');
 vm.runInContext("filterScope = 'Todas';", sandbox);
-console.log(`   [PASS] Scope filter verified (202 Nacionales, 263 Internacionales).`);
+console.log(`   [PASS] Scope filter verified (${nacFlights.length} Nacionales, ${interFlights.length} Internacionales).`);
 
 // Government filter
 vm.runInContext("filterGovernment = 'Boric';", sandbox);
 const boricFlights = getSortedFlights();
-assert.strictEqual(boricFlights.length, 149, 'Boric filter must yield exactly 149 flights');
+assert.strictEqual(boricFlights.length, 234, 'Boric filter must yield exactly 234 flights');
 assert(boricFlights.every(f => f.date >= '2022-03-11'), 'All Boric flights must be from 2022-03-11 onwards');
 
 vm.runInContext("filterGovernment = 'Piñera II';", sandbox);
@@ -370,7 +370,7 @@ console.log(`   [PASS] Presidential administration filters verified (Boric: ${bo
 // Cost tier filter
 vm.runInContext("filterCostTier = 'Mega';", sandbox);
 const megaFlights = getSortedFlights();
-assert.strictEqual(megaFlights.length, 30, 'Mega-comitivas filter must yield exactly 30 flights');
+assert.strictEqual(megaFlights.length, 31, 'Mega-comitivas filter must yield exactly 31 flights');
 assert(megaFlights.every(f => f.cost >= 20000000), 'All mega flights must exceed $20M CLP');
 vm.runInContext("filterCostTier = 'Todas';", sandbox);
 console.log(`   [PASS] Cost tier filter verified (Mega-comitivas: ${megaFlights.length} flights > $20M CLP).`);
@@ -378,14 +378,14 @@ console.log(`   [PASS] Cost tier filter verified (Mega-comitivas: ${megaFlights.
 // Year filter
 vm.runInContext("filterYear = '2026';", sandbox);
 const y2026Flights = getSortedFlights();
-assert.strictEqual(y2026Flights.length, 58, '2026 filter must yield exactly 58 flights');
+assert.strictEqual(y2026Flights.length, 142, '2026 filter must yield exactly 142 flights');
 vm.runInContext("filterYear = 'Todas';", sandbox);
 console.log(`   [PASS] Specific year filter verified (2026: ${y2026Flights.length} flights).`);
 
 // Destination filter
 vm.runInContext("filterDestination = 'Madrid';", sandbox);
 const destMadrid = getSortedFlights();
-assert.strictEqual(destMadrid.length, 40, 'Madrid destination filter must yield exactly 40 flights');
+assert.strictEqual(destMadrid.length, 44, 'Madrid destination filter must yield exactly 44 flights');
 vm.runInContext("filterDestination = 'Todas';", sandbox);
 console.log(`   [PASS] Destination filter verified (Madrid: ${destMadrid.length} flights).`);
 
@@ -394,7 +394,7 @@ const resetAllFilters = vm.runInContext('resetAllFilters', sandbox);
 assert(typeof resetAllFilters === 'function', 'resetAllFilters function must exist');
 resetAllFilters();
 const resetFlights = getSortedFlights();
-assert.strictEqual(resetFlights.length, flights.length, 'resetAllFilters must restore full dataset (465 flights)');
+assert.strictEqual(resetFlights.length, flights.length, `resetAllFilters must restore full dataset (${flights.length} flights)`);
 console.log(`   [PASS] resetAllFilters function verified (restored to ${resetFlights.length} flights).`);
 
 

@@ -1,0 +1,1128 @@
+{
+  "1020-405-SE26": {
+    "status": "flight",
+    "id": "FL-0466"
+  },
+  "1028897-1681-CM25": {
+    "status": "flight",
+    "id": "FL-0467"
+  },
+  "1019-393-CM26": {
+    "status": "discarded"
+  },
+  "1020-402-SE26": {
+    "status": "flight",
+    "id": "FL-0468"
+  },
+  "1057535-553-CM26": {
+    "status": "discarded"
+  },
+  "1057535-549-SE26": {
+    "status": "discarded"
+  },
+  "1059109-77-AG26": {
+    "status": "discarded"
+  },
+  "1091793-260-SE26": {
+    "status": "discarded"
+  },
+  "1208541-266-CM26": {
+    "status": "discarded"
+  },
+  "1209403-151-CM26": {
+    "status": "discarded"
+  },
+  "1210-53-SE26": {
+    "status": "discarded"
+  },
+  "1232565-384-CM26": {
+    "status": "discarded"
+  },
+  "1236-255-CM26": {
+    "status": "discarded"
+  },
+  "1391-1204-CM26": {
+    "status": "discarded"
+  },
+  "1413-999-CM26": {
+    "status": "discarded"
+  },
+  "1415863-22-CM26": {
+    "status": "flight",
+    "id": "FL-0469"
+  },
+  "14-521-CM26": {
+    "status": "discarded"
+  },
+  "1562-531-CM26": {
+    "status": "flight",
+    "id": "FL-0470"
+  },
+  "1562-534-CM26": {
+    "status": "discarded"
+  },
+  "1606-401-SE26": {
+    "status": "flight",
+    "id": "FL-0471"
+  },
+  "1671-278-CM26": {
+    "status": "discarded"
+  },
+  "2183-202-CM26": {
+    "status": "discarded"
+  },
+  "2183-204-CM26": {
+    "status": "discarded"
+  },
+  "2258-8764-CM26": {
+    "status": "discarded"
+  },
+  "2948-252-CM26": {
+    "status": "discarded"
+  },
+  "3220-566-AG26": {
+    "status": "discarded"
+  },
+  "3288-839-SE26": {
+    "status": "discarded"
+  },
+  "3544-255-AG26": {
+    "status": "discarded"
+  },
+  "3553-495-CM26": {
+    "status": "discarded"
+  },
+  "3904-1109-AG26": {
+    "status": "discarded"
+  },
+  "3950-1678-CM26": {
+    "status": "discarded"
+  },
+  "4388-131-CM26": {
+    "status": "discarded"
+  },
+  "4656-31-CM26": {
+    "status": "discarded"
+  },
+  "548850-91-CM26": {
+    "status": "discarded"
+  },
+  "5531-251-AG26": {
+    "status": "discarded"
+  },
+  "5539-214-CM26": {
+    "status": "discarded"
+  },
+  "5539-215-CM26": {
+    "status": "flight",
+    "id": "FL-0472"
+  },
+  "5539-218-CM26": {
+    "status": "flight",
+    "id": "FL-0473"
+  },
+  "5586-4066-CM26": {
+    "status": "discarded"
+  },
+  "5626-748-SE26": {
+    "status": "discarded"
+  },
+  "564162-1165-CM26": {
+    "status": "discarded"
+  },
+  "564162-1172-AG26": {
+    "status": "discarded"
+  },
+  "5667-233-CM26": {
+    "status": "discarded"
+  },
+  "586-500-CM26": {
+    "status": "discarded"
+  },
+  "612-584-CM26": {
+    "status": "flight",
+    "id": "FL-0474"
+  },
+  "619284-185-CM26": {
+    "status": "discarded"
+  },
+  "622847-155-SE26": {
+    "status": "flight",
+    "id": "FL-0475"
+  },
+  "633-756-CM26": {
+    "status": "discarded"
+  },
+  "662237-196-CM26": {
+    "status": "discarded"
+  },
+  "697-346-CM26": {
+    "status": "discarded"
+  },
+  "721703-548-CM26": {
+    "status": "flight",
+    "id": "FL-0476"
+  },
+  "721703-570-CM26": {
+    "status": "discarded"
+  },
+  "721703-572-CM26": {
+    "status": "discarded"
+  },
+  "730566-344-CM26": {
+    "status": "discarded"
+  },
+  "750-115-CM26": {
+    "status": "discarded"
+  },
+  "828-63-CM26": {
+    "status": "discarded"
+  },
+  "875-172-SE26": {
+    "status": "discarded"
+  },
+  "889473-2185-CM26": {
+    "status": "discarded"
+  },
+  "994-317-CM26": {
+    "status": "discarded"
+  },
+  "1020-403-SE26": {
+    "status": "discarded"
+  },
+  "1076403-40-SE26": {
+    "status": "discarded"
+  },
+  "1004692-9-SE26": {
+    "status": "flight",
+    "id": "FL-0477"
+  },
+  "1019-392-CM26": {
+    "status": "flight",
+    "id": "FL-0478"
+  },
+  "1026727-361-CM26": {
+    "status": "discarded"
+  },
+  "1026727-362-CM26": {
+    "status": "discarded"
+  },
+  "1019-380-CM26": {
+    "status": "flight",
+    "id": "FL-0479"
+  },
+  "1020-399-SE26": {
+    "status": "flight",
+    "id": "FL-0480"
+  },
+  "1006-231-CM26": {
+    "status": "discarded"
+  },
+  "1020-397-SE26": {
+    "status": "flight",
+    "id": "FL-0481"
+  },
+  "1020-404-SE26": {
+    "status": "flight",
+    "id": "FL-0482"
+  },
+  "1057062-516-AG26": {
+    "status": "flight",
+    "id": "FL-0483"
+  },
+  "1038-290-CM26": {
+    "status": "discarded"
+  },
+  "1057417-14563-CM26": {
+    "status": "discarded"
+  },
+  "1210674-219-AG26": {
+    "status": "flight",
+    "id": "FL-0484"
+  },
+  "1057439-6914-CM26": {
+    "status": "discarded"
+  },
+  "1057417-13722-CM26": {
+    "status": "discarded"
+  },
+  "1038-291-CM26": {
+    "status": "discarded"
+  },
+  "1076403-41-SE26": {
+    "status": "discarded"
+  },
+  "1059109-80-AG26": {
+    "status": "discarded"
+  },
+  "1209403-63-AG26": {
+    "status": "discarded"
+  },
+  "1185-144-SE26": {
+    "status": "discarded"
+  },
+  "1210-88-SE26": {
+    "status": "discarded"
+  },
+  "1233615-2031-CM26": {
+    "status": "discarded"
+  },
+  "1233615-2068-AG26": {
+    "status": "discarded"
+  },
+  "1236-252-CM26": {
+    "status": "discarded"
+  },
+  "1376-817-CM26": {
+    "status": "discarded"
+  },
+  "1160-325-CM26": {
+    "status": "discarded"
+  },
+  "1493149-101-CM26": {
+    "status": "flight",
+    "id": "FL-0485"
+  },
+  "1233615-2071-CM26": {
+    "status": "discarded"
+  },
+  "1588-226-CM26": {
+    "status": "flight",
+    "id": "FL-0486"
+  },
+  "1590-301-SE26": {
+    "status": "discarded"
+  },
+  "1592-139-CM26": {
+    "status": "discarded"
+  },
+  "1562-518-SE26": {
+    "status": "discarded"
+  },
+  "1301883-311-CM26": {
+    "status": "discarded"
+  },
+  "1592-129-CM26": {
+    "status": "flight",
+    "id": "FL-0487"
+  },
+  "1606-400-SE26": {
+    "status": "flight",
+    "id": "FL-0488"
+  },
+  "1746-273-AG26": {
+    "status": "discarded"
+  },
+  "1665-10436-SE26": {
+    "status": "discarded"
+  },
+  "1969-1407-CM26": {
+    "status": "flight",
+    "id": "FL-0489"
+  },
+  "2018-189-CM26": {
+    "status": "discarded"
+  },
+  "1867-329-SE26": {
+    "status": "discarded"
+  },
+  "1147293-330-CM26": {
+    "status": "discarded"
+  },
+  "1147293-331-CM26": {
+    "status": "discarded"
+  },
+  "1208541-269-CM26": {
+    "status": "discarded"
+  },
+  "2175-414-CM26": {
+    "status": "discarded"
+  },
+  "2183-201-CM26": {
+    "status": "discarded"
+  },
+  "1232565-383-CM26": {
+    "status": "discarded"
+  },
+  "1233615-1874-AG26": {
+    "status": "discarded"
+  },
+  "1236-263-CM26": {
+    "status": "discarded"
+  },
+  "2178-393-CM26": {
+    "status": "discarded"
+  },
+  "2585-1153-CM26": {
+    "status": "discarded"
+  },
+  "1606-399-SE26": {
+    "status": "flight",
+    "id": "FL-0490"
+  },
+  "2332-661-SE26": {
+    "status": "discarded"
+  },
+  "1725-1157-SE26": {
+    "status": "discarded"
+  },
+  "1746-41-AG26": {
+    "status": "discarded"
+  },
+  "1810-38-SE26": {
+    "status": "discarded"
+  },
+  "2029-130-SE26": {
+    "status": "discarded"
+  },
+  "1593-377-CM26": {
+    "status": "flight",
+    "id": "FL-0491"
+  },
+  "2111-13660-CM26": {
+    "status": "discarded"
+  },
+  "1665-10442-SE26": {
+    "status": "discarded"
+  },
+  "3553-496-CM26": {
+    "status": "discarded"
+  },
+  "2859-1513-SE26": {
+    "status": "discarded"
+  },
+  "1725-1129-CM26": {
+    "status": "discarded"
+  },
+  "1810-4-SE26": {
+    "status": "flight",
+    "id": "FL-0492"
+  },
+  "1810-51-SE26": {
+    "status": "discarded"
+  },
+  "3288-823-SE26": {
+    "status": "discarded"
+  },
+  "3553-491-CM26": {
+    "status": "flight",
+    "id": "FL-0493"
+  },
+  "2354-409-CM26": {
+    "status": "discarded"
+  },
+  "4291-1792-CM26": {
+    "status": "flight",
+    "id": "FL-0494"
+  },
+  "2585-1166-CM26": {
+    "status": "discarded"
+  },
+  "4291-1789-CM26": {
+    "status": "flight",
+    "id": "FL-0495"
+  },
+  "4291-1891-CM26": {
+    "status": "discarded"
+  },
+  "5421-469-CM26": {
+    "status": "discarded"
+  },
+  "5539-219-CM26": {
+    "status": "flight",
+    "id": "FL-0496"
+  },
+  "559322-356-CM26": {
+    "status": "discarded"
+  },
+  "5952-257-CM26": {
+    "status": "flight",
+    "id": "FL-0497"
+  },
+  "599-212-CM26": {
+    "status": "discarded"
+  },
+  "601-239-CM26": {
+    "status": "discarded"
+  },
+  "622847-157-SE26": {
+    "status": "flight",
+    "id": "FL-0498"
+  },
+  "630424-843-AG26": {
+    "status": "discarded"
+  },
+  "717503-311-CM26": {
+    "status": "discarded"
+  },
+  "721703-566-CM26": {
+    "status": "discarded"
+  },
+  "721703-594-CM26": {
+    "status": "discarded"
+  },
+  "721703-596-CM26": {
+    "status": "flight",
+    "id": "FL-0499"
+  },
+  "3109-453-CM26": {
+    "status": "discarded"
+  },
+  "836-181-CM26": {
+    "status": "discarded"
+  },
+  "858-444-CM26": {
+    "status": "discarded"
+  },
+  "858-470-CM26": {
+    "status": "flight",
+    "id": "FL-0500"
+  },
+  "3288-831-SE26": {
+    "status": "discarded"
+  },
+  "3288-840-CM26": {
+    "status": "discarded"
+  },
+  "3288-845-SE26": {
+    "status": "discarded"
+  },
+  "3288-846-SE26": {
+    "status": "discarded"
+  },
+  "906-378-CM26": {
+    "status": "discarded"
+  },
+  "5421-468-CM26": {
+    "status": "discarded"
+  },
+  "5517-316-AG26": {
+    "status": "flight",
+    "id": "FL-0501"
+  },
+  "5586-4049-CM26": {
+    "status": "discarded"
+  },
+  "5586-4050-CM26": {
+    "status": "discarded"
+  },
+  "559322-358-CM26": {
+    "status": "discarded"
+  },
+  "5626-749-CM26": {
+    "status": "flight",
+    "id": "FL-0502"
+  },
+  "929-304-CM26": {
+    "status": "discarded"
+  },
+  "5683-36-CM26": {
+    "status": "discarded"
+  },
+  "577290-198-CM26": {
+    "status": "discarded"
+  },
+  "601-238-CM26": {
+    "status": "flight",
+    "id": "FL-0503"
+  },
+  "3553-482-CM26": {
+    "status": "discarded"
+  },
+  "3637-310-CM26": {
+    "status": "discarded"
+  },
+  "638-164-CM26": {
+    "status": "discarded"
+  },
+  "647694-6671-SE26": {
+    "status": "discarded"
+  },
+  "647694-6675-SE26": {
+    "status": "discarded"
+  },
+  "721703-500-AG26": {
+    "status": "discarded"
+  },
+  "758-837-CM26": {
+    "status": "discarded"
+  },
+  "758-839-CM26": {
+    "status": "discarded"
+  },
+  "828-62-CM26": {
+    "status": "discarded"
+  },
+  "875-171-SE26": {
+    "status": "discarded"
+  },
+  "881-341-CM26": {
+    "status": "discarded"
+  },
+  "976-307-CM26": {
+    "status": "flight",
+    "id": "FL-0504"
+  },
+  "980-143-CM26": {
+    "status": "discarded"
+  },
+  "5003-50-CM26": {
+    "status": "flight",
+    "id": "FL-0505"
+  },
+  "5251-1005-AG26": {
+    "status": "flight",
+    "id": "FL-0506"
+  },
+  "5251-1103-CM26": {
+    "status": "discarded"
+  },
+  "527225-16-CM26": {
+    "status": "flight",
+    "id": "FL-0507"
+  },
+  "5421-467-CM26": {
+    "status": "discarded"
+  },
+  "546437-935-CM26": {
+    "status": "flight",
+    "id": "FL-0508"
+  },
+  "5626-750-CM26": {
+    "status": "discarded"
+  },
+  "564162-1166-AG26": {
+    "status": "flight",
+    "id": "FL-0509"
+  },
+  "622847-159-SE26": {
+    "status": "flight",
+    "id": "FL-0510"
+  },
+  "633-763-CM26": {
+    "status": "discarded"
+  },
+  "634-772-CM26": {
+    "status": "discarded"
+  },
+  "661769-52-CM26": {
+    "status": "discarded"
+  },
+  "699-36-CM26": {
+    "status": "discarded"
+  },
+  "699-37-CM26": {
+    "status": "discarded"
+  },
+  "721703-556-CM26": {
+    "status": "discarded"
+  },
+  "775900-301-CM26": {
+    "status": "discarded"
+  },
+  "812261-1473-SE26": {
+    "status": "discarded"
+  },
+  "813-1335-CM26": {
+    "status": "discarded"
+  },
+  "867990-790-AG26": {
+    "status": "flight",
+    "id": "FL-0511"
+  },
+  "889473-2220-CM26": {
+    "status": "discarded"
+  },
+  "976-306-CM26": {
+    "status": "discarded"
+  },
+  "1065268-296-SE26": {
+    "status": "discarded"
+  },
+  "1078113-44-CM26": {
+    "status": "discarded"
+  },
+  "1078113-45-CM26": {
+    "status": "flight",
+    "id": "FL-0512"
+  },
+  "1078634-13-CM26": {
+    "status": "discarded"
+  },
+  "1110404-89-SE25": {
+    "status": "discarded"
+  },
+  "1147293-336-CM26": {
+    "status": "discarded"
+  },
+  "1147293-338-CM26": {
+    "status": "discarded"
+  },
+  "1177296-367-CM26": {
+    "status": "flight",
+    "id": "FL-0513"
+  },
+  "1208541-265-CM26": {
+    "status": "discarded"
+  },
+  "1210-123-CM26": {
+    "status": "discarded"
+  },
+  "1219102-130-CM26": {
+    "status": "discarded"
+  },
+  "1236-251-CM26": {
+    "status": "discarded"
+  },
+  "1301883-313-CM26": {
+    "status": "discarded"
+  },
+  "1562-528-CM26": {
+    "status": "discarded"
+  },
+  "1725-1132-SE26": {
+    "status": "discarded"
+  },
+  "1867-332-CM26": {
+    "status": "discarded"
+  },
+  "2018-224-CM26": {
+    "status": "discarded"
+  },
+  "2111-13645-CM26": {
+    "status": "discarded"
+  },
+  "2125-1432-SE26": {
+    "status": "discarded"
+  },
+  "2183-203-CM26": {
+    "status": "discarded"
+  },
+  "2585-1179-AG26": {
+    "status": "flight",
+    "id": "FL-0514"
+  },
+  "1236-253-CM26": {
+    "status": "discarded"
+  },
+  "1236-260-CM26": {
+    "status": "discarded"
+  },
+  "1301883-312-CM26": {
+    "status": "discarded"
+  },
+  "1493149-102-CM26": {
+    "status": "discarded"
+  },
+  "1501513-149-AG26": {
+    "status": "discarded"
+  },
+  "1590-299-CM26": {
+    "status": "flight",
+    "id": "FL-0515"
+  },
+  "1591-218-CM26": {
+    "status": "discarded"
+  },
+  "1592-138-CM26": {
+    "status": "flight",
+    "id": "FL-0516"
+  },
+  "1057536-3271-CM26": {
+    "status": "discarded"
+  },
+  "1080936-184-SE26": {
+    "status": "discarded"
+  },
+  "1236-254-CM26": {
+    "status": "discarded"
+  },
+  "1236-256-CM26": {
+    "status": "discarded"
+  },
+  "1236-265-CM26": {
+    "status": "discarded"
+  },
+  "1260-166-SE26": {
+    "status": "flight",
+    "id": "FL-0517"
+  },
+  "1260-168-CM26": {
+    "status": "discarded"
+  },
+  "1604-184-CM26": {
+    "status": "discarded"
+  },
+  "1609-388-CM26": {
+    "status": "discarded"
+  },
+  "1725-1108-CM26": {
+    "status": "discarded"
+  },
+  "2031-69-CM26": {
+    "status": "discarded"
+  },
+  "3173-105-AG26": {
+    "status": "discarded"
+  },
+  "3288-803-SE26": {
+    "status": "discarded"
+  },
+  "3288-848-CM26": {
+    "status": "discarded"
+  },
+  "3481-147-AG26": {
+    "status": "flight",
+    "id": "FL-0518"
+  },
+  "3481-148-AG26": {
+    "status": "flight",
+    "id": "FL-0519"
+  },
+  "3553-503-CM26": {
+    "status": "discarded"
+  },
+  "3109-454-CM26": {
+    "status": "discarded"
+  },
+  "4044-780-CM26": {
+    "status": "discarded"
+  },
+  "3280-318-SE26": {
+    "status": "discarded"
+  },
+  "3284-1259-SE26": {
+    "status": "discarded"
+  },
+  "3288-829-SE26": {
+    "status": "discarded"
+  },
+  "3288-832-SE26": {
+    "status": "discarded"
+  },
+  "4291-1895-CM26": {
+    "status": "discarded"
+  },
+  "3504-3418-SE26": {
+    "status": "discarded"
+  },
+  "3553-483-CM26": {
+    "status": "flight",
+    "id": "FL-0520"
+  },
+  "4896-28-CM26": {
+    "status": "discarded"
+  },
+  "5067-2637-CM26": {
+    "status": "discarded"
+  },
+  "5251-1109-CM26": {
+    "status": "discarded"
+  },
+  "5535-14-CM26": {
+    "status": "discarded"
+  },
+  "599-217-CM26": {
+    "status": "discarded"
+  },
+  "612-741-CM26": {
+    "status": "flight",
+    "id": "FL-0521"
+  },
+  "619284-184-CM26": {
+    "status": "discarded"
+  },
+  "683-36-CM26": {
+    "status": "discarded"
+  },
+  "688535-76-CM26": {
+    "status": "discarded"
+  },
+  "697-349-CM26": {
+    "status": "discarded"
+  },
+  "721703-571-CM26": {
+    "status": "discarded"
+  },
+  "721703-587-CM26": {
+    "status": "flight",
+    "id": "FL-0522"
+  },
+  "730566-345-CM26": {
+    "status": "discarded"
+  },
+  "732-396-CM26": {
+    "status": "flight",
+    "id": "FL-0523"
+  },
+  "758-834-CM26": {
+    "status": "discarded"
+  },
+  "758-835-CM26": {
+    "status": "discarded"
+  },
+  "775900-300-CM26": {
+    "status": "discarded"
+  },
+  "775900-308-CM26": {
+    "status": "flight",
+    "id": "FL-0524"
+  },
+  "813685-295-CM26": {
+    "status": "discarded"
+  },
+  "867990-792-AG26": {
+    "status": "discarded"
+  },
+  "881-343-SE26": {
+    "status": "discarded"
+  },
+  "886182-379-CM26": {
+    "status": "discarded"
+  },
+  "889473-2218-AG26": {
+    "status": "discarded"
+  },
+  "906-376-CM26": {
+    "status": "discarded"
+  },
+  "1873-95-CM26": {
+    "status": "discarded"
+  },
+  "3288-843-SE26": {
+    "status": "discarded"
+  },
+  "3553-502-CM26": {
+    "status": "discarded"
+  },
+  "3794-4183-SE26": {
+    "status": "discarded"
+  },
+  "517903-101-CM26": {
+    "status": "discarded"
+  },
+  "5421-466-CM26": {
+    "status": "discarded"
+  },
+  "5517-488-AG26": {
+    "status": "discarded"
+  },
+  "5526-78-AG26": {
+    "status": "discarded"
+  },
+  "5586-4051-CM26": {
+    "status": "discarded"
+  },
+  "5586-4070-CM26": {
+    "status": "discarded"
+  },
+  "577290-199-CM26": {
+    "status": "discarded"
+  },
+  "618-291-CM26": {
+    "status": "discarded"
+  },
+  "622847-156-SE26": {
+    "status": "flight",
+    "id": "FL-0525"
+  },
+  "634-762-AG26": {
+    "status": "flight",
+    "id": "FL-0526"
+  },
+  "647694-6676-SE26": {
+    "status": "discarded"
+  },
+  "721703-561-CM26": {
+    "status": "flight",
+    "id": "FL-0527"
+  },
+  "721703-562-CM26": {
+    "status": "flight",
+    "id": "FL-0528"
+  },
+  "721703-588-CM26": {
+    "status": "flight",
+    "id": "FL-0529"
+  },
+  "813685-289-CM26": {
+    "status": "discarded"
+  },
+  "3794-4192-SE26": {
+    "status": "discarded"
+  },
+  "3794-5520-SE26": {
+    "status": "flight",
+    "id": "FL-0530"
+  },
+  "3820-1020-AG26": {
+    "status": "discarded"
+  },
+  "5539-220-CM26": {
+    "status": "discarded"
+  },
+  "5539-221-CM26": {
+    "status": "flight",
+    "id": "FL-0531"
+  },
+  "577290-197-CM26": {
+    "status": "discarded"
+  },
+  "5952-254-CM26": {
+    "status": "flight",
+    "id": "FL-0532"
+  },
+  "5956-250-CM26": {
+    "status": "flight",
+    "id": "FL-0533"
+  },
+  "601-240-CM26": {
+    "status": "discarded"
+  },
+  "601-241-CM26": {
+    "status": "flight",
+    "id": "FL-0534"
+  },
+  "622847-158-SE26": {
+    "status": "flight",
+    "id": "FL-0535"
+  },
+  "627025-176-AG26": {
+    "status": "discarded"
+  },
+  "673721-51-SE24": {
+    "status": "discarded"
+  },
+  "721703-545-CM26": {
+    "status": "flight",
+    "id": "FL-0536"
+  },
+  "721703-546-CM26": {
+    "status": "flight",
+    "id": "FL-0537"
+  },
+  "721703-549-CM26": {
+    "status": "flight",
+    "id": "FL-0538"
+  },
+  "721703-551-CM26": {
+    "status": "flight",
+    "id": "FL-0539"
+  },
+  "721703-589-CM26": {
+    "status": "flight",
+    "id": "FL-0540"
+  },
+  "732-397-CM26": {
+    "status": "flight",
+    "id": "FL-0541"
+  },
+  "817-153-SE26": {
+    "status": "discarded"
+  },
+  "828-64-CM26": {
+    "status": "discarded"
+  },
+  "3288-805-SE26": {
+    "status": "discarded"
+  },
+  "3288-833-SE26": {
+    "status": "discarded"
+  },
+  "3288-847-CM26": {
+    "status": "discarded"
+  },
+  "3794-4177-SE26": {
+    "status": "discarded"
+  },
+  "4656-35-CM26": {
+    "status": "flight",
+    "id": "FL-0542"
+  },
+  "4949-167-CM26": {
+    "status": "discarded"
+  },
+  "5067-2647-CM26": {
+    "status": "discarded"
+  },
+  "5251-1101-CM26": {
+    "status": "flight",
+    "id": "FL-0543"
+  },
+  "5251-1107-CM26": {
+    "status": "discarded"
+  },
+  "542429-63-CM26": {
+    "status": "discarded"
+  },
+  "5586-4052-CM26": {
+    "status": "discarded"
+  },
+  "5612-216-CM26": {
+    "status": "discarded"
+  },
+  "586-511-SE26": {
+    "status": "discarded"
+  },
+  "586-514-CM26": {
+    "status": "discarded"
+  },
+  "622-454-CM26": {
+    "status": "discarded"
+  },
+  "634-1071-CM24": {
+    "status": "discarded"
+  },
+  "638-162-CM26": {
+    "status": "discarded"
+  },
+  "661-50-SE26": {
+    "status": "discarded"
+  },
+  "721703-550-CM26": {
+    "status": "flight",
+    "id": "FL-0544"
+  },
+  "721703-552-CM26": {
+    "status": "discarded"
+  },
+  "721703-555-CM26": {
+    "status": "flight",
+    "id": "FL-0545"
+  },
+  "721703-591-CM26": {
+    "status": "flight",
+    "id": "FL-0546"
+  },
+  "721703-595-CM26": {
+    "status": "flight",
+    "id": "FL-0547"
+  },
+  "758-838-CM26": {
+    "status": "discarded"
+  },
+  "758-848-CM26": {
+    "status": "flight",
+    "id": "FL-0548"
+  },
+  "813-1382-AG26": {
+    "status": "discarded"
+  },
+  "867990-786-AG26": {
+    "status": "flight",
+    "id": "FL-0549"
+  },
+  "94-155-SE26": {
+    "status": "discarded"
+  },
+  "994-318-CM26": {
+    "status": "discarded"
+  },
+  "889473-2222-CM26": {
+    "status": "discarded"
+  },
+  "976-308-CM26": {
+    "status": "flight",
+    "id": "FL-0550"
+  }
+}
