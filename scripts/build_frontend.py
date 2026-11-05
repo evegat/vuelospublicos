@@ -1822,7 +1822,7 @@ def generate_index_html():
         <div class="map-container" id="mapContainer">
           <div class="map-hud-top">
             <div>BASE SANTIAGO: <strong>SCL (Pudahuel, Chile)</strong></div>
-            <div>MOTOR: <span>GEODÉSICAS 2.5D • 60 FPS</span></div>
+            <div>RED ACTIVA: <strong id="hudActiveRoutesCount" style="color: #38bdf8;">0 rutas</strong> • <span id="hudNetworkScope">Red acumulada</span></div>
             <div>NAVEGACIÓN: <span>ARRASTRE DIRECTO • RUEDA ZOOM</span></div>
           </div>
 
@@ -1832,8 +1832,12 @@ def generate_index_html():
               <span>Base SCL</span>
             </div>
             <div class="legend-item">
-              <div class="legend-dot" style="background: var(--c-turista);"></div>
-              <span>Clase Turista</span>
+              <div class="legend-dot" style="background: #00d4ff;"></div>
+              <span>Ruta del Mes</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot" style="background: rgba(0, 229, 163, 0.4);"></div>
+              <span>Histórica Acumulada</span>
             </div>
             <div class="legend-item">
               <div class="legend-dot" style="background: var(--c-business);"></div>
@@ -2814,6 +2818,20 @@ https://vuelospublicos.evegat.cl/
        DETALLE DEL EXPEDIENTE FISCAL
        ===================================================================== */
     function selectFlight(flight, isUserClick = false) {{
+      if (!flight) {{
+        selectedFlight = null;
+        if (origCode) origCode.textContent = 'SCL';
+        if (destCode) destCode.textContent = '---';
+        if (destCity) destCity.textContent = 'Sin comitivas este mes';
+        if (destAirport) destAirport.textContent = 'Seleccione otro mes en el control temporal';
+        if (ticketCost) ticketCost.textContent = '$0 CLP';
+        if (entityName) entityName.textContent = 'N/A';
+        if (passengerRole) passengerRole.textContent = 'Sin comitivas registradas';
+        if (officialReason) officialReason.textContent = 'No hay compras públicas de pasajes para este periodo con los filtros activos.';
+        document.querySelectorAll('.flight-card').forEach(el => el.classList.remove('active'));
+        return;
+      }}
+
       selectedFlight = flight;
       if (typeof centerOnFlight === 'function') {{
         centerOnFlight(flight);
@@ -3033,6 +3051,57 @@ https://vuelospublicos.evegat.cl/
       `;
     }}
 
+    let cachedDestinations = new Map();
+    const hudActiveRoutesCount = document.getElementById('hudActiveRoutesCount');
+    const hudNetworkScope = document.getElementById('hudNetworkScope');
+
+    function updateCachedDestinations() {{
+      cachedDestinations.clear();
+      let currentMonthRoutesCount = 0;
+
+      for (let i = 0; i < FLIGHTS.length; i++) {{
+        const f = FLIGHTS[i];
+        
+        // Filtro temporal: acumulativo hasta currentMonthIndex (o solo mes si filterCurrentMonthOnly es true)
+        // y validación de todos los filtros activos (cabina, proveedor, organismo, gobierno, etc.)
+        if (!flightMatchesAllFilters(f, true, currentMonthIndex)) continue;
+
+        const code = f.dest.code;
+        let entry = cachedDestinations.get(code);
+        if (!entry) {{
+          entry = {{
+            dest: f.dest,
+            totalAccumCount: 0,
+            monthCount: 0,
+            isCurrentMonth: false,
+            hasBusiness: false,
+            hasBusinessThisMonth: false
+          }};
+          cachedDestinations.set(code, entry);
+        }}
+
+        entry.totalAccumCount++;
+        if (f.monthIndex === currentMonthIndex) {{
+          if (entry.monthCount === 0) currentMonthRoutesCount++;
+          entry.monthCount++;
+          entry.isCurrentMonth = true;
+          if (f.cabin === 'Business') entry.hasBusinessThisMonth = true;
+        }}
+        if (f.cabin === 'Business') entry.hasBusiness = true;
+      }}
+
+      // Actualizar HUD del mapa en tiempo real
+      if (hudActiveRoutesCount) {{
+        const totalRoutes = cachedDestinations.size;
+        hudActiveRoutesCount.textContent = filterCurrentMonthOnly 
+          ? `${{totalRoutes}} rutas activas`
+          : `${{totalRoutes}} destinos (${{currentMonthRoutesCount}} activos este mes)`;
+      }}
+      if (hudNetworkScope) {{
+        hudNetworkScope.textContent = filterCurrentMonthOnly ? 'Solo este mes' : 'Red acumulada';
+      }}
+    }}
+
     function updateTimeline(forceSyncFlight = true) {{
       currentMonthLabel.textContent = getMonthLabel(currentMonthIndex);
       timelineSlider.value = currentMonthIndex;
@@ -3045,10 +3114,15 @@ https://vuelospublicos.evegat.cl/
       const monthSpend = monthFlights.reduce((sum, f) => sum + f.cost, 0);
 
       updateContextBanner(currentMonthIndex, monthCount, monthSpend);
+      updateCachedDestinations();
 
       // Si está reproduciendo o el usuario mueve el slider, sincronizar con un vuelo del mes
       if (forceSyncFlight && monthFlights.length > 0) {{
         selectFlight(monthFlights[0], false);
+      }} else if (forceSyncFlight && monthFlights.length === 0) {{
+        if (cachedDestinations.size === 0) {{
+          selectFlight(null, false);
+        }}
       }} else if (selectedFlight && !flightMatchesAllFilters(selectedFlight, false)) {{
         const sorted = getSortedFlights();
         if (sorted.length > 0) {{
@@ -3565,50 +3639,58 @@ https://vuelospublicos.evegat.cl/
 
       const originCanvas = geoToCanvas(SCL.lon, SCL.lat);
 
-      // 4. Red Aérea Pasiva (Rutas globales agrupadas por destino, sin saturar)
-      const uniqueDestinations = new Map();
-      FLIGHTS.forEach(f => {{
-        if (!flightMatchesAllFilters(f, false)) return;
-        
-        const code = f.dest.code;
-        if (!uniqueDestinations.has(code)) {{
-          uniqueDestinations.set(code, {{ dest: f.dest, count: 0, hasBusiness: false }});
-        }}
-        const entry = uniqueDestinations.get(code);
-        entry.count++;
-        if (f.cabin === 'Business') entry.hasBusiness = true;
-      }});
-
-      uniqueDestinations.forEach((routeInfo, code) => {{
+      // 4. Red Aérea Dinámica y Progresiva (Rutas acumuladas hasta el mes activo)
+      cachedDestinations.forEach((routeInfo, code) => {{
         // Si es el destino seleccionado, se dibuja como Hero Route más adelante
         if (selectedFlight && selectedFlight.dest.code === code) return;
 
         const destPt = geoToCanvas(routeInfo.dest.lon, routeInfo.dest.lat);
         const arcPt = getArcPoint(originCanvas, destPt, 0.5);
 
-        // Trazo tenue de red
         ctx.save();
         ctx.beginPath();
-        ctx.setLineDash([3 * dpr, 4 * dpr]);
+        if (routeInfo.isCurrentMonth) {{
+          // Ruta activa en este mes: mayor presencia visual, brillo luminoso
+          ctx.setLineDash([5 * dpr, 3 * dpr]);
+          ctx.strokeStyle = routeInfo.hasBusinessThisMonth ? 'rgba(255, 77, 90, 0.85)' : 'rgba(0, 229, 255, 0.80)';
+          ctx.lineWidth = 1.8 * dpr;
+        }} else {{
+          // Ruta histórica acumulada de meses previos: estela tenue
+          ctx.setLineDash([3 * dpr, 4 * dpr]);
+          ctx.strokeStyle = routeInfo.hasBusiness ? 'rgba(255, 77, 90, 0.22)' : 'rgba(0, 229, 163, 0.18)';
+          ctx.lineWidth = 1.0 * dpr;
+        }}
         ctx.moveTo(originCanvas.x, originCanvas.y);
         ctx.quadraticCurveTo(arcPt.ctrlX, arcPt.ctrlY, destPt.x, destPt.y);
-        ctx.strokeStyle = routeInfo.hasBusiness ? 'rgba(255, 77, 90, 0.22)' : 'rgba(0, 229, 163, 0.18)';
-        ctx.lineWidth = 1.0 * dpr;
         ctx.stroke();
         ctx.restore();
 
-        // Nodo de destino tenue
-        ctx.fillStyle = routeInfo.hasBusiness ? 'rgba(255, 77, 90, 0.7)' : 'rgba(0, 229, 163, 0.65)';
+        // Nodo de destino en mapa
+        const isCurrent = routeInfo.isCurrentMonth;
+        ctx.fillStyle = isCurrent 
+          ? (routeInfo.hasBusinessThisMonth ? 'rgba(255, 77, 90, 0.95)' : 'rgba(0, 229, 255, 0.95)')
+          : (routeInfo.hasBusiness ? 'rgba(255, 77, 90, 0.65)' : 'rgba(0, 229, 163, 0.55)');
+
         ctx.beginPath();
-        ctx.arc(destPt.x, destPt.y, 3.2 * dpr, 0, Math.PI * 2);
+        const rNode = isCurrent ? 4.2 * dpr : 3.0 * dpr;
+        ctx.arc(destPt.x, destPt.y, rNode, 0, Math.PI * 2);
         ctx.fill();
 
-        // Etiqueta tenue de ciudad
-        if (zoomLevel >= 0.9) {{
-          ctx.font = `600 ${{Math.round(9 * dpr)}}px ${{FONT_SANS}}`;
-          ctx.fillStyle = 'rgba(139, 155, 176, 0.65)';
+        // Pulso/halo sutil si es ruta activa del mes
+        if (isCurrent) {{
+          ctx.strokeStyle = routeInfo.hasBusinessThisMonth ? 'rgba(255, 77, 90, 0.45)' : 'rgba(0, 229, 255, 0.45)';
+          ctx.lineWidth = 1.2 * dpr;
+          ctx.beginPath();
+          ctx.arc(destPt.x, destPt.y, rNode + 2.5 * dpr, 0, Math.PI * 2);
+          ctx.stroke();
+        }}
+
+        // Etiqueta de ciudad (siempre visible para el mes activo, o con zoom para rutas acumuladas)
+        if (zoomLevel >= 0.85 || isCurrent) {{
+          ctx.font = isCurrent ? `bold ${{Math.round(10 * dpr)}}px ${{FONT_SANS}}` : `600 ${{Math.round(9 * dpr)}}px ${{FONT_SANS}}`;
+          ctx.fillStyle = isCurrent ? '#f0f6fc' : 'rgba(139, 155, 176, 0.65)';
           ctx.textAlign = 'left';
-          ctx.fillText(routeInfo.dest.city, destPt.x + 5 * dpr, destPt.y + 3 * dpr);
+          ctx.fillText(routeInfo.dest.city, destPt.x + 6 * dpr, destPt.y + 3 * dpr);
         }}
       }});
 
@@ -3807,30 +3889,30 @@ https://vuelospublicos.evegat.cl/
       const clientY = e.clientY - rect.top;
       const dpr = window.devicePixelRatio || 1;
 
-      let hovered = null;
-      for (const flight of FLIGHTS) {{
-        if (selectedProvider !== 'Todas' && flight.provider !== selectedProvider) continue;
-        if (filterBusinessOnly && flight.cabin !== 'Business') continue;
-        if (selectedEntityGroup !== 'Todas' && !matchesEntityGroup(flight.entity, selectedEntityGroup)) continue;
-
-        const pt = geoToCanvas(flight.dest.lon, flight.dest.lat);
+      let hoveredDest = null;
+      for (const [code, info] of cachedDestinations) {{
+        const pt = geoToCanvas(info.dest.lon, info.dest.lat);
         const dist = Math.hypot((pt.x / dpr) - clientX, (pt.y / dpr) - clientY);
-        if (dist < 14) {{
-          hovered = flight;
+        if (dist < 16) {{
+          hoveredDest = info;
           break;
         }}
       }}
 
-      if (hovered) {{
-        const km = calculateDistanceKm(SCL.lat, SCL.lon, hovered.dest.lat, hovered.dest.lon);
+      if (hoveredDest) {{
+        const km = Math.round(calculateDistanceKm(SCL.lat, SCL.lon, hoveredDest.dest.lat, hoveredDest.dest.lon));
         const estTime = estimateFlightTime(km);
+        const monthInfo = hoveredDest.monthCount > 0 
+          ? `<div class="tooltip-meta" style="color: #38bdf8; font-weight: 700; margin-top: 2px;">⚡ ${{hoveredDest.monthCount.toLocaleString('es-CL')}} comitivas este mes</div>`
+          : `<div class="tooltip-meta" style="color: #94a3b8; margin-top: 2px;">Ruta histórica (${{hoveredDest.totalAccumCount.toLocaleString('es-CL')}} acumuladas)</div>`;
+
         mapTooltip.innerHTML = `
-          <strong>✈️ ${{hovered.dest.city}} (${{hovered.dest.code}})</strong>
-          <div class="tooltip-meta">${{hovered.dest.country}} • ${{km.toLocaleString('es-CL')}} km (≈${{estTime}})</div>
-          <div class="tooltip-meta" style="color: #38bdf8; font-weight: 700; margin-top: 2px;">$${{hovered.cost.toLocaleString('es-CL')}} CLP • ${{hovered.cabin}}</div>
+          <strong>✈️ ${{hoveredDest.dest.city}} (${{hoveredDest.dest.code}})</strong>
+          <div class="tooltip-meta">${{hoveredDest.dest.country}} • ${{km.toLocaleString('es-CL')}} km (≈${{estTime}})</div>
+          ${{monthInfo}}
         `;
-        mapTooltip.style.left = `${{clientX}}px`;
-        mapTooltip.style.top = `${{clientY}}px`;
+        mapTooltip.style.left = `${{clientX + 10}}px`;
+        mapTooltip.style.top = `${{clientY - 20}}px`;
         mapTooltip.style.display = 'block';
       }} else {{
         mapTooltip.style.display = 'none';
@@ -3843,27 +3925,29 @@ https://vuelospublicos.evegat.cl/
       const clientY = e.clientY - rect.top;
       const dpr = window.devicePixelRatio || 1;
 
-      let nearestFlight = null;
+      let nearestDest = null;
       let minDist = 22;
 
-      FLIGHTS.forEach(flight => {{
-        if (selectedProvider !== 'Todas' && flight.provider !== selectedProvider) return;
-        if (filterBusinessOnly && flight.cabin !== 'Business') return;
-        if (selectedEntityGroup !== 'Todas' && !matchesEntityGroup(flight.entity, selectedEntityGroup)) return;
-
-        const pt = geoToCanvas(flight.dest.lon, flight.dest.lat);
+      for (const [code, info] of cachedDestinations) {{
+        const pt = geoToCanvas(info.dest.lon, info.dest.lat);
         const d = Math.hypot((pt.x / dpr) - clientX, (pt.y / dpr) - clientY);
         if (d < minDist) {{
           minDist = d;
-          nearestFlight = flight;
+          nearestDest = info;
         }}
-      }});
+      }}
 
-      if (nearestFlight) {{
-        selectFlight(nearestFlight);
-        const cardEl = document.getElementById(`flight-item-${{nearestFlight.id}}`);
-        if (cardEl && typeof cardEl.scrollIntoView === 'function') {{
-          cardEl.scrollIntoView({{ behavior: 'smooth', block: 'nearest' }});
+      if (nearestDest) {{
+        let targetFlight = FLIGHTS.find(f => f.dest.code === nearestDest.dest.code && f.monthIndex === currentMonthIndex && flightMatchesAllFilters(f, false));
+        if (!targetFlight) {{
+          targetFlight = FLIGHTS.find(f => f.dest.code === nearestDest.dest.code && f.monthIndex <= currentMonthIndex && flightMatchesAllFilters(f, false));
+        }}
+        if (targetFlight) {{
+          selectFlight(targetFlight, true);
+          const cardEl = document.getElementById(`flight-item-${{targetFlight.id}}`);
+          if (cardEl && typeof cardEl.scrollIntoView === 'function') {{
+            cardEl.scrollIntoView({{ behavior: 'smooth', block: 'nearest' }});
+          }}
         }}
       }}
     }}
